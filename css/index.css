@@ -1,0 +1,62 @@
+/********** General **********/
+.profile-photo {
+    margin: 1em 0;
+    text-align: center;
+}
+
+h5 {
+    font-size: 1.4em;
+    margin: 0.7em 0 0 0.7em;
+}
+
+h6 {
+    font-size: 1em;
+    margin: 1em 0 0 1em;
+}
+ul {
+    list-style-type: circle;
+}
+
+p {
+    margin: 0.5em 0 1em 0;
+}
+
+em {
+    margin: 1em;
+}
+
+.links {
+    float: right;
+    font-size: 1.1em;
+}
+
+.links li {
+   display: block;
+}
+
+.name {
+    text-align: center;
+    margin: 0 auto;
+    padding: 0;
+    display: none;
+} 
+
+.ash-btn {
+    padding: 1em 0;
+    text-align: center;
+    margin: 0 auto;
+    float: right;
+}
+
+#img {
+    clear: both;
+    background-color: #F6F6F6;
+    width: 60%;
+    max-width: 500PX;
+    margin: 0 auto;
+    padding: 1%;
+    border: 3px solid #F4F4F4;
+    text-align: center;
+    display: none;
+    overflow: hidden;
+}
