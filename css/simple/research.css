@@ -1,0 +1,21 @@
+/********** Research stages table **********/
+table,
+th,
+tr {
+    margin: 0 auto;
+}
+
+th,
+td {
+    padding: 1em;
+    text-align: center;
+}
+
+th {
+    background-color: #F4F4F4;
+}
+
+tr, td, th{
+    border: 1px solid #222;
+    border-collapse: collapse;
+}

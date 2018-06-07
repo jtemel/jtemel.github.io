@@ -1,0 +1,25 @@
+html,
+body {
+    font-family: "Oxygen", sans-serif;
+    margin: 0;
+    font-size: 0.9em;
+}
+
+h5 {
+    font-size: 5em;
+    margin: 0;
+}
+
+p {
+    font-size: 2em;
+}
+
+.fadein {
+    opacity:0;
+}
+
+a:visited,
+a {
+    color: inherit;
+    text-decoration: underline;
+}

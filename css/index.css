@@ -1,62 +1,128 @@
-/********** General **********/
-.profile-photo {
-    margin: 1em 0;
-    text-align: center;
+html, body {
+    font-family: "Oxygen", sans-serif;
+    background-color: #222;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-h5 {
+h1, h3, #step {
+    text-align: center;
+    color: white;
+}
+
+h1 {
+    font-size: 4em;
+    margin-bottom: 0;
+}
+
+h3 {
+    font-size: 2em;
+    margin-top: 0;
+}
+
+#step {
     font-size: 1.4em;
-    margin: 0.7em 0 0 0.7em;
+    margin: 1em 0;
+    padding: 1em 0 0 0;
+    color: #aaa;
+    border-top: 1px solid #777;
 }
 
-h6 {
-    font-size: 1em;
-    margin: 1em 0 0 1em;
-}
-ul {
-    list-style-type: circle;
-}
-
-p {
-    margin: 0.5em 0 1em 0;
-}
-
-em {
+.center, a {
+    text-align: center;  
+    display: inline-flex;
     margin: 1em;
+    margin-top: 0;
 }
 
-.links {
-    float: right;
-    font-size: 1.1em;
+.center h4 {
+    font-size: 1.5em;
+    margin: 10px;
 }
 
-.links li {
-   display: block;
+.option {
+    margin: 1em;
+    margin-top: 0;
+    vertical-align: middle;
+    max-width: 500px;
+}
+#simple {
+    margin-left: auto;
+    background-color: white;
+    color: #222;
 }
 
-.name {
+#extra {
+    margin-right: auto;
+    color: white;
+    background-color: #101010;
+}
+
+#note {
     text-align: center;
-    margin: 0 auto;
-    padding: 0;
-    display: none;
-} 
-
-.ash-btn {
-    padding: 1em 0;
-    text-align: center;
-    margin: 0 auto;
-    float: right;
+    color: white;
 }
 
-#img {
-    clear: both;
-    background-color: #F6F6F6;
-    width: 60%;
-    max-width: 500PX;
-    margin: 0 auto;
-    padding: 1%;
-    border: 3px solid #F4F4F4;
-    text-align: center;
-    display: none;
-    overflow: hidden;
+#extra img {
+    border: 1px solid white;
+    max-width: 450px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#simple img {
+    border: 1px solid #222;
+    max-width: 450px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#step {
+    width: 100%;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+@media (max-width: 630px) {
+    
+    html, body {
+        background-color: #222;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    h1 {
+        font-size: 2.6em;
+        padding-bottom: 0.4em;
+        overflow-x: scroll;
+    }
+    
+    h3 {
+        font-size: 1.3em;
+    }
+    
+    .center h4 {
+        padding: 10px;
+    }
+    
+
+    .center, a {
+        text-align: center;  
+        display: block;
+        margin: 1em;
+    }
+    
+    .option {
+        margin: 0 auto;
+        padding-bottom: 3px;
+        max-width: 500px;
+    }
 }
