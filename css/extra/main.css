@@ -3,6 +3,7 @@ body {
     font-family: "Oxygen", sans-serif;
     margin: 0;
     font-size: 0.9em;
+    overflow-x: hidden;
 }
 
 h5 {
