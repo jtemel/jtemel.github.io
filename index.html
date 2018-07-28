@@ -4,10 +4,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Theme | Jonathon</title>
+        <title>About | Jonathon</title>
         
         <!--CSS-->
-        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="./css/simple/style.css">
+        <link rel="stylesheet" type="text/css" href="./css/simple/about.css">
+        <link rel="stylesheet" type="text/css" href="./css/simple/research.css">
+        
+        <!--Javascript/JQuery-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <script type="text/javascript" src="./js/simple/nav.js"></script>
+        <script type="text/javascript" src="./js/simple/typed.js"></script>
+        <script type="text/javascript" src="./js/simple/name.js"></script> <!--Rename-->
         
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119907018-1"></script>
@@ -24,65 +32,348 @@
         <link href="https://fonts.googleapis.com/css?family=Marck+Script|Open+Sans+Condensed:300|Oxygen" rel="stylesheet">
               
         <!--Icons-->
-        <link rel="shortcut icon" href="img/logo/logo.ico">
-        <link rel="icon" sizes="16x16 32x32 64x64" href="img/logo/logo.ico">
-        <link rel="icon" type="image/png" sizes="196x196" href="img/logo/logo-192.png">
-        <link rel="icon" type="image/png" sizes="160x160" href="img/logo/logo-160.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="img/logo/logo-96.png">
-        <link rel="icon" type="image/png" sizes="64x64" href="img/logo/logo-64.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="img/logo/logo-32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="img/logo/logo-16.png">
-        <link rel="apple-touch-icon" href="img/logo/logo-57.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="img/logo/logo-114.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="img/logo/logo-72.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="img/logo/logo-144.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="img/logo/logo-60.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="img/logo/logo-120.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="img/logo/logo-76.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="img/logo/logo-152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="img/logo/logo-180.png">
+        <link rel="shortcut icon" href="../../img/logo/logo.ico">
+        <link rel="icon" sizes="16x16 32x32 64x64" href="./img/logo/logo.ico">
+        <link rel="icon" type="image/png" sizes="196x196" href="./img/logo/logo-192.png">
+        <link rel="icon" type="image/png" sizes="160x160" href="./img/logo/logo-160.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="./img/logo/logo-96.png">
+        <link rel="icon" type="image/png" sizes="64x64" href="./img/logo/logo-64.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./img/logo/logo-32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./img/logo/logo-16.png">
+        <link rel="apple-touch-icon" href="./img/logo/logo-57.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="./img/logo/logo-114.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="./img/logo/logo-72.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="./img/logo/logo-144.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="./img/logo/logo-60.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="./img/logo/logo-120.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="./img/logo/logo-76.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="./img/logo/logo-152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="./img/logo/logo-180.png">
         <meta name="msapplication-TileColor" content="#FFFFFF">
-        <meta name="msapplication-TileImage" content="img/logo/logo-144.png">
-        <meta name="msapplication-config" content="img/logo/browserconfig.xml">
+        <meta name="msapplication-TileImage" content="./img/logo/logo-144.png">
+        <meta name="msapplication-config" content="./img/logo/browserconfig.xml">
     </head>
     
-    <body>
-        <h1>Jonathon Temelkovski</h1>
-        <h3>Personal Website</h3>
+    <!--This anchor is used to jump back to the top of the page-->
+    <a name="top"></a>
+    
+    <!--Name, traits, navigation-->
+    <header>
+        <!--Name and Traits-->
+        <hgroup>
+            <h1>
+                <!--Used for Typed.js-->
+                <p class="name" id="name-nojs">J</p>
+                <noscript>
+                    Jonathon Temelkovski
+                </noscript>
+            </h1>
+
+            <h2>
+                Student &amp; Developer
+            </h2>
         
-        <div id="step">Select A Website Version</div>
-        <div class="center">
-            <div class="option" id="simple">
-                <a href="./html/simple/about.html">
-                    <div class="info">
-                        <h4>Simple</h4>
-                        <img src="./img/simple/portfolio/website.png">
-                        <em>Recommended for maximum readability</em>
-                        <p>
-                            This version of the website uses a simplistic, static layout and a light colour
-                            scheme. 
-                            
-                        </p>
-                    </div>
-                </a>
+            <!--Site Navigation-->
+            <nav id="nav">
+                <ul>
+                    <li>
+                        <a href="..//index.html" id="this"><img src="./img/simple/nav/about.png" id="nav-img">About</a>
+                    </li>
+                    <li>
+                        <a href="./html/simple/research.html"><img src="./img/simple/nav/research.png" id="nav-img">Research</a>
+                    </li>
+                    <li>
+                        <a href="./html/simple/portfolio.html"><img src="./img/simple/nav/portfolio.png" id="nav-img">Portfolio</a>
+                    </li>
+                    <li>
+                        <a href="./html/simple/blog.html"><img src="./img/simple/nav/games.png" id="nav-img">Blog</a>
+                    </li>
+                </ul>
+                <hr>
+            </nav>
+        </hgroup>
+    </header>
+    
+    <body id="body">
+        <!--Relative personal links-->
+        <ul class="links">
+            <li>
+                 <a href="./files/resume.pdf" download="resume"><img src="./img/simple/nav/resume.png" id="nav-img">R&eacute;sum&eacute;</a>
+            </li>
+            <li>
+                 <a href="https://github.com/jtemel" target="_blank"><img src="./img/simple/links/github.png" id="nav-img">GitHub</a>
+            </li>
+            <li>
+                 <a href="https://www.linkedin.com/in/jonathon-temelkovski/" target="_blank"><img src="./img/simple/links/linkedin.png" id="nav-img">LinkedIn</a>
+            </li>
+        </ul>
+        
+        <h4>
+            About
+        </h4>
+        
+        <!--Personal information-->
+        <div class="about">
+            
+            <div class=me>
+                <img id="me" src="./img/simple/profile-photo/me.jpg">  
             </div>
-            <div class="option" id="extra">
-                <a href="./html/extra/about.html">
-                    <div class="info">
-                        <h4>Extra</h4>
-                        <div style="margin: 1em"><em>UNDER DEVELOPMENT (No Mobile Support)</em></div>
-                        <img src="./img/extra/about/guitar.jpg">
-                        <em>Recommended for maximum fun</em>
-                        <p>
-                            This version of the website incorporates javascript and is composed of a dark color scheme with a fluid layout.
-                        </p> 
-                    </div>
-                </a>
+
+            <h5>Me</h5>
+            <p>
+                I am entering my third year at the University of Toronto, pursuing a 
+                specialist in computer science and a major in mathematics as an 
+                undergraduate student. I am fascinated with machine learning and abstract 
+                algebra. Over the next year, I will be using machine learning to analyze 
+                five years worth of online discussion board content and
+                <a href="https://mcs.utm.utoronto.ca/~pcrs/pcrs/index.shtml" target="_blank">PCRS</a> data to help identify and eliminate student
+                difficulties in introductory computer science courses. More information on 
+                the project can be found under the "Research" tab.
+            </p>
+        </div>
+
+        <div class="personal">
+            <h5>Personal</h5>
+            <p>
+                Over the last twelve years, I have actively been playing and self-<wbr>teaching
+                various musical instruments. I began with drums at the age of 8, picked
+                up the guitar at the age 12, and most recently, learnt to play the trumpet at the age of 16. I have also been producing electronic music with Ableton Live since I was 14.
+                
+                I try to read a new book from the stacks at <a href="https://onesearch.library.utoronto.ca/library-info/ROBARTS" target="_blank">UofT's Robarts Library</a> every month -- you can find the list of books read <a href="#readingList">here</a>.
+            </p>
+        </div>
+
+        <div class="academia">
+        
+        
+            <h5>Academia</h5>
+        
+            <img id="coa" src="./img/simple/profile-photo/uoft_coa">
+
+            <p>
+                After the completion of my second year at UofT, I was awarded the 
+                <a href="https://www.utm.utoronto.ca/math-cs-stats/awards/honour-roll/2017-2018" target="_blank">University of Toronto Honour Roll</a>
+                for achieving 90% or greater in two or more computer science courses. 
+                In addition, I was awarded the "Golden Deer" Learning Excellence 
+                Award for an outstanding job on my 
+                <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC263H5" target="_blank">CSC263</a> (Data Structures and Analysis) final exam.
+            </p>
+            
+             <p>
+                Over the summer I will be taking part of in a computer science reading group, which will continue throughout the following school year. Concurrently, I will be completing 
+                <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT244H5" target="_blank">MAT244</a> 
+                (Differential Equations I),                     <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT334H5" target="_blank">MAT334</a> 
+                (Complex Variables), and
+                <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT301H5" target="_blank">MAT301</a> 
+                (Groups and Symmetries), with the final exams taking place at the end 
+                of August 2018. Below is a full list of all the courses I have taken thus far at the University of Toronto.
+            </p>
+            
+            <!--Compelted course list-->
+            <div id="courses">
+                <div class="CS">
+                    <h6>Computer Science</h6>
+                    <ul>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC108H5" target="_blank">CSC108 Introduction to Computer Programming</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC148H5" target="_blank">CSC148 Introduction to Computer Science</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC236H5" target="_blank">CSC236 Introduction to the Theory of Computation </a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC207H5" target="_blank">CSC207 Software Design</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC209H5" target="_blank">CSC209 Software Tools and Systems Programming</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC263H5" target="_blank">CSC263 Data Structures and Analysis</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC290H5" target="_blank">CSC290 Communication Skills for Computer Scientists</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC399Y5" target="_blank">(Active) CSC399 Research Opportunity Program</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC343H5" target="_blank">(Upcoming) CSC343 Introduction to Databases </a>
+                        </li>
+                         <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC34375" target="_blank">(Upcoming) CSC347 Introduction to Information Security </a>
+                        </li>
+                         <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC369H5" target="_blank">(Upcoming) CSC369 Operating Systems </a>
+                        </li>
+                         <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC373H5" target="_blank">(Upcoming) CSC373 Algorithm Design and Analysis </a>
+                        </li>
+                         <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC309H5" target="_blank">(Upcoming) CSC309 Programming on the Web </a>
+                        </li>
+                         <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC338H5" target="_blank">(Upcoming) CSC338 Numerical Methods </a>
+                        </li>
+                         <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC358H5" target="_blank">(Upcoming) CSC358 Principles of Computer Networks </a>
+                        </li>
+                         <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC363H5" target="_blank">(Upcoming) CSC363 Computational Complexity and Computability </a>
+                        </li>
+                         <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=CSC348H5" target="_blank">(Upcoming) CSC348 Introduction to Artificial Intelligence </a>
+                        </li>
+                        
+                    </ul>
+
+                </div>
+
+                <div class="MT">
+                    <h6>Mathematics &amp; Statistics</h6>
+                    <ul>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT102H5" target="_blank">MAT102 Introduction to Mathematical Proofs</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT137Y5" target="_blank">MAT137 (Advanced) Calculus</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT232H5" target="_blank">MAT232 Calculus of Several Variables</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT223H5" target="_blank">MAT223 Linear Algebra I </a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT224H5" target="_blank">MAT224 Linear Algebra II</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT202H5" target="_blank">MAT202 Introduction to Discrete Mathematics</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=STA256H5" target="_blank">STA256 Probability and Statistics </a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT244H5" target="_blank">(Active) MAT244 Differential Equations I</a> 
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT334H5" target="_blank">(Active) MAT334 Complex Variables</a> 
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT301H5" target="_blank">(Active) MAT301 Groups and Symmetries</a> 
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT332H5" target="_blank">(Upcoming) MAT332 Introduction to Nonlinear Dynamics and Chaos</a> 
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="other">
+                    <h6>Other</h6>
+                    <ul>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=ANT102H5" target="_blank">ANT102 Introduction to Sociocultural and <br>Linguistic Anthropology</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=PHL105Y5" target="_blank">PHL105 Introduction to Philosophy</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=POL113H5" target="_blank">POL113 Ideas and Ideologies</a>
+                        </li>
+                        <li>
+                            <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=SOC100H5" target="_blank">SOC100 Introduction to Sociology</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         
-        <div id="note">
-            <p>Both versions of the website contain the same content, presented in unique ways.</p>
+        <div class="lifeLog">
+            <h5>
+                Life Log
+            </h5>
+            <table>
+                <tr>
+                    <th>
+                        July 28 2018
+                    </th>
+                    <td>
+                        Boating with the family on Lake Simcoe
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        July 27 2018
+                    </th>
+                    <td>
+                        MAT224 Midterm + tour of UofT campus
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        July 26 2018
+                    </th>
+                    <td>
+                        MAT301 and MAT334 Midterms
+                    </td>
+                </tr>
+            </table>
         </div>
+        
+        <div class="readingList" id="readingList">
+            <h5>
+                Reading List
+            </h5>
+            
+            <ul>
+                <li>
+                    <a href="https://www.amazon.com/War-Enquiry-Virtues-C-Grayling/dp/0300175345" target="_blank">War: An Enquiry</a> by A.C. Grayling
+            </ul>
+        </div>
+        
+        
+        
+        <div class="ash-btn">
+            <button id="ash-btn" onclick="showAsh()">
+                <a href="#ash-btn" id="text">Open Ash</a>
+            </button>
+        </div>
+        <div id="img" style="display: none">
+            <img src="../../img/simple/profile-photo/ash.jpg">
+        </div>
+            
+        <!--Footer-->
+        <div class="parent-footer">
+            <footer>
+                <small>
+                    Jonathon Temelkovski &copy; 
+                    |
+                    <time datetime="2018-05-00T 21:00-5:00" pubdate>May 2018</time>
+                    | 
+                    <a class="to-top" href="#top">Scroll Up</a> 
+                </small>
+            </footer>
+        </div>
+        
+        <!--Safety if javascript is disabled to ensure title is displayed-->
+        <script>
+            document.getElementById("name-nojs").style.display='block';
+        </script>
+        
+        <script>
+            function showAsh() {
+                var ash = document.getElementById("img");
+                var btn = document.getElementById("text");
+                
+                if (ash.style.display == "none") {
+                    ash.style.display = "block";
+                    btn.innerHTML="Close Ash";
+                } else {
+                    ash.style.display = "none";
+                    btn.innerHTML="Open Ash"
+                }
+            }
+        </script>
     </body>
 </html>

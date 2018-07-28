@@ -3,11 +3,12 @@ table,
 th,
 tr {
     margin: 0 auto;
+    width: 
 }
 
 th,
 td {
-    padding: 1em;
+    padding: 0.5em;
     text-align: center;
 }
 
@@ -16,6 +17,6 @@ th {
 }
 
 tr, td, th{
-    border: 1px solid #222;
+    border: 1px solid #e1e1e1;
     border-collapse: collapse;
 }
