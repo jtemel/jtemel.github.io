@@ -62,3 +62,24 @@
 .post h6 i {
     margin: 0;
 }
+
+@media (max-width: 630px) {
+    body {
+        margin: -1em;
+    }
+    
+    .post {
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    
+    .post img {
+        clear: both;
+        float: inherit;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        min-width: 200px;
+    }
+}
