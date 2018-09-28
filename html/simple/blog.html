@@ -100,18 +100,127 @@
         <p>
             Welcome to my blog! Please note that some mathematical expressions may overflow when viewing on mobile. Enjoy.
         </p>
+         
+        <!--
+        <div class="post">
+            <button class="title" onclick="openPost('3')">
+                <h3>
+                </h3>
+                <i>
+                    Friday, September 28th 2018
+                </i>
+            </button>
+                    
+        </div>
+        -->
+        <div class="post">
+            <button class="title" onclick="openPost('2')">
+                <h3>
+                    Complex Calculus: Contour Integration
+                </h3> 
+                <i>
+                    Sunday, August 12th 2018
+                </i>
+            </button>
+            
+            <div class="cont" id="2" style="display: block">
+                <hr>
+                
+                <img src="../../img/simple/blog/contour.png">
+                
+                <p>
+                    When my complex calculus professor presented the notion of contour integration, I was taken back by its beautiful applications. Being able to evaluate non-trivial integrals in $\mathbb{R}$ through contour integration in $\mathbb{C}$ is an extremely powerful concept. I will explore one of the first contour integration applications that I was assigned during the course -- it is quite elegant.
+                </p>
+                
+                <h5>
+                    Residue Theorem
+                </h5>
+                <p>
+                    Let $D$ be some simply connected open subset of $\mathbb{C}$. Consider some function $f$ that is analytic on $D \backslash \{z_0, ..., z_n\}$, where $z_0, ..., z_n$ are finitely many isolated singularities of $f$. Let $\gamma$ be a simple closed contour contained in $D$ enclosing $z_0, ..., z_n$. Then,
+                    $$
+                        \oint_{\gamma} f(z)dx = 2\pi i \sum_{k = 0}^{n} \text{Res}(f, z_k).
+                    $$
+                </p>
+                
+                <h5>
+                    Application of Contour Integration
+                </h5>
+                <p>
+                    Consider
+                    $$ 
+                        \int_{-\infty}^{\infty}\dfrac{\text{sin}(x+1)}{x^2 + 1}dx,
+                    $$
+                    where $x\in \mathbb{R}$.
+                </p>
+                
+                <p>
+                    Recall, Im$(e^{i\theta}) = \text{sin}(\theta).$ Let's approximate the integral over some contour $C_R$.
+                
+                    $$
+                    0 \leq \lim_{R \to \infty} | \oint_{C_R} \dfrac{e^{i(z+1)}}{z^2 + 1}dz|
+                    
+                    \leq \lim_{R\to\infty}\dfrac{\pi}{R^2 + 1} = 0
+                    $$
+                    Thus we know
+                    $$
+                        \oint_{C_R} \dfrac{e^{i(z+1)}}{z^2 + 1}dz = 0
+                    $$
+                    
+                    by the Squeeze Theorem.
+                </p>
+                <p>
+                    Now we increase $R$ until it contains all the possible isolated singularities. If we consider $R > 1$, then $i$ is contained in $C_R$. Since $i$ is a simple pole, we know that
+                    
+                    $$
+                    \text{Res}(\dfrac{e^{i(z+1)}}{z^2 + 1}; i) = \lim_{z\to i} \dfrac{(z-i)e^{i(z+1)}}{(z+i)(z-i)}
+                    $$
+                    $$
+                    \Longrightarrow \text{Res}(\dfrac{e^{i(z+1)}}{z^2 + 1}; i)= \dfrac{e^{i(i + 1)}}{2i} = \dfrac{e^i}{2ie}.
+                    $$
+                </p>
+                <p>
+                    Now, combining the fact that the limit of $C_R$ amounts to 0, we get
+                    $$
+                        \int_{-\infty}^{\infty}\dfrac{\text{sin}(x+1)}{x^2 + 1}dx
+                    $$
+                    $$
+                        = \lim_{R\to\infty} \oint_{\gamma_R} \dfrac{e^{i(z+1)}}{z^2 + 1}dz
+                    $$
+                    $$
+                       = \lim_{R\to\infty} \oint_{\gamma_R + C_R} \dfrac{e^{i(z+1)}}{z^2 + 1}dz 
+                    $$
+                    $$
+                        = 2\pi i \text{ Res}(\dfrac{e^{i(z+1)}}{z^2 + 1}; i)
+                    $$
+                    $$
+                        = \dfrac{2 \pi i e^i}{2ie} = \dfrac{\pi e^i}{e}
+                    $$
+                </p>
+                <p>
+                    However, since we considered $e^{i(z+1)}$ instead of sin$(x+1)$,
+                    we need to recall that $e^{iy} = $ cos$(y) + i$sin$(y)$. Thus, we achieve
+                    
+                    $$
+                        Im(\dfrac{\pi e^i}{e}) = Im(\dfrac{\pi}{e}(cos(1) + isin(1))) = \dfrac{\pi}{e}sin(1).
+                    $$
+                </p>
+                <p>
+                    
+                </p>
+            </div>
+        </div>
         
         <div class="post">
             <button class="title" onclick="openPost('1')">
                 <h3>
-                    Group Theory: Using LaGrange's Theorem to Prove Fermat's Little Theorem
+                    Group Theory: Using Lagrange's Theorem to Prove Fermat's Little Theorem
                 </h3> 
                 <i>
                     Sunday, July 29th 2018
                 </i>
             </button>
             
-            <div class="cont" id="1">
+            <div class="cont" id="1" style="display: none">
                 <hr>
                 
                 <img src="../../img/simple/blog/group_theory.png">
@@ -121,7 +230,7 @@
                 </p>
                 
                 <p>
-                    I first saw the proof of Fermat's Little Theorem using LaGrange's Theorem in my  <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT301H5" target="_blank">Groups and Symmetries</a> lecture and was struck by its elegance. Often referred to as the most fundamental theorem in all of group theory, LaGrange's Theorem provides invaluable insights into understanding and proving Fermat's Little Theorem.
+                    I first saw the proof of Fermat's Little Theorem using Lagrange's Theorem in my  <a href="https://student.utm.utoronto.ca/calendar/OpenCourse.pl?Course=MAT301H5" target="_blank">Groups and Symmetries</a> lecture and was struck by its elegance. Often referred to as the most fundamental theorem in all of group theory, Lagrange's Theorem provides invaluable insights into understanding and proving Fermat's Little Theorem.
                 </p>
                 
                 <p>
@@ -277,12 +386,12 @@
                     </ul>
                     
                     <p>
-                        Now, we are ready to state and prove LaGrange's Thereom.
+                        Now, we are ready to state and prove Lagrange's Thereom.
                     </p>
                     
                 </div>
                 <h5>
-                    LaGrange's Theorem
+                    Lagrange's Theorem
                 </h5>
                 <p>
                     Let $G$ be a finite group and let $H \preceq G$, then $|H| \mid |G|.$
@@ -319,19 +428,19 @@
                 </p>
                 
                 <p>
-                    The proof of LaGrange's Theorem relies heavily on the concept of cosets and the fact they partition the group. If we know that there
+                    The proof of Lagrange's Theorem relies heavily on the concept of cosets and the fact they partition the group. If we know that there
                     exists a finite number of cosets, say $k$ of them, we know that $G$ is composed of $k$ cosets of all the same order (size). Intuitively
                     we can see that the order of the coset must divide the order of the group and since each coset has the same order as the subgroup
                     used to derive them, the order of the subgroup is $k$ times smaller than the order of the group, proving the division. 
                 </p>
                 <p>
-                    I want to point out that the converse of LaGrange's Theorem is not true, that is, if $n \mid |G|$
+                    I want to point out that the converse of Lagrange's Theorem is not true, that is, if $n \mid |G|$
                     there does not necessarily need to be a subgroup of such order  $n$. A common example of this is with the group $A_4$ that consists of $12$ even permutations of $\{1,2,3,4\}$. Notice, even though $6 \mid 12$,
                     there does not exist of a subgroup of $A_4$ with order $6$.
                 </p>
 
                 <p>
-                    Now let's explore some of the immediate consequences of LaGrange's theorem that will be fundamental in the proof of Fermat's Little Theorem. First, notice that since 
+                    Now let's explore some of the immediate consequences of Lagrange's theorem that will be fundamental in the proof of Fermat's Little Theorem. First, notice that since 
                     $|a| = |\langle a \rangle|$ and $\langle a \rangle \preceq G$  we know that $|a| \mid |G|$ for every $a \in G$. Moreover, taking an element to the power of the order of the group will yield the identity element, that is, $a^{|G|} = e$, for every $a \in G.$ Before proving Fermat's Little Theorem, let's define a crucial group used in the proof.
                 </p>
 
@@ -345,12 +454,12 @@
                 <p>
                     For example, let's consider $U(8) = \{1,3,5,7\}$. Here we have $e = 1$, $|3| = |5| = |7| = 2$ and 
                     $\phi(8) = |U(8)| = 4$. Notice, $|a| \mid |U(8)|$,
-                    as shown by LaGrange's Theorem.
+                    as shown by Lagrange's Theorem.
                 </p>
 
                 <p>
-                    We are now ready to prove Fermat's Little Theorem. The elegance of the proof is just one of the many examples of the applications of LaGrange's Theorem.
-                    I strongly recommend further exploring the applications and use of LaGrange's Theorem.
+                    We are now ready to prove Fermat's Little Theorem. The elegance of the proof is just one of the many examples of the applications of Lagrange's Theorem.
+                    I strongly recommend further exploring the applications and use of Lagrange's Theorem.
                 </p>
                 
                 <span id="fermats"></span>
@@ -375,7 +484,7 @@
 
                     $$\langle a \rangle \preceq U(n) \Longrightarrow |\langle a \rangle| \mid p-1$$ 
 
-                    by LaGrange's Theorem. Since $|a| = | \langle a \rangle|$,
+                    by Lagrange's Theorem. Since $|a| = | \langle a \rangle|$,
 
                     $$|a| \mid p - 1 \Longrightarrow |a|n = p - 1,$$ 
                     
@@ -409,7 +518,7 @@
                  <small>
                     Jonathon Temelkovski &copy; 
                     |
-                    <time datetime="2018-05-00T 21:00-5:00" pubdate>May 2018</time>
+                    <time datetime="2018-05-00T 21:00-5:00" pubdate>August 2018</time>
                     | 
                     <a class="to-top" href="#top">Scroll Up</a> 
                 </small>

@@ -64,11 +64,10 @@
 }
 
 @media (max-width: 630px) {
-    body {
-        margin: -1em;
-    }
     
-    .post {
+    .post,
+    .postNew {
+        margin: 0 -1em;
         -moz-box-shadow: none;
         -webkit-box-shadow: none;
         box-shadow: none;
