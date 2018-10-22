@@ -78,14 +78,12 @@ img#me {
 }
 
 .MT,
-.other,
-.readingList {
+.other {
     float: right;
     width: 50%;
 }
 
-.CS,
-.lifeLog{
+.CS {
     clear: both;
     float: left;
     width: 50%;
@@ -98,20 +96,17 @@ img#coa {
     margin-top: -1em;
 }
 
-.lifeLog table {
-    padding: 1em;
+.readingList {
+    clear: both;
 }
-
-.readingList a{
+.readingList a {
     color: blue;
 }
 
 @media (max-width: 630px) {
     .MT,
     .other,
-    .readingList, 
-    .CS,
-    .lifeLog {
+    .CS {
         clear: both;
         width: 100%;
     }
