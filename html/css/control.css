@@ -1,0 +1,101 @@
+
+section.cntrl,
+div.cntrl {
+	padding: 5px 10px;
+	margin: 15px 0;
+}
+
+.cntrl > .cntrl {
+	margin-right: -10px;
+}
+
+div.s {
+	border-left: 3px solid #555;
+}
+
+div.def {
+	border-left: 3px solid #93a7d7;
+}
+
+div.thm {
+	border-left: 3px solid #98db98;
+}
+
+
+div.e {
+	border-left: 3px solid #aaa;
+}
+
+div.cnj {
+	border-left: 3px solid #d6e10b;
+}
+
+div.alg {
+	border-left: 3px solid #ff3232;
+}
+
+div.lm {
+	border-left: 3px solid plum;
+}
+div.fm {
+	border-left: 3px solid orange;
+}
+
+div.code {
+	margin-left: -10px ;
+	margin-bottom: -10px;
+	margin-top: -10px;
+  padding: 10px;
+}
+
+pre.prettyprint {
+	border: none !important;
+	font-size: 11pt;
+	background-color: #f1f1f1;
+  margin: 5px auto;
+  padding: 20px;
+}
+
+.page-preview h1,
+.page-preview h2,
+.page-preview h3,
+.page-preview h4,
+.page-preview h5,
+.page-preview h6 {
+	margin: 0 auto;
+}
+
+.page-preview p,
+.page-preview ul,
+.page-preview ol {
+	margin: 10px 0 10px 0;
+}
+
+div.cntrl.noin {
+	padding: 0;
+  margin: 0;
+}
+
+.page-preview table {	
+  border: 1px solid #222;
+  border-collapse: collapse;
+	margin: 10px 0px;
+  padding: 0;
+}
+
+
+.page-preview td,
+.page-preview th {
+  margin: none;
+	padding: 5px;
+	border: 1px solid #555;
+}
+
+.page-preview th {
+  margin: none;
+	border-bottom: 2px solid #222;
+}
+
+annotation {
+  display: none;
+}

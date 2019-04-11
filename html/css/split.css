@@ -1,0 +1,19 @@
+
+body {
+  padding-top: 20px;
+}
+
+#preview-tab {
+  margin-top: 27px;
+  padding: none;
+}
+
+.page {
+  font-size: 13pt;
+  width: 40vw;
+  height: 75vh;
+	background-color: #fff;
+	margin: 10px auto;  
+  min-width: 600px;
+  border: 1px solid #ddd;
+}

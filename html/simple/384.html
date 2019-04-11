@@ -1,0 +1,2286 @@
+
+<!DOCTYPE html>
+<html  class="uk-background-muted">
+<head>
+  <meta charset="UTF-8">
+  
+  <link rel='stylesheet' type="text/css" href='../css/editor.css'>
+  <link rel='stylesheet' type="text/css" href='../css/tab.css'>
+  <link rel='stylesheet' type="text/css" href='../css/control.css'>
+  <link rel="stylesheet" type="text/css" href="../../third-party/css/uikit.min.css"/>
+  <script src="../../third-party/js/uikit.min.js"></script>
+  <script src="../../third-party/js/uikit-icons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script> 
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script> 
+    
+<script type="module">
+    import katex from 'https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.mjs';
+   var math = document.getElementsByClassName('kmath');
+  for (var i = 0; i < math.length; ++i) {
+    console.log(1);
+    katex.render(math[i].innerHTML
+         .replace("&amp;", "&")
+         .replace("&lt;", "<")
+         .replace("&gt;", ">"), math[i]);
+   }
+</script>
+  <title>NiceNote</title>
+</head>
+<body>
+  <div class="uk-container uk-container-large uk-text-center">
+    <div class="page">
+      <div id="preview" class="page-preview uk-box-shadow-large uk-text-left">
+      <div class='cntrl noin uk-text-center'>
+<h1 id='0'>CSC384: Introduction to Artificial Intelligence</h1>
+</div>
+<hr>
+<h2 id='1'>Agents</h2>
+<div class='cntrl def'>
+<h3 id='2'>Definition: Agents</h3>
+<p>
+Perceives the environment though sensors and acts upon that
+environment through actions. The agent maps from its sensors to
+actions.
+</p>
+</div>
+<h3 id='3'>Environment Types</h3>
+<ul>
+<li><b>Fully observable</b>: agents sensors give access to complete state of environment</li>
+<li><b>Single Agent</b>: operates by itself in an environment</li>
+<li><b>Deterministic</b>: each state is determined by its current state and some legal action</li>
+<li><b>Static</b>: environment remains unchanged during the agents choice</li>
+<li><b>Discrete</b>: limited number of defined percepts and actions</li>
+</ul>
+<h3 id='4'>Types of Agents</h3>
+<div class='cntrl def'>
+<h3 id='5'>Definition: Reflex Agents</h3>
+<ul>
+<li>Choose an action based on current percept (and maybe memory)</li>
+<li>Can model the world's current state in memory</li>
+<li>Do not consider future consequences of their actions</li>
+</ul>
+<p>
+<span style='color: red;'>Note</span>: Require fully observable environment!
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='6'>Definition: Planning Agents</h3>
+<ul>
+<li>Consider the consequences of their actions and choose an action based on them</li>
+<li>Models <i>how</i> the world reacts to their actions</li>
+<li>Formulate goals and predicts future environment</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='7'>Definition: Goal Agents</h3>
+<ul>
+<li>Has information to describe desirable situations</li>
+<li>Although may seem less efficient, they are more flexible</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='8'>Definition: Utility-Based Agents</h3>
+<ul>
+<li>Many sequences of actions may lead to a goal, but some are quicker, safer, cheaper or more reliable than others</li>
+<li>Assigns a <i>score</i> to sequences of states to determine which is more desirable</li>
+</ul>
+</div>
+<hr>
+<h2 id='9'>Search</h2>
+<h3 id='10'>Representation</h3>
+<ul>
+<li><b>STATE SPACE</b>: formulate a state space which the search performs on.</li>
+<li><b>ACTIONS</b>: the legal moves (edges) to transition between states</li>
+<li><b>START</b> and <b>GOAL STATES</b>: starting position (node) and a list of terminal nodes</li>
+<li><b>HEURISTICS</b>: help guide the search</li>
+</ul>
+<div class='cntrl e'>
+<h3 id='11'>Example: Pac-man</h3>
+<p>
+Consider the problem with pac-man attempting to choose a path to travel.
+</p>
+<ul>
+<li><b>STATES</b>: <span class='kmath'>(x, y)</span> location</li>
+<li><b>ACTIONS</b>: NESW</li>
+<li><b>SUCCESSOR</b>: update location only</li>
+<li><b>GOAL</b>: <span class='kmath'>(x, y)</span> is the END</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='12'>State Representation</h3>
+<div class='cntrl def'>
+<h3 id='13'>Definition: State Space Graphs</h3>
+<ul>
+<li>Nodes are world configurations</li>
+<li>Arcs represent successors</li>
+<li>The goal test is a set of goal nodes (could be only one)</li>
+</ul>
+<p>
+<span style='color: blue;'>Note</span>: Each state occurs only once!
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='14'>Definition: Search Tree</h3>
+<ul>
+<li><b>Root</b> is where we start</li>
+<li>Children are possible future states</li>
+<li>While nodes show states, correspond to PLANS that achieve these states.</li>
+</ul>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='15'>Algorithm Structure</h3>
+<ul>
+<li><b>Inputs</b>:
+<ul>
+<li>a specified initial state</li>
+<li>a successor function <span class='kmath'>S(x)</span> yeilds a set of states that can be reached from a state <span class='kmath'>x</span> via a single action</li>
+<li>a goal test to apply to the state</li>
+<li><span class='kmath'>C(x, a, y)</span> which determines cost of moving from state <span class='kmath'>x</span> to <span class='kmath'>y</span> using action <span class='kmath'>a</span></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><b>Outputs</b>:
+<ul>
+<li>a sequence of actions that transform the initial state to a state satisfying the goal test or just a single sequence of states</li>
+<li>Will be optimal in unique way (depends on the algorithm), so no such lower cost path to goal state</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Successor function <span class='kmath'>S(x)</span> yields a set of states that can be reached from <span class='kmath'>x</span> via any single actions
+<ul>
+<li><span class='kmath'>S(x) = \{ \langle y, a \rangle, \langle y, b \rangle, \langle z, b \rangle \}</span></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Consists of <b>states</b> and cations that move between states</li>
+<li>A <b>path</b> in the search space is a <b>sequence of states</b>
+<ul>
+<li>Each node in the path <span class='kmath'>s_{i}</span> must have valid action <span class='kmath'>a</span> to reach state <span class='kmath'>s_{i + 1}</span> in the path</li>
+</ul>
+</li>
+</ul>
+<p>
+<span style='color: blue;'>Nodes</span>: A path
+</p>
+<h4>Pseudo-Code</h4>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-Python'>
+def Search(open, successors, goal?):
+	open.insert(start_state)
+	while not open.empty():
+		n = open.extract()
+		state = n.end_state()
+		if (goal?(state)):
+			return n #n is solution
+		for succ in successors(state):
+			open.insert(succ)
+	return False
+</pre>
+</div>
+<p>
+When a node n is extracted, we say it <i>exapnds n</i>.
+</p>
+</div>
+<h4>Important Properties</h4>
+<ul>
+<li><b>Completeness</b>: will the search alwasys a find a solution if a solution exists?</li>
+<li><b>Optimality</b>: will the search always find the least cost solution?</li>
+<li><b>Time complexity</b>: what is the maximum umbre of nodes (paths) that can be expanded or generated?</li>
+<li><b>Space complexity</b>: what is the maximum number of nodes (paths) that have to be stored in memory.</li>
+</ul>
+<div class='cntrl s'>
+<h3 id='16'>Unifored Search Strategies</h3>
+<h4>Pre</h4>
+<ul>
+<li>These are strategies that adopt a fixed fule for selecting the next state</li>
+<li>Rule is consistent</li>
+</ul>
+<div class='cntrl alg'>
+<h3 id='17'>Algorithm: Breadth-First Search</h3>
+<ul>
+<li><b>Data structure</b>: <code>Queue</code></li>
+<li><i>Completeness?</i>
+<ul>
+<li><code>OPEN</code> is non-decreasing</li>
+<li>Let <span class='kmath'>d</span> be the solution up to depth <span class='kmath'>d</span></li>
+<li>Examines all paths of length <span class='kmath'>d</span>, so finds a solution</li>
+</ul>
+</li>
+<li><i>Optimality?</i>
+<ul>
+<li>Not always cheapest solution</li>
+</ul>
+</li>
+<li><i>Time complexity?</i>
+<ul>
+<li><span class='kmath'>O(b^{d+1})</span></li>
+</ul>
+</li>
+<li><i>Space complexity?</i>
+<ul>
+<li><span class='kmath'>O(b^{d+1})</span></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl alg'>
+<h3 id='18'>Algorithm: Uniform-Cost Search</h3>
+<ul>
+<li><b>Data Structure</b>: <code>Heap</code></li>
+<li><i>Completeness?</i>
+<ul>
+<li>Each transition has a cost <span class='kmath'>\geq \epsilon > 0</span></li>
+<li>By same logic as BFS, <code>node</code> expanded must be non-decreasing</li>
+</ul>
+</li>
+<li><i>Optimality?</i>
+<ul>
+<li>Finds if costs are <span class='kmath'>\geq \epsilon > 0</span></li>
+<li>Searches in order, so finds minimum cost path to goal</li>
+</ul>
+</li>
+<li><i>Time complexity?</i> and <i>Space complexity?</i>
+<ul>
+<li><span class='kmath'>O(b^{\frac{C^*}{\epsilon}})</span> where <span class='kmath'>C^*</span> is cost of optimal solution
+<ul>
+<li><span class='kmath'>b^{\frac{C^*}{\epsilon}}</span> paths with <span class='kmath'>\frac{C^*}{\epsilon}</span> cost</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl alg'>
+<h3 id='19'>Algorithm: Depth-First Search</h3>
+<ul>
+<li><b>Data Structure</b>: <code>Stack</code></li>
+<li><i>Completeness?</i>
+<ul>
+<li>If <span class='kmath'>m</span> is infinite, then we need to prevent cycles</li>
+</ul>
+</li>
+<li><i>Optimality?</i>
+<ul>
+<li>Finds the <i>left-most</i> solution</li>
+</ul>
+</li>
+<li><i>Time complexity?</i> and <i>Space complexity?</i>
+<ul>
+<li><span class='kmath'>O(b^m)</span></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl alg'>
+<h3 id='20'>Algorithm: Depth-Limited Search</h3>
+<ul>
+<li>Truncate paths up to a specified depth <span class='kmath'>D</span></li>
+</ul>
+<h4>Pseudo</h4>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-Python'>
+def DL_Search(open, successors, goal?, maxd):
+	open.insert(start)
+	cutoff = false
+	while not open.empty():
+		n = open.extract()
+		state = n.end_state()
+		if goal?(state):
+			return (n, cutoff) # n is solution
+		if depth(n) < maxd:
+			for succ in succesors(state):
+				open.insert((n, succ))
+		else:
+			cutoff = true # depth hit
+	return (false, cutoff)
+</pre>
+</div>
+</div>
+<div class='cntrl alg'>
+<h3 id='21'>Algorithm: Iterative Deepening Search</h3>
+<ul>
+<li>Start at depth limit <span class='kmath'>L = 0</span> and iteratively increase the depth limit until a solution is found</li>
+</ul>
+<h4>Pseudo</h4>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-Python'>
+def ID_Search(open, successors, goal?):
+	maxd = 0
+	while true:
+		(n, cutoff) = DL_Search(open, successors, goal?, maxd)
+		if n:
+			return n
+		elif not cutoff: # no nodes at deeper levels exit
+			return fail
+		else:
+			maxd += 1
+</pre>
+</div>
+<ul>
+<li><i>Completeness?</i>
+<ul>
+<li>Yes, if a minimal depth solution of depth <span class='kmath'>d</span> exists</li>
+</ul>
+</li>
+<li><i>Optimality?</i>
+<ul>
+<li>Yes, give the shortest length solution is optimal if costs are uniform</li>
+<li>If costs are not uniform, we can use a "cost" bound instead
+<ul>
+<li>Only expand paths of cost less than the cost bound</li>
+<li>Keep track of the minimum cost unexpaneded path in each iteration, increase on the next iteration</li>
+<li>Expensive</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><i>Time complexity?</i>
+<ul>
+<li>For IDS: <span class='kmath'>O(b^d)</span></li>
+<li>For BFS: <span class='kmath'>O(b^{d+1})</span></li>
+</ul>
+</li>
+<li><i>Space complexity?</i>
+<ul>
+<li><span class='kmath'>O(bd)</span></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<h3 id='22'>Path Checking</h3>
+<p>
+If <span class='kmath'>n_k</span> represents the path <span class='kmath'>\langle s_0, s_1, ..., s_k \rangle</span>
+and we expand <span class='kmath'>s_k</span> to obtain child <span class='kmath'>c</span>, ensure that <span class='kmath'>c</span> is not equal
+to the state reached by any ancestor of <span class='kmath'>c</span> along this path.
+</p>
+<p>
+<span style='color: orange;'>Done in isolation</span>.
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+def Search(open, successors, goal?):
+	open.insert(start)
+	while not open.empty():
+		n = open.extract()
+		state = n.end_state()
+		if goal?(state):
+			return n # n is solution
+		for succ in successors(state):
+			if not succ in (n) # put on OPEN
+				open.insert((n, succ))
+	return false
+</pre>
+</div>
+<h3 id='23'>Cycle Checking</h3>
+<p>
+If we keep track of all states added to <code>OPEN</code> during the search,
+then when we expand <span class='kmath'>n_k</span> to obtain successor state <span class='kmath'>c</span>:
+</p>
+<ul>
+<li>Ensure the <span class='kmath'>c</span> is not eual to any previous state seen</li>
+<li>If it is, we do not add it to <code>OPEN</code></li>
+</ul>
+<p>
+We keep track of each state and the minimum known cost of a path to
+that state. If longer, do not add, if shorted replace the old state in
+<code>OPEN</code>.
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-Python'>
+def Search(open, successors, goal?):
+	open.insert(start)
+	seen = {start: 0} # min costs
+	while not open.empty()
+		n = open.extract()
+		state = n.end_state()
+		if cost(n) <= seen[state]: #only expand if cheapest
+			if goal?(state):
+				return n # n is solution
+			for succ in successors(state):
+				if not succ in (n) or cost ((n, succ)) < seen[succ]: # put on OPEN
+					open.insert((n, succ))
+					seen[succ] = cost((n, succ))
+	return false
+</pre>
+</div>
+<div class='cntrl s'>
+<h3 id='24'>Proofs for Uniform-Cost Search</h3>
+<div class='cntrl lm'>
+<h3 id='25'>Lemma: 1</h3>
+<p>
+Let <span class='kmath'>c(n)</span> be the cost of node <span class='kmath'>n</span> on <code>OPEN</code> (cost of the path
+represented by <span class='kmath'>n</span>). If <span class='kmath'>n_2</span> is expanded <i>immediately</i> after <span class='kmath'>n_1</span>,
+then <span class='kmath'>c(n_1) \leq c(n_2)</span>.
+</p>
+<p>
+<i>proof</i>
+</p>
+<h5>Case 1</h5>
+<p>
+<span class='kmath'>n_2</span> was in <code>OPEN</code> when <span class='kmath'>n_1</span> was expanded: We must have
+<span class='kmath'>c(n_1) \leq c(n_2)</span> otherwise <span class='kmath'>n_2</span> would have been selected.
+</p>
+<h5>Case 2</h5>
+<p>
+<span class='kmath'>n_2</span> was added to <code>OPEN</code> when <span class='kmath'>n_1</span> was exapnded. Now,
+<span class='kmath'>c(n_1) \leq c(n_2)</span> since the path represented by <span class='kmath'>n_2</span> extends
+the path represented by <span class='kmath'>n_1</span> and thus the cost is at least <span class='kmath'>\epsilon</span> more.
+</p>
+</div>
+<div class='cntrl lm'>
+<h3 id='26'>Lemma: 2</h3>
+<p>
+When node <span class='kmath'>n</span> is expanded wevery path in the search space with cost
+strictly less htan <span class='kmath'>c(n)</span> has already been expanded.
+</p>
+<p>
+<i>proof</i>
+</p>
+<p>
+Let <span class='kmath'>n_k = \langle Start, s_1, ..., s_k \rangle</span> be a path with cost
+less than <span class='kmath'>c(n)</span>. Let <span class='kmath'>n_0 = \langle Start \rangle, n_1 = \langle Start, s_1 \rangle</span>, etc.
+Let <span class='kmath'>n_i</span> be the last node in the sequence that has already been expanded by <code>search</code>.
+</p>
+<p>
+Then, <span class='kmath'>n_{i+1}</span> must still be on <code>OPEN</code>: it was added when <span class='kmath'>n_i</span> was expanded.
+So, <span class='kmath'>c(n_{i+1}) \leq c(n_k) < c(n)</span>: <span class='kmath'>c(n_{i+1})</span> is a subpath of <span class='kmath'>n_k</span> so
+we assumed that <span class='kmath'>c(n_k) < c(n)</span>. In this case, <code>UCS</code> would of expanded
+<span class='kmath'>n_{i+1}</span> and not <span class='kmath'>n</span>. Thus, every node <span class='kmath'>n_i</span> including <span class='kmath'>n_k</span> has already
+been expanded, i.e. the lowest cost path has already been explored.
+</p>
+</div>
+<div class='cntrl lm'>
+<h3 id='27'>Lemma: 3</h3>
+<p>
+The first time <code>UCS</code> expands a  node <span class='kmath'>n</span> terminating at state <span class='kmath'>S</span>, it
+has found the minimal cost path to <span class='kmath'>S</span>.
+</p>
+<p>
+<i>proof</i>
+</p>
+<ol>
+<li>All cheaper paths have already been expanded, none of them terminated at <span class='kmath'>S</span></li>
+<li>All paths expanded after <span class='kmath'>n</span> will be at least as expensive, so no cheaper path to <span class='kmath'>S</span> can be found earlier.</li>
+</ol>
+<p>
+Thus, when a path to a goal state is expanded the path must be <i>optimal</i>.
+</p>
+</div>
+</div>
+<hr>
+<h2 id='28'>Heuristic Search</h2>
+<p>
+The idea is to develop a domain specific heuristic function <span class='kmath'>h(n)</span>.
+<span class='kmath'>h(n)</span> guesses the cost of getting to the goal from node <span class='kmath'>n</span>. These
+are domain specific.
+</p>
+<p>
+If <span class='kmath'>h(n_1) < h(n_2)</span> this means that we guess that it is cheaper to
+get to the goal from <span class='kmath'>n_1</span> than from <span class='kmath'>n_2</span>. <span style='color: green;'>Note</span> <span class='kmath'>h(n) = 0</span>
+when on the node that satisfies the goal.
+</p>
+<div class='cntrl s'>
+<h3 id='29'>Conditions on <span class='kmath'>h(n)</span></h3>
+<div class='cntrl def'>
+<h3 id='30'>Definition: Admissible</h3>
+<ul>
+<li>We always assume that <span class='kmath'>C(s_1, a, s_2) \geq \epsilon > 0</span> for any two states <span class='kmath'>s_1, s_2</span> and any action <span class='kmath'>a</span></li>
+<li>Let <span class='kmath'>h^*(n)</span> be the cost of an optimal path from n to a goal node</li>
+<li>Admissible heuristic satisfies the condition:
+<ul>
+<li><span class='kmath'>h(n) \leq h^*(n)</span></li>
+<li>Admissible functions <span style='color: blue;'>never over-estimate</span> the cost to reach the goal</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl thm'>
+<h3 id='31'>Theorem: Consistency <span class='kmath'>\Longrightarrow</span> Admissible</h3>
+<p>
+<span class='kmath'>\forall n_1, n_2, a</span>, <span class='kmath'>h(n_1) \leq C(n_1, a, n_2) + h(n_2) \Longrightarrow \forall n, h(n) \leq h^*(n)</span>
+</p>
+<p>
+<i>proof</i>
+</p>
+<p>
+If no path exists from n to a goal, then <span class='kmath'>h^*(n) = \infty</span> and <span class='kmath'>h(n) \leq h^*(n)</span>.
+</p>
+<p>
+Else, let <span class='kmath'>n \longrightarrow n_1 \longrightarrow ... \longrightarrow n^*</span> be an optimal path from n to the goal.
+</p>
+<p>
+<b>Base Case:</b> <br>
+<span class='kmath'>n = n^*</span><br>
+<b>Induction Hypthothesis</b>: <br>
+<span class='kmath'>h(n_1) \leq h^*(n_1)</span>. Therefore,
+<span class='kmath'>h(n) \leq C(n, a_1, n_1) + h(n_1) \leq C(n, a_1, n_1) + h^*(n_1) = h^*(n)</span>
+</p>
+<p>
+<span style='color: red;'>Converse is NOT true</span>.
+</p>
+</div>
+</div>
+<div class='cntrl def'>
+<h3 id='32'>Definition: Consistency (Monotonicity)</h3>
+<ul>
+<li>A stronger condition than <span class='kmath'>h(n) \leq h^*(n)</span></li>
+<li>Satisfies the triangle inequality: <span class='kmath'>\forall n_1, n_2</span> and action <span class='kmath'>a</span>
+<ul>
+<li><span class='kmath'>h(n_1) \leq C(n_1, a, n_2) + h(n_2)</span></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class='cntrl alg'>
+<h3 id='33'>Algorithm: Greedy Best-First Search</h3>
+<p>
+We use <span class='kmath'>h(n)</span> to rank the nodes on <code>OPEN</code> and only expand the lowest
+h-value.
+</p>
+</div>
+<div class='cntrl alg'>
+<h3 id='34'>Algorithm: A* Search</h3>
+<ul>
+<li><span class='kmath'>f(n) = g(n) + h(n)</span>
+<ul>
+<li><span class='kmath'>g(n)</span> is the cost of the path represented by node n</li>
+<li><span class='kmath'>h(n)</span> is the heuristic estimate of the cost of achieving the goal from n</li>
+</ul>
+</li>
+</ul>
+<p>
+We always expand the node with lowest <span class='kmath'>f</span> value on <code>OPEN</code>.
+</p>
+<p>
+<span style='color: blue;'>Note:</span> the <span class='kmath'>f</span> value is an estimated cost of getting to the goal
+via the node (path) <span class='kmath'>n</span>.
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='35'>Consequences of Monotonicity</h3>
+<div class='cntrl thm'>
+<h3 id='36'>Theorem: The f-values of nodes along any path must be non-decreasing</h3>
+<p>
+Let <span class='kmath'>\langle Start \longrightarrow s_1 \longrightarrow ... \longrightarrow s_k \rangle</span> be a path. Let <span class='kmath'>n_i</span> be the
+subpath <span class='kmath'>\langle start \longrightarrow s_1 \longrightarrow ... \longrightarrow s_i \rangle</span>. We claim that
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>f(n_i) \leq f(n_{i+1})</span>
+</p>
+</div>
+<p>
+<i>proof</i>
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>f(n_1) = C(Start \longrightarrow ... \longrightarrow n_i)+ h(n_i)</span> <br>
+<span class='kmath'>\leq C(Start \longrightarrow ... \longrightarrow n_i) + C(n_i \longrightarrow n_{i+1}) + h(n_{i+1})</span> <br>
+<span class='kmath'>\leq C(Start \longrightarrow ... \longrightarrow n_i \longrightarrow n_{i+1}) + h(n_{i+1})</span> <br>
+<span class='kmath'>\leq g(n_{i+1}) + h(n_{i+1}) = f(n_{i+1})</span> <br>
+</p>
+</div>
+</div>
+<div class='cntrl thm'>
+<h3 id='37'>Theorem: If <span class='kmath'>n_2</span> is expanded immediately after <span class='kmath'>n_1</span> then <span class='kmath'>f(n_1) \leq f(n_2)</span></h3>
+<p>
+<i>proof</i>
+</p>
+<p>
+If <span class='kmath'>n_2</span> was on <code>OPEN</code> when <span class='kmath'>n_1</span> was expanded, then <span class='kmath'>f(n_1) \leq f(n_2)</span> by definition of the algorithm.
+</p>
+<p>
+If <span class='kmath'>n_2</span> was added to <code>OPEN</code> after the expansion of <span class='kmath'>n_1</span>, then
+<span class='kmath'>n_2</span> extends the path of <span class='kmath'>n_1</span>. That ism the path represented by <span class='kmath'>n_1</span> is a prefix
+of the path represented by <span class='kmath'>n_2</span>. By property (1), we have
+<span class='kmath'>f(n_1) \leq f(n_2)</span> as the f-value along a path are non-decreasing.
+</p>
+</div>
+<div class='cntrl thm'>
+<h3 id='38'>Theorem: A<sup>*</sup> exapnds nodes with non-decreasing f-values</h3>
+<p>
+If <span class='kmath'>n_2</span> is expanded after (not necessarily immediately after) <span class='kmath'>n_1</span>, then
+<span class='kmath'>f(n_1) \leq f(n_2)</span>.
+</p>
+<p>
+<i>proof</i>
+</p>
+<p>
+If <span class='kmath'>n_2</span> was on <code>OPEN</code> when <span class='kmath'>n_1</span> was expanded, then <span class='kmath'>f(n_1) \leq f(n_2)</span>,
+otherwise we would of expanded <span class='kmath'>n_2</span>.
+</p>
+<p>
+If <span class='kmath'>n_2</span> was added to <code>OPEN</code> after the expansion of <span class='kmath'>n_1</span>, then let <span class='kmath'>n</span>
+be the ancestor of <span class='kmath'>n_2</span> that was presente when <span class='kmath'>n_1</span> was being expanded.
+We have <span class='kmath'>f(n_1) \leq f(n)</span> since A<sup>*</sup> chose <span class='kmath'>n_1</span> while <span class='kmath'>n</span> was present in <code>OPEN</code>.
+Also, <span class='kmath'>n</span> is along the path to <span class='kmath'>n_2</span> so by property (1) we have <span class='kmath'>f(n_1) \leq f(n_2)</span>.
+</p>
+</div>
+<div class='cntrl thm'>
+<h3 id='39'>Theorem: When <span class='kmath'>n</span> is expanded every path with a lower f-value has already been expanded</h3>
+<p>
+<i>proof</i>
+</p>
+<p>
+Assume by contradiction that there exists a path
+<span class='kmath'>\langle Start, n_0, n_1, ..., n_{i-1}, n_i, n_{i+1}, .., n_k \rangle</span>
+with <span class='kmath'>f(n_k) < f(n)</span> and <span class='kmath'>n_i</span> is the last expanded node.
+</p>
+<p>
+<span class='kmath'>n_{i+1}</span> must be on <code>OPEn</code> while <span class='kmath'>n</span> is expanded so
+</p>
+<ol>
+<li>By (1) <span class='kmath'>f(n_{i+1}) \leq f(n_k)</span> since they lie along the same path</li>
+<li>since <span class='kmath'>f(n_k) < f(n)</span> we have <span class='kmath'>f(n_{i+1}) < f(n)</span></li>
+<li>by (2) <span class='kmath'>f(n) \leq f(n_{i+1})</span> because <span class='kmath'>n</span> was expanded before <span class='kmath'>n_{i+1}</span></li>
+</ol>
+<p>
+Thus, we get our contradiction from bullets <b>2</b> and <b>3</b>.
+</p>
+</div>
+<div class='cntrl thm'>
+<h3 id='40'>Theorem: Monotone heuristic makes A<sup>*</sup> find the minimum cost path to that state</h3>
+<p>
+<i>proof ommitted</i>
+</p>
+</div>
+</div>
+<div class='cntrl alg'>
+<h3 id='41'>Algorithm: Iterative Deepening A<sup>*</sup></h3>
+<p>
+<b>Objective</b>: Reduce memory requirements for A<sup>*</sup>.
+</p>
+<p>
+We establish a cut off with a f-value. Each iteration, the cutoff
+is the smalled f-value of any nodes that exceeded the cutoff of the
+previous iteration. This avoids pverhead associatied with keeping
+a sorted <code>queue</code> of nodes.
+</p>
+<p>
+New parameters:
+</p>
+<ul>
+<li><code>currBound</code>: any node with a bigger f-value is discarded</li>
+<li><code>smallestNotExplored</code>: when <code>OPEN</code> becomes empty, the search starts a neew round with this bound.</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='42'>Building Heurisitics</h3>
+<p>
+The optimal cost to nods in the relaex problem is an admissible
+heuristic for the original problem.
+</p>
+<p>
+We try to generate an admissible heuristic by solving the subproblem
+and storing the exact solution cost for that sub problem.
+</p>
+</div>
+<hr>
+<h2 id='43'>Game Tree Search</h2>
+<h4>Properties of Games</h4>
+<ul>
+<li><b>Finitie</b>: number of moves from each state.</li>
+<li><b>Zero-Sum</b>: when one player gets a high payoff, the other gets a low payoff</li>
+<li><b>Deterministic</b>: no chance is involved</li>
+</ul>
+<div class='cntrl s'>
+<h3 id='44'>Zero Sum Game</h3>
+<p>
+<i>What you should do depends on what the other player does</i>
+</p>
+<div class='cntrl def'>
+<h3 id='45'>Definition: Two-Player Zero-Sum Games</h3>
+<ul>
+<li>Two players <code>Max</code> and <code>Min</code></li>
+<li>Set of positions <span class='kmath'>P</span> (states of the game)</li>
+<li>Starting position <span class='kmath'>p \in P</span> (where the game begins)</li>
+<li>Terminal positions <span class='kmath'>T \subseteq P</span> (where game ends)</li>
+<li>Set of directed edges <span class='kmath'>E_{Max}</span> between some positions</li>
+<li>Set of directed edges <span class='kmath'>E_{Min}</span> between some positions</li>
+<li>Utility of payoff function <span class='kmath'>U: T \longrightarrow \mathbb{R}</span> (how good is each terminal state for the payer <code>Max</code>)</li>
+</ul>
+</div>
+<h5>Intution</h5>
+<ul>
+<li>Position specifies whose turn it is
+<ul>
+<li>Game ends when terminal state is reached</li>
+</ul>
+</li>
+<li>Utility function and terminals replace goals
+<ul>
+<li><code>Max</code> wants to maxmimise the terminal pay off</li>
+<li><code>Min</code> wants to minimize it</li>
+</ul>
+</li>
+<li><code>Max</code> gets <span class='kmath'>U(t)</span> then <code>Min</code> gets <span class='kmath'>-U(t)</span>, <span class='kmath'>t \in T</span></li>
+</ul>
+<h5>Function Support</h5>
+<ul>
+<li>Initial state <code>START</code></li>
+<li><code>player(p)</code>: returns th eplayer whose turn it is at position <span class='kmath'>p</span></li>
+<li><code>actions(p)</code>: returns set of legal moves for player in position <span class='kmath'>p</span></li>
+<li><code>result(p, m)</code>: new position after making move <span class='kmath'>m</span></li>
+<li><code>terminal(p)</code>: returns True if the game is over at position <span class='kmath'>p</span></li>
+<li><code>utility(p)</code>: return <code>Max</code>'s payoff at terminal position <span class='kmath'>p</span></li>
+</ul>
+<h5>Game Tree</h5>
+<ul>
+<li>Layers reflecting alternating moves between <code>Max</code> and <code>Min</code></li>
+<li>We examin subtrees, large enough to determine what move to make</li>
+<li><code>Max</code> doesn't decide which terminal state is reached alone
+<ul>
+<li>After <code>Max</code> moves to a state, <code>Min</code> decides the next state to move to</li>
+</ul>
+</li>
+<li>So, we give <code>Max</code> a strategy</li>
+</ul>
+<div class='cntrl alg'>
+<h3 id='46'>Algorithm: MiniMax</h3>
+<ul>
+<li>Assume other player plays optimally
+<ul>
+<li>We move to minimize other players payoff</li>
+</ul>
+</li>
+<li>In cases where <code>Min</code> might not perform optimally, there are better strategies</li>
+<li>In absence of this, MiniMax <i>plays it save</i>f</li>
+</ul>
+<p>
+We build the full game-tree and use:
+</p>
+<ul>
+<li><span class='kmath'>U(n) = </span> min<span class='kmath'>\{U(c): c \text{ child of } n \}</span> if <span class='kmath'>n</span> is a min node</li>
+<li><span class='kmath'>U(n) = </span> max<span class='kmath'>\{U(c): c \text{ child of } n \}</span> if <span class='kmath'>n</span> is a max node</li>
+</ul>
+<p>
+If <code>Min</code> plays poorly, <code>Max</code> <span style='color: blue;'>could do better, but never worse</span>.
+</p>
+<h5>Pseudo</h5>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-Python'>
+def DFMiniMax(pos):
+	# Return best move for player(pos)
+	# and MAX's value for pos
+	best_move = None
+	if terminal(pos):
+		return best_move, utility(pos)
+	if player(pos) == MAX: value = -inf
+	if player(pos) == MIN: value = inf
+	for move in actions(pos):
+		next_pos = result(pos, move)
+		next_val, next_move = DFMiniMax(next_pos)
+		if (player == MAX and value < next_val) \
+			or (player == MIN and value > next_value):
+			value, best_move = next_val, move
+	return best_move, value
+</pre>
+</div>
+</div>
+<ul>
+<li>Trees must have finite depth for this to work</li>
+<li>It is space efficient and will expand <span class='kmath'>O(b^d)</span> states</li>
+</ul>
+<h5>Efficieny</h5>
+<ul>
+<li>Same as (exhaustive) <code>DFS</code></li>
+<li>Time: <span class='kmath'>O(b^m)</span></li>
+<li>Space: <span class='kmath'>O(bm)</span></li>
+</ul>
+<div class='cntrl alg'>
+<h3 id='47'>Algorithm: Alpha-Beta Pruning</h3>
+<div class='cntrl def'>
+<h3 id='48'>Definition: Cuts</h3>
+<ul>
+<li><span class='kmath'>\beta</span> is the lowest value found so far</li>
+<li><span class='kmath'>\alpha</span> is hgihest value found so far</li>
+</ul>
+<p>
+As <code>Max</code>, if <span class='kmath'>\alpha \geq \beta</span>, we can stop expanding the children of <span class='kmath'>n</span>.
+<code>Min</code> will never choose to move from <span class='kmath'>n</span>'s parent.
+These are called <span style='color: blue;'>Alpha-Cuts</span>.
+</p>
+<p>
+A <code>Min</code>, if <span class='kmath'>\beta \leq \alpha</span>, we stop expanding the children of <span class='kmath'>n</span>.
+<code>Max</code> will never choose to move from <span class='kmath'>n</span>'s parent.
+These are called <span style='color: blue;'>Beta-Cuts</span>.
+</p>
+</div>
+<h5>Pseudo</h5>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-Python'>
+def AlphaBeta(pos, alpha, beta):
+	# return best move for player(pos)
+	# and MAX's value for pos
+	best_move = None
+	if terminal(pos):
+		return best_move, utility(pos)
+	if player(pos) == MAX: value = -inf
+	if player(pos) == MIN: value = inf
+	for move in actions(pos):
+		next_pos = result(pos, move)
+		next_val, next_move = AlphaBeta(next_pos, alpha, beta)
+		if player == MAX:
+			if value < next_val: value, best_move = next_val, move
+			if value >= beta: return best_move, value
+			alpha = max(alpha, value)
+		if player == MIN:
+			if value > next_value: value, best_move = next_val, move
+			if value <= alpha: return best_move, value
+			beta = min(beta, value)
+	return best_move, value
+</pre>
+</div>
+<p>
+Pruning brings us to nodes explored: <span class='kmath'>O(b^{\frac{d}{2}})</span>
+</p>
+</div>
+<div class='cntrl alg'>
+<h3 id='49'>Algorithm: ExpectiMax</h3>
+<ul>
+<li><b>CHANCE</b> nodes replace <b>min</b> nodes</li>
+<li>Chance nodes have weighted edges to their children that represent the probability of choosing the respected branch</li>
+</ul>
+<h5>Pseudo</h5>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-Python'>
+def Expectimax(pos):
+	# Return best move for player(pos)
+	# and MAX's value for pos
+	best_move= None
+	if terminal(pos):
+		return best_move, utility(pos)
+	if player(pos) == MAX: value = -inf
+	if player(pos) == CHANCE: vlaue = 0
+	for move in actions(pos):
+		nxt_pos = result(pos, move)
+		nxt_val, nxt_move = Expectimax(nxt_pos)
+		if player == MAX and value < nxt_val:
+			value, best_move = nxt_val, move
+		if player == CHANCE:
+			# No best move for CHANCE player
+			value = value + prob(move) + nxt_val
+	return best_move, value
+</pre>
+</div>
+</div>
+<p>
+We need a heuristic to limit the depth of the search tree.
+An <u>issue</u>: inability to expand tree to terminal nodes is relevant
+even in standard search
+</p>
+<p>
+Often, we can expect A<sup>*</sup> to reach a goal by expanding full
+frontier, so often we <b>limit</b> our look ahead and make moves before
+we actually know the true path to the goal.
+</p>
+</div>
+<hr>
+<h2 id='50'>Constraint Satisfaction Problems (CSPs)</h2>
+<div class='cntrl def'>
+<h3 id='51'>Definition: CSPs</h3>
+<p>
+A general state representation that takes advantage of specialized search alogrithms.
+They are search problems with uniform, simple state representation that allows design
+of more efficient algorithms.
+</p>
+<p>
+Algorithms are general purpose and the <i>main idea</i> is to eliminate chunks of search
+sace by indentifying value assignments for varaibles that violate contraints.
+</p>
+<h5>State Representation</h5>
+<p>
+Factored into variables that can take on values
+</p>
+<ul>
+<li>A set of variables <span class='kmath'>V = \{v_1, ..., v_n\}</span></li>
+<li>Each variable has a domain of different values <span class='kmath'>Dom[v_i]</span></li>
+<li>A set of containts <span class='kmath'>C_1, ..., C_m</span> to satisfy
+<ul>
+<li>Each <span class='kmath'>C_i</span> is a function with domain <span class='kmath'>D \subseteq V</span> such that:
+<ul>
+<li><code>True</code> if the assignment satisfies the constriant</li>
+<li><code>False</code> otherwise</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>A state is specified by an assignment of value, for each variable</li>
+<li>A <i>partial</i> state is specified by an assignent of a value to some of the varaibles.</li>
+</ul>
+<p>
+<span style='color: blue;'>Problem to Solve:</span> search for set of values for the features
+so that the values satisfy some conditions. So we define a solution as an assignment of a value to each
+of the variables such that every constraint is satisfied.
+</p>
+</div>
+<h5>Problems</h5>
+<p>
+We don't care for sequences of moves needed to get to a goal state, only
+care for finding a feature vector that satisfies the goal.
+</p>
+<div class='cntrl e'>
+<h3 id='52'>Example: Scheduling Exams</h3>
+<p>
+Say we want to schedule final exams such that:
+</p>
+<ul>
+<li>No student is scheduled to take more than one final at the same time</li>
+<li>The space allocated has to be available at the time set</li>
+<li>The space has to be large enough to accommodate all of the students taking the exam</li>
+</ul>
+<p>
+We define:
+</p>
+<ul>
+<li><b>Scheduling Problem Varaibles:</b>
+<ul>
+<li>We use the index <code>i</code> to unqiuely identify exams - the <code>i-1</code>th exam</li>
+</ul>
+</li>
+<li><b>Scheduling TIME</b>
+<ul>
+<li>Let <span class='kmath'>T_1, ..., T_m : T_i</span> is a variable representing the scheduled time for the ith final exam.</li>
+<li>Assume domains fixed to: <span class='kmath'>\{MonAM, MonPM, ..., FriPM\}</span></li>
+</ul>
+</li>
+<li><b>Scheduling Space</b>
+<ul>
+<li><span class='kmath'>S_1, ..., S_m : S_i</span> is a variable representing the scheduled pace for the ith final exam</li>
+<li>Assume domain of <span class='kmath'>S_i</span> is a set of room slarge enough to hold the ith final exam</li>
+</ul>
+</li>
+</ul>
+<p>
+We want to find:
+</p>
+<ol>
+<li>For all pairs of finals <span class='kmath'>i, j, i \neq j</span> such that there is a student taking both: <span class='kmath'>T_i \neq T_j</span></li>
+<li>For all pairs of finals <span class='kmath'>i, j, i \neq j</span> such that <span class='kmath'>S_i \neq S_j</span></li>
+</ol>
+</div>
+<h5>Search Problems as CSPs</h5>
+<p>
+We view it as a more traditional search problem:
+</p>
+<ul>
+<li><code>Start</code>: empty assignment</li>
+<li><code>successor()</code>: a value is assigned to any unassigned variable, which satisfies contraints</li>
+<li><code>goal()</code>: the assignment is complete</li>
+</ul>
+<div class='cntrl alg'>
+<h3 id='53'>Algorithm: Backtracking Search</h3>
+<ul>
+<li>Specialized version of <code>DFS</code></li>
+<li>Explores partial assignments to variables</li>
+<li>A node is terminated if it violates a constraint</li>
+<li>A node specifying a totl assignment is a solution</li>
+</ul>
+<h5>Supported Funcitons</h5>
+<p>
+<code>class Variable</code>:
+</p>
+<ul>
+<li><code>.domian()</code>: Returns a list of values in the variables domain</li>
+<li><code>.domainSize()</code>: Returns the size of the domain</li>
+<li><code>.getValue() / .setValue()</code>: Retrieve or update the variables current value assignment</li>
+<li><code>.isAssigned()</code>: Returns a boolean if variable has an assigned value (<code>None</code> is <code>False</code>)</li>
+<li><code>.name()</code>: Returns a string specifying the variable's name</li>
+</ul>
+<p>
+<code>class Constraint</code>:
+</p>
+<ul>
+<li><code>.scope()</code>: Returns a list of variables in the constraints scope</li>
+<li><code>.arity()</code>: Returns number of variables in the constraints scope</li>
+<li><code>.numUnassigned()</code>: Returns the number of variables in the scope that are not assigned</li>
+<li><code>.check()</code>: Returns a bool such that:
+<ul>
+<li><code>True</code> if variables in scope that are assigned satisfy the constriant (or if <code>.numAssigned()</code> > 0)</li>
+<li><code>False</code> otherwise</li>
+</ul>
+</li>
+<li><code>.name()</code>: Returns string specifying the constraints name</li>
+</ul>
+<p>
+<code>global</code>:
+</p>
+<ul>
+<li><code>.varaibles()</code>: List containing all varaibles of the CSP problem</li>
+<li><code>.constraints()</code>: List constaining all constrings in the CSP problem</li>
+<li><code>.constrainsOf(Var)</code>: Returns list of constraints that have <code>var</code> in their scope</li>
+<li><code>.allSolutions()</code>: A boolean flag with value <code>True</code> if we want to enumerate all solutions</li>
+</ul>
+<h5>Pseudo</h5>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-Python'>
+def BT(unAssignedVars): # pass collection
+	if unAssignedVars.empty():
+		for var in variables:
+			print var.name(), " = ", var.getValue()
+		if allSoltuions:
+			return
+		else: EXIT
+
+	var := unAssignedVars.extract()
+	for val in var.domain():
+		var.setValue(val)
+		constraintsOK = True
+		for constraint in constrainsOf(Var):
+			if constraint.numUnassigned() == 0:
+				if not constaint.check():
+					constraintOK = False
+					break
+		if constraintOK:
+			BT(unAssignedVars)
+		var.setValue(None) # undo assignment
+		unAssignedVars.insert(var) # restore original list
+</pre>
+</div>
+<p>
+We use <b>heuristics</b> to determine which <code>var</code> to extract.
+</p>
+<div class='cntrl def'>
+<h3 id='54'>Definition: Constraint Propagation</h3>
+<ul>
+<li>We 'look-ahead' to unassigned vars to avoid going down 'obvious' failures</li>
+<li>We apply it during the search</li>
+<li>Need it to be fast</li>
+</ul>
+</div>
+</div>
+<div class='cntrl alg'>
+<h3 id='55'>Algorithm: Forwarding Checking</h3>
+<ul>
+<li>An extension of <code>BackingChecking</code> that employs propagation</li>
+<li>We check cosntraints for all constaints that only have one uninstantiated variable remaining</li>
+</ul>
+<h5>New Functions</h5>
+<p>
+Added to <code>class Variable</code>:
+</p>
+<ul>
+<li><code>.currDomain()</code>: Returns a list of variables current values (unpruned values)</li>
+<li><code>.currDomainSize()</code>: Size of above</li>
+<li><code>.pruneValue(value, variable, value)</code>: Removes value from variables current values. Remebers the variable being assigned value is the reasion this value is being pruned</li>
+</ul>
+<p>
+Added to <code>class Constraint</code>:
+</p>
+<ul>
+<li><code>.unassignedVars()</code>: List of unassigned variables in the constraints <code>scope()</code></li>
+</ul>
+<p>
+Added to <code>global</code>:
+</p>
+<ul>
+<li><code>restoreValues(variable, value)</code>: Returns all values pruned because of passed variable/value to the current domian of the respected varaible</li>
+</ul>
+<h5>Pseudo</h5>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-Python'>
+def FCCheck(constraint, assignedVar, assignedVal):
+	# prune domain of unnasigned var
+	var = constraint.unassignedVars()[0]
+	for val in var.curDomain():
+		var.setValue(val) # trivial assign and check
+		if not constraint.check():
+			var.pruneValue(val, assignedVar, assignedVal)
+	if var.curDomainSize() == 0:
+		return "DWO" # no values left for var
+	return "OK"
+</pre>
+</div>
+<p>
+Then, we insert <code>FCCheck</code> and replace the <code>for</code> loop for <code>BackCheck</code>
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-Python'>
+def FC(unAssignedVars):
+	... # ommited
+	var := unAssignedVars.extract()
+	for val in var.domain():
+		var.setValue(val)
+		noDWO = True
+		for constraint in constrainsOf(Var):
+			if constraint.numUnassigned() == 1:
+				if FCCheck(constraint, var, val) == "DWO":
+					noDWO = False
+					break
+		if noDWO:
+			FC(unAssignedVars)
+		restoreValues(var, val)
+
+	... # ommited
+
+</pre>
+</div>
+<ul>
+<li>About 100 times faster than <code>BT</code></li>
+<li><code>FC</code> with <code>MRV</code> (minimal remaing values) is often 1000 times faster</li>
+</ul>
+</div>
+<div class='cntrl alg'>
+<h3 id='56'>Algorithm: Generalized Arc Consistency (GAC)</h3>
+<ul>
+<li>Unlike <code>BT</code> (<code>.numAssigned() == 0</code>) and <code>FC</code> (<code>.numAssigned() == 1</code>), <code>GAC</code> checks all</li>
+</ul>
+<div class='cntrl def'>
+<h3 id='57'>Definition: Formal</h3>
+<p>
+A constraint <span class='kmath'>C(V_1, ..., V_n)</span> is <b>consistent</b> w.r.t. varaibles <span class='kmath'>V_1, .., V_n</span>
+if and only if for all values <span class='kmath'>v \in Dom[V_i]</span>, there exists values <span class='kmath'>v_j \in Dom[V_j]</span>,
+such that <span class='kmath'>(v_1, ..., v_{i-1}, v_i, v_{i+1}, ..., v_n)</span> satisfies <span class='kmath'>C(V_1, ..., V_n)</span>
+</p>
+<p>
+<span class='kmath'>C(V_1, .., V_n)</span> is consistent iff it is consisten w.r.t. every var in its scope
+Then, CSP is <code>GAC</code> iff all of its constraints are consistent.
+</p>
+</div>
+<p>
+Like <code>FCCheck</code>, <code>GACEnforce</code> makes all constraints by pruning variable values (much more though).
+</p>
+<p>
+We add to <code>class Constraint</code>:
+</p>
+<ul>
+<li><code>.hasSupport(var, val)</code>: Returns <code>True</code> if <code>var=val</code> has support in the tuple constraint.</li>
+</ul>
+<h5>Pseudo</h5>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-Python'>
+def GACEnforce(cnstrs, assignedVar, assignedVal):
+	while not cnstrs.empty():
+		cnstr = snstrs.extract()
+		for var in cnstr.scope():
+			for val in var.crDomain():
+				if not cnstr.hasSupport(var, val):
+					var.pruneValue(val, assignedVar, assignedVal)
+					if var.curDomainSize() == 0:
+						return "DWO"
+					for recheck in constraintsOf(var):
+						if recheck != cnstr and not recheck in cnstrs:
+							cnstrs.insert(recheck)
+	return "OK"
+</pre>
+</div>
+<p>
+With the above inserted similarily to <code>FC</code> (see above).
+</p>
+</div>
+<hr>
+<h2 id='58'>Probability Review</h2>
+<div class='cntrl s'>
+<h3 id='59'>Uncertainity</h3>
+<p>
+We might not know:
+</p>
+<ol>
+<li>What state we start off in</li>
+<li>All effects of an actions</li>
+</ol>
+<p>
+So, we <i>estimate</i> the probabilty you are in each of these different states.
+</p>
+</div>
+<div class='cntrl thm'>
+<h3 id='60'>Theorem: Additve Law</h3>
+<p>
+<span class='kmath'>P(A \cup B) = P(A) + P(B) - P(A \cap B)</span>
+</p>
+<p>
+<i>proof</i>
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>A = A - B \cup (A \cap B), A - B \cap (A \cap B) = \varnothing</span>
+</p>
+<p>
+Then, <span class='kmath'>P(A) = P(A - B) + P(A \cap B)</span>, <span class='kmath'>P(B) = P(B - A) + P(A \cap B)</span>
+</p>
+<p>
+Then, <span class='kmath'>P(A) + P(B) = P((A - B) \cup (A \cap B)\cup(B - A)) + P(A \cap B)</span>
+</p>
+</div>
+</div>
+<div class='cntrl thm'>
+<h3 id='61'>Theorem: Conditional Probabilty</h3>
+<p>
+<span class='kmath'>P(A | B)</span> is a fraction of worlds which <span class='kmath'>B</span> is true when <span class='kmath'>A</span> is true.
+</p>
+<p>
+Defined as: <span class='kmath'>P(A|B) = \dfrac{P(A \cap B)}{P(A)}</span>, when <span class='kmath'>P(A) > 0</span>
+</p>
+<p>
+Also, <span class='kmath'>P(C \cup B|A) = P(C | A) + P(B | A) - P(C \cap B | A)</span>
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='62'>Independence</h3>
+<p>
+<span class='kmath'>A</span> and <span class='kmath'>B</span> are <b>independent</b> if <span class='kmath'>P(A|B) = P(A)</span>. They are <b>dependent</b> otherwise.
+</p>
+<p>
+If <span class='kmath'>P(B|A \cap C) = P(B|A)</span>, we gain nothing knowing that it is also a member of <span class='kmath'>C</span>.
+We call <span class='kmath'>B</span> is <b>conditionally independent</b> of <span class='kmath'>C</span> given <span class='kmath'>A</span>.
+</p>
+<div class='cntrl thm'>
+<h3 id='63'>Theorem: Conditional Independece</h3>
+<p>
+<span class='kmath'>P(B \cap C | A) = P(B|A)P(C|A)</span>
+</p>
+</div>
+</div>
+<h4>Partition</h4>
+<p>
+If <span class='kmath'>B_1, ..., B_k</span> partition <span class='kmath'>U</span>, then for <span class='kmath'>A \subset U</span>
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>A \cap B_1, ..., A \cap B_k</span>
+</p>
+</div>
+<p>
+partition <span class='kmath'>A</span>.
+</p>
+<div class='cntrl thm'>
+<h3 id='64'>Theorem: Bayes' Theorem</h3>
+<p>
+<span class='kmath'>P(A|B) = P(A) \dfrac{P(B|A)}{P(B)}</span>
+</p>
+</div>
+<hr>
+<h2 id='65'>Reasoning Under Certianty</h2>
+<div class='cntrl s'>
+<h3 id='66'>Normalization</h3>
+<div class='cntrl def'>
+<h3 id='67'>Definition: Normalizing a Vector</h3>
+<p>
+The process of dividing all components of a vector by the sum
+of all components. After normalizing, the numbers sum to 1.
+</p>
+<div class='cntrl e'>
+<h3 id='68'>Example</h3>
+<p>
+normalize([2, 2.5, 1.5, 4]) = [0.2, 0.25, 0.15, 0.4]
+</p>
+</div>
+<p>
+Scaling the vector by a factor <span class='kmath'>\alpha</span> can be factored out.
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='69'>Variable Independence</h3>
+<ul>
+<li><span class='kmath'>P(V_1 | V_2) = P(V_1)</span>: <span class='kmath'>V_1, V_2</span> are independent.</li>
+<li><span class='kmath'>P(V_1 | V_2, V_3) =  P(V_1, V_3)</span>: <span class='kmath'>V_1</span> is conditionally dependent on <span class='kmath'>V_2</span> given <span class='kmath'>V_3</span></li>
+</ul>
+<p>
+Idependene holds regardless of what the variable takes as a value.
+</p>
+<ul>
+<li><span class='kmath'>P(V_1, V_2)</span> refers to a set of probabilities, one for each pair of values <span class='kmath'>V_1</span> and <span class='kmath'>V_2</span>
+<ul>
+<li>This vecotr of probabilities specifies the joint distribution of <span class='kmath'>V_1</span> and <span class='kmath'>V_2</span></li>
+</ul>
+</li>
+<li><span class='kmath'>P(V_1 | V_2, V_3)</span> specifies a <b>collection</b> of distributioms over <span class='kmath'>V_1</span> one for each <span class='kmath'>d_2 \in Dom[V_2], d_3 \in Dom[V_3]</span>
+<ul>
+<li>The values in each row for, a different probability distribution.</li>
+<li><span class='kmath'>P(V_1 | V_2 = 1, V_3 = 2)</span> - a vector of probabilities, one for each assignment of <span class='kmath'>V_1</span></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='70'>Conditonal Probability Over Variables</h3>
+<p>
+We consider <span class='kmath'>P(V_i)</span> as a function.
+</p>
+<p>
+We call the unvierse <span class='kmath'>U = Dom[X] \times Dom[Y]</span>.
+The fact that <span class='kmath'>X</span> and <span class='kmath'>Y</span> are independent means the events <span class='kmath'>X = x</span> and <span class='kmath'>Y=y</span> are independent. Then,
+<span class='kmath'>P(x, y) = P(x) P(y)</span>.
+</p>
+<p>
+We can apply <b>chain rule</b> to achieve:
+<span class='kmath'>P(X_1, X_2, ..., X_n) = P(X_1)P(X_2 | X_1)P(X_3 | X_1, X_2)...</span>
+</p>
+</div>
+<h5>Unconditional Independece</h5>
+<p>
+Unconditional dependence is quite rare. Conditional independence is quite common.
+</p>
+<div class='cntrl s'>
+<h3 id='71'>Probability Distributions</h3>
+<ul>
+<li>A joint distributuion records the probabilities that variables will hold particular values</li>
+<li>The sum of all probabilities must be 1 inorder to satisfy the axioms</li>
+<li>We use **normalization to convert raw data into legal probability distrubtions.</li>
+</ul>
+<div class='cntrl def'>
+<h3 id='72'>Definition</h3>
+<p>
+If <span class='kmath'>X</span> and <span class='kmath'>Y</span> are discrete random variables, the function given by
+<span class='kmath'>f(x, y) = P(X = x, Y=y)</span> for each pair of values <span class='kmath'>(x, y)</span> is called
+the joint probability of <span class='kmath'>X</span> and <span class='kmath'>Y</span>.
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='73'>Condtional Independence</h3>
+<div class='cntrl thm'>
+<h3 id='74'>Theorem: Symmetry</h3>
+<p>
+Assume <span class='kmath'>P(X | Y \cap Z) =  P(X | Y)</span>.
+</p>
+<p>
+Then, <br>
+<span class='kmath'>P(Z | X \cap Y)</span> <br>
+<span class='kmath'>= \frac{P(X \cap Y | Z)P(Z)}{P(X \cap Y)}</span> <br>
+<span class='kmath'>= \frac{P(X | Y \cap Z)P(Y | Z)}{P(X \cap Y)P(Y)}</span> <br>
+<span class='kmath'>= \frac{P(X| Y)P(Y | Z) P(Z)}{P(X|Y)P(Y)}</span> <br>
+<span class='kmath'>= \frac{P(Y|Z)P(Z)}{P(Y)} = P(Z|Y)</span>
+</p>
+</div>
+<ul>
+<li>Two problems with using full joint distribtution tables as our probabilistic models:
+<ul>
+<li>Unless there are only a few variables, the joint is <b>way</b> too big to represent explicitly</li>
+<li>Hard to learn (estimate) anything empirically about more than a few variables at a time</li>
+</ul>
+</li>
+<li><b>Bayes' Nets</b>: a technique for describing complex joint distributions
+<ul>
+<li>More properly called graphical models</li>
+<li>We describe ho variables locally interact</li>
+<li>Local interactions chain together to give global, indeirect interactions</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl thm'>
+<h3 id='75'>Theorem: Summation Rule</h3>
+<p>
+<span class='kmath'>P(a) = \sum_{c_i \in Dom[C]} P(a | c_i)P(c_i)</span>
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='76'>Bayes' Nets</h3>
+<div class='cntrl def'>
+<h3 id='77'>Definition: Graphical Model Notation</h3>
+<ul>
+<li><code>Nodes</code>: variables
+<ul>
+<li>Can be assigned or unassigned</li>
+</ul>
+</li>
+<li><code>Arcs</code>: interactions
+<ul>
+<li>Similiar to CSP</li>
+<li>Indicate "direct influence" between variables</li>
+<li>Formally encode cconditional independence</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>
+<i>Review lecture slides <a target='_blank' href='https://mcs.utm.utoronto.ca/~384/lectures/bayes2.pdf'>here</a>.</i>
+</p>
+<ul>
+<li>Structure decribed above is a Bayesian Network.
+<ul>
+<li>A BN is a graphical representation of the direct dependencies over a set of variables</li>
+<li>Together, with a set of condtional probability tables quantifying the strength of those influences</li>
+</ul>
+</li>
+<li>BN's generalize the above ideas in a very interesting way, leading to effiective means of representation and inference under certainty</li>
+</ul>
+<div class='cntrl def'>
+<h3 id='78'>Definition: Formal Definition</h3>
+<ul>
+<li>A BN over variables <span class='kmath'>\{X_1, X_2, ..., X_n\}</span> consists of:
+<ul>
+<li>a <i>DAG</i> (directed acyclic graph) whose nodes are given variables</li>
+<li>a set of <i>CPTS</i> (condtional probability tables) <span class='kmath'>P(X_i | Par(X_i))</span> for each <span class='kmath'>X_i</span></li>
+</ul>
+</li>
+<li>Key notions
+<ul>
+<li>parents of a node: <span class='kmath'>Par(X_i)</span></li>
+<li>children of a node</li>
+<li>descendants of a nodes</li>
+<li>ancestors of a node</li>
+<li>family:
+<ul>
+<li>set of nodes consisting of <span class='kmath'>X_i</span> and its parents CPTs are defined over families in the BN</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h5>Semantics</h5>
+<p>
+A Bayes net specifies that the joint distribtion over all of the variables
+in the net can be written as the following decomposition: <br>
+<span class='kmath'>P(X_1, X_2, ..., X_n) = P(X_n | Par(X_n))P(X_{n-1})) .. P(X_1 | Par(X_1))</span>
+</p>
+<p>
+Like other equations over variables this decomposition holds for any
+set of values <span class='kmath'>d_1, ..., d_n</span> for variables <span class='kmath'>X_1, ..., X_n</span>
+</p>
+<h5>Constructing a Bayes Net</h5>
+<ol>
+<li>We compute the probability of any setting of the variables using only the information contained in the CPTs of the network</li>
+<li>Take any ordering of the varaibles.
+<ul>
+<li><i>Apply</i> chain rule</li>
+</ul>
+</li>
+<li>For each <span class='kmath'>X_i</span> go through its conditioning set of <span class='kmath'>X_1, ..., X_{i-1}</span> and remove all variables that <span class='kmath'>X_i</span> is condtionally dependent of on</li>
+<li>Final product is a Bayes Net</li>
+</ol>
+</div>
+<div class='cntrl s'>
+<h3 id='79'>Variable Elimination</h3>
+<div class='cntrl def'>
+<h3 id='80'>Definition</h3>
+<ul>
+<li>Compute intermediate functions
+<ul>
+<li>We are actually storing values that we can reuse many times during the computation</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl alg'>
+<h3 id='81'>Algorithm</h3>
+<p>
+Given query variable <span class='kmath'>Q</span>, evidence variables **<span class='kmath'>E</span>** (set of variables observed to have values <span class='kmath'>e</span>) and remaining variables **<span class='kmath'>Z</span>**. <br>
+Let <span class='kmath'>F</span> be the original CPTs (conditional probabilty tables).
+</p>
+<ol>
+<li>Replace each factor <span class='kmath'>f \in F</span> that mentions a variable(s) in **<span class='kmath'>E</span>** with its restriction <span class='kmath'>f_{E=e}</span>
+<ul>
+<li>This might yield a factor over no variables, maybe a constant</li>
+</ul>
+</li>
+<li>For each <span class='kmath'>Z_j</span> - in the order given - eliminate <span class='kmath'>Z_j \in Z</span> as follows:
+<ul>
+<li>Compute new factor <span class='kmath'>g_i = \sum_{Z_j}f_1 f_2 ... f_k</span>, where the <span class='kmath'>f_i</span> are the factors in <span class='kmath'>F</span> that include <span class='kmath'>Z_j</span></li>
+<li>Remove the factors <span class='kmath'>f_i</span> that mention <span class='kmath'>Z_j</span> from <span class='kmath'>F</span> and add new factor <span class='kmath'>g_j</span> to <span class='kmath'>F</span></li>
+</ul>
+</li>
+<li>The reminaing factors refer only to the query variable <span class='kmath'>Q</span>. Take their product and normalize to produce <span class='kmath'>P(Q | E)</span></li>
+</ol>
+</div>
+<div class='cntrl e'>
+<h3 id='82'>Example</h3>
+<h5>Given</h5>
+<ul>
+<li><b>Factors</b>: <span class='kmath'>f_1(A), f_2(B), f_3(A,B,C), f_4(C, D)</span></li>
+<li><b>Query</b>: <span class='kmath'>P(A)</span>?</li>
+<li><i>Evidence</i>: <span class='kmath'>D = d</span></li>
+<li><b>Elim. Order</b>: <span class='kmath'>C, B</span></li>
+</ul>
+<h5>Steps</h5>
+<p>
+Replace <span class='kmath'>f_5(C) = f_4(C, D)</span>
+</p>
+<ol>
+<li>Compute and add <span class='kmath'>f_6(A, B) = \sum_C f_5(C) f_3(A, B, C)</span>
+<ul>
+<li>Remove <span class='kmath'>f_3, f_5</span></li>
+</ul>
+</li>
+<li>Compute and add <span class='kmath'>f_7(A) = \sum_B f_6(A, B) f_2(B)</span>
+<ul>
+<li>Remove <span class='kmath'>f_6, f_2</span></li>
+</ul>
+</li>
+</ol>
+<p>
+Last factors: <span class='kmath'>f_7(A), f_1(A)</span>. Their product is unnormalized, so <span class='kmath'>f(A|d) = \dfrac{f_1(A) f_7(A)}{\sum_A f_1(A) f_7(A)}</span>
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='83'>Relevance</h3>
+<div class='cntrl def'>
+<h3 id='84'>Definition</h3>
+<p>
+Given query <span class='kmath'>Q</span> and evidence <span class='kmath'>E</span>:
+</p>
+<ul>
+<li><span class='kmath'>Q</span> itself if relevant</li>
+<li>if any node <span class='kmath'>Z</span> is relevant, its parents are relevant</li>
+<li>if <span class='kmath'>e \in E</span> is a descendant of a relevant node, then <span class='kmath'>E</span> is relevant.</li>
+</ul>
+</div>
+</div>
+<hr>
+<h2 id='85'>Markov Models</h2>
+<div class='cntrl def'>
+<h3 id='86'>Definition: D-Separation</h3>
+<ul>
+<li>A set of variables <span class='kmath'>E</span> <b>d-separates</b> <span class='kmath'>X</span> and <span class='kmath'>Y</span> if it blocks every undirected path in the BN between <span class='kmath'>X</span> and <span class='kmath'>Y</span></li>
+<li><span class='kmath'>X</span> and <span class='kmath'>Y</span> are conditionally independent given evidence <span class='kmath'>E</span> if <span class='kmath'>E</span> d-separates <span class='kmath'>X</span> and <span class='kmath'>Y</span></li>
+</ul>
+<div class='cntrl def'>
+<h3 id='87'>Definition: Blocks</h3>
+<p>
+We say <span class='kmath'>E</span> blocks path <span class='kmath'>P</span> if and only if there is some node <span class='kmath'>Z</span> on the path <span class='kmath'>P</span> such that:
+</p>
+<ol>
+<li><span class='kmath'>Z \in E</span> and one arc on <span class='kmath'>P</span> enters <span class='kmath'>Z</span> and one leaves <span class='kmath'>Z</span> [<span class='kmath'>(X) \longrightarrow (Z) \longrightarrow (Y)</span>]</li>
+<li><span class='kmath'>Z \in E</span> and both arcs on <span class='kmath'>P</span> leave <span class='kmath'>Z</span> [<span class='kmath'>(X) \longleftarrow (Z) \longrightarrow (Y)</span>]</li>
+<li>both arcs on <span class='kmath'>P</span> enter <span class='kmath'>Z</span> and neither <span class='kmath'>Z</span> nor any or its descendents are in <span class='kmath'>E</span> [<span class='kmath'>(X) \longrightarrow (Z) \longleftarrow (Y)</span>]</li>
+</ol>
+</div>
+</div>
+<hr>
+<h2 id='88'>Knowledge Representation</h2>
+<p>
+Not all knowledge is symbolically represented, requiring intelligent
+agents to perform low lebel reasoning.
+</p>
+<h4>Reasoning</h4>
+<ul>
+<li>manipulating our symbols to produce new symols that represent new knowledge</li>
+<li>Usually a sequence of symbols</li>
+</ul>
+<p>
+In languages, sentences make some sort of claim or assertion about our world.
+We can verify them <span style='color: blue;'>true</span> or <span style='color: red;'>false</span>. We try to preserve
+the truth behind sentences in a <u>sound</u> way.
+</p>
+<div class='cntrl def'>
+<h3 id='89'>Definition: Completeness</h3>
+<p>
+Says our reasoning system is powerful enough to produce ALL sentences
+that must be true given a collection of true sentences.
+</p>
+</div>
+<h4>Logical Representations</h4>
+<ul>
+<li>AI typically employs logical representation of knowledge</li>
+<li>They are mathematically precise, and analyze our limitations, their properties and complexity</li>
+<li>Can be both formal or informal and have well developed proof theories</li>
+</ul>
+<div class='cntrl s'>
+<h3 id='90'>First-Order Logic</h3>
+<h5>Componets</h5>
+<ol>
+<li><b>Syntax</b> <code>if condition: expresson</code></li>
+<li><b>Semantics</b>: if <code>condition</code> is true, we execute <code>expression</code></li>
+</ol>
+<table>
+<tr>
+<th>Syntax</th>
+<th>Semantic</th>
+</tr>
+<tr>
+<td>Constants</td>
+<td><span class='kmath'>d \in D</span></td>
+</tr>
+<tr>
+<td>Functions</td>
+<td><span class='kmath'>f: D^k \longrightarrow D</span></td>
+</tr>
+<tr>
+<td>Predicate</td>
+<td><span class='kmath'>X \subset D</span></td>
+</tr>
+<tr>
+<td>Relation</td>
+<td><span class='kmath'>Y \subset D^k</span></td>
+</tr>
+<tr>
+<td>Equality</td>
+<td><span class='kmath'>\{(d, d) \mid d \in D\}</span></td>
+</tr>
+<tr>
+<td>Variables</td>
+<td>Objects that can vary</td>
+</tr>
+<tr>
+<td>Logical connectives</td>
+<td><span class='kmath'>\wedge, \vee, \Longrightarrow</span></td>
+</tr>
+<tr>
+<td>Quantifiers</td>
+<td><span class='kmath'>\forall, \exists</span></td>
+</tr>
+</table>
+<p>
+<span style='color: blue;'>We use a '.' for separating quantifiers.</span>
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='91'>Semantics</h3>
+<div class='cntrl def'>
+<h3 id='92'>Definition</h3>
+<p>
+A formal mapping from formulas to a boolean assertion about our
+semantic entities. The mappins mirroes the recursive strucutre of
+syntax.
+</p>
+</div>
+<h4>Language</h4>
+<p>
+We fix first-order language we are providing syntax for.
+</p>
+<p>
+<span class='kmath'> L(F, P, V) </span>, where:
+</p>
+<ul>
+<li><span class='kmath'>F</span> is the set of function (and constans).</li>
+<li><span class='kmath'>P</span> is set of predicate and relation symbols</li>
+<li><span class='kmath'>V</span> an infinite set of variables</li>
+</ul>
+<p>
+We interprate the lanauge using the tuple <span class='kmath'> \langle D, \phi, \psi, V \rangle</span>:
+</p>
+<ul>
+<li><span class='kmath'>D \neq \varnothing</span></li>
+<li><span class='kmath'>\phi</span> meaning of each primitive symbol</li>
+<li><span class='kmath'>\psi</span> meaning of each primitive predicate and relation symbol</li>
+<li><span class='kmath'>V</span> specifies the meaning of the variables</li>
+</ul>
+<table>
+<tr>
+<th>Symbol</th>
+<th>Semantics</th>
+</tr>
+<tr>
+<td>constant <span class='kmath'>c</span></td>
+<td><span class='kmath'>\phi(c) \in D</span></td>
+</tr>
+<tr>
+<td>k-ary function <span class='kmath'>f</span></td>
+<td><span class='kmath'>\phi(f) \in D^{D^k}</span></td>
+</tr>
+<tr>
+<td>predicate <span class='kmath'>p</span></td>
+<td><span class='kmath'>\psi(p) \in \mathcal{P}(D)</span></td>
+</tr>
+<tr>
+<td>k-ary relation <span class='kmath'>r</span></td>
+<td><span class='kmath'>\psi(r) \in \mathcal{P}(D^k)</span></td>
+</tr>
+<tr>
+<td>variable <span class='kmath'>x</span></td>
+<td><span class='kmath'>V(x) \in D</span></td>
+</tr>
+</table>
+<div class='cntrl s'>
+<h3 id='93'>Intuitions</h3>
+<div class='cntrl def'>
+<h3 id='94'>Definition: Domain</h3>
+<p>
+<span class='kmath'>\forall d \in D</span>, <span class='kmath'>d</span> is an individual
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='95'>Definition: <span class='kmath'>\phi</span></h3>
+<p>
+<span class='kmath'>\phi(\text{ label }) = f-\text{ label }</span>. Example: <span class='kmath'>\phi(\text{ distance })</span> returns
+a distance funcion.
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='96'>Definition: <span class='kmath'>\psi</span></h3>
+<p>
+Takes a relation <span class='kmath'>r</span> and retuns the boolean equivalent.
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='97'>Definition: <span class='kmath'>V</span></h3>
+<p>
+Quantification. Notation: <span class='kmath'>V[X/d]</span> is a new variable assignment
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='98'>Terms</h3>
+<p>
+Given <span class='kmath'>L(F, P, V)</span> and <span class='kmath'>I = \langle D,\phi, \psi, V \rangle</span> and any term
+<span class='kmath'>t</span>.
+</p>
+<table>
+<tr>
+<th>Symbol</th>
+<th>Semantics</th>
+</tr>
+<tr>
+<td>constant c</td>
+<td><span class='kmath'>I(c) = \phi(c) \in D</span></td>
+</tr>
+<tr>
+<td>function application</td>
+<td><span class='kmath'>I(f(t_1, ..., t_k)) = \phi(f)(I(t_1), ..., I(t_k))</span></td>
+</tr>
+<tr>
+<td>variable</td>
+<td><span class='kmath'>I(x) = V(x) \in D</span></td>
+</tr>
+</table>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='99'>Models</h3>
+<p>
+Let our knwoledge base KB consist of a set of formulas. We say that every <span class='kmath'>I</span> is a model of KB or that it
+satisfies KB. If , every formula <span class='kmath'>f \in</span> KB is ture under <span class='kmath'>I</span>. <br>
+<b>Notation:</b> <span class='kmath'>I \vDash KB</span> if <span class='kmath'>I</span> satisfies KB
+and <span class='kmath'>I \vDash f</span> if <span class='kmath'>f</span> is true under <span class='kmath'>I</span>.
+</p>
+<p>
+Suppose formula <span class='kmath'>f</span> is not mentioned in KD, but is true in every
+model of KB, ie. <span class='kmath'>I \vDash KB \Longrightarrow I \vDash f</span>. Then we
+say taht <span class='kmath'>f</span> is a <i>logical consequence</i> of KB or that KB
+<i>entails</i> <span class='kmath'>f</span>.
+</p>
+<div class='cntrl def'>
+<h3 id='100'>Definition: Axiomatizing the Domain</h3>
+<ul>
+<li>The more we add to the KB, the fewer models there are</li>
+</ul>
+</div>
+</div>
+<div class='cntrl e'>
+<h3 id='101'>Example: Markdov Hidden Models</h3>
+<table>
+<tr>
+<th><span class='kmath'>W_0</span></th>
+<th><span class='kmath'>B(W_0)</span></th>
+</tr>
+<tr>
+<td>sun</td>
+<td>0.8</td>
+</tr>
+<tr>
+<td>rain</td>
+<td>0.2</td>
+</tr>
+</table>
+<table>
+<tr>
+<th><span class='kmath'>W_{i+1}</span></th>
+<th><span class='kmath'>W_i</span></th>
+<th><span class='kmath'>Pr(W_{i+1} \mid W_i)</span></th>
+</tr>
+<tr>
+<td>sun</td>
+<td>sun</td>
+<td>0.6</td>
+</tr>
+<tr>
+<td>rain</td>
+<td>sun</td>
+<td>0.4</td>
+</tr>
+<tr>
+<td>sun</td>
+<td>rain</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td>rain</td>
+<td>raing</td>
+<td>0.9</td>
+</tr>
+</table>
+<table>
+<tr>
+<th><span class='kmath'>F_i</span></th>
+<th><span class='kmath'>W_i</span></th>
+<th><span class='kmath'>Pr(F_i \mid W_i)</span></th>
+</tr>
+<tr>
+<td>good</td>
+<td>sun</td>
+<td>0.8</td>
+</tr>
+<tr>
+<td>bad</td>
+<td>sun</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>good</td>
+<td>rain</td>
+<td>0.3</td>
+</tr>
+<tr>
+<td>bad</td>
+<td>rain</td>
+<td>0.7</td>
+</tr>
+</table>
+<h5><span class='kmath'>B'(W_i)</span></h5>
+<p>
+We time elapse from day 0 to day 1.
+</p>
+<p>
+<span class='kmath'>B(W_1=s) = P(W_1=s \mid W_0 = s)P(W_0 = s) + P(W_1 = s \mid w_0 = r)P(w_0=r)</span>
+<span class='kmath'>= (0.6)(0.8) + (0.1)(0.2) = 0.5</span>
+</p>
+<table>
+<tr>
+<th><span class='kmath'>W_i</span></th>
+<th><span class='kmath'>B'(W_1)</span></th>
+</tr>
+<tr>
+<td>sun</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>rain</td>
+<td>0.5</td>
+</tr>
+</table>
+<p>
+Say that <span class='kmath'>F_1 = </span> good.
+</p>
+<p>
+Then, <span class='kmath'>B(W_1) = P(F_1 = g \mid W_1 = s) B'(W_1 = s)</span>
+<span class='kmath'>= (0.8)(0.5) = \frac{0.4}{0.55}</span>
+</p>
+<p>
+<span class='kmath'>P(F_1 = g \mid W_1 = r) B'(W_1 = r) = (0.3)(0.5) = \frac{0.15}{0.55}</span>
+</p>
+<table>
+<tr>
+<th><span class='kmath'>W_1</span></th>
+<th><span class='kmath'>B(W_1)</span></th>
+</tr>
+<tr>
+<td>sun</td>
+<td><span class='kmath'>\frac{0.4}{0.55}</span></td>
+</tr>
+<tr>
+<td>rain</td>
+<td><span class='kmath'>\frac{0.15}{0.55}</span></td>
+</tr>
+</table>
+</div>
+<div class='cntrl s'>
+<h3 id='102'>Unifiers</h3>
+<ul>
+<li>A unifier of two formulas <span class='kmath'>f, g</span> is a substitution <span class='kmath'>\sigma</span> that makes <span class='kmath'>f</span> and <span class='kmath'>g</span> <i>syntactically identical</i></li>
+<li>Not all formulas can be unified</li>
+</ul>
+<p>
+<span style='color: blue;'>Note:</span> we use UPPER CASE  to denote variables, lower case for constants.
+</p>
+<div class='cntrl def'>
+<h3 id='103'>Definition: Most General Unifier</h3>
+<ul>
+<li>A substitution <span class='kmath'>\sigma</span> of two formulas <span class='kmath'>f, g</span> is a <b>Most General Unifier (MGU)</b> if:</li>
+<li><span class='kmath'>\sigma</span> is a unifier</li>
+<li>For every other unifier <span class='kmath'>\theta</span> of <span class='kmath'>f, g</span> there musut exists a third substitution <span class='kmath'>\lambda</span> such that <span class='kmath'>\theta = \sigma \lambda</span></li>
+</ul>
+<h5>Properties</h5>
+<ul>
+<li><i>least specialized</i> way of making clauses with universal variables match</li>
+<li>We can derive MGUs</li>
+<li>Intuitively, we line up the two formulas and find the first sub-expression when they disagree. The pair of subexpressions where the first disagree is called the <b>disagreement set</b></li>
+<li>The algorithm works by successively fixing disagreement sets until the two formulas become syntactically identical</li>
+</ul>
+<h4>Algorithm</h4>
+<ol>
+<li><span class='kmath'>k = 0, \sigma_0 = \{\}, S_0 = \{\}</span></li>
+<li>If <span class='kmath'>S_k</span> contains an identical pair of formulas: STOP and RETURN <span class='kmath'>\sigma_k</span> and the MGU <span class='kmath'>f, g</span></li>
+<li>Else, find disagreement set <span class='kmath'>D_k = \{e_1, e_2\} \subseteq S_k</span></li>
+<li>If <span class='kmath'>e_1 = V</span> a variable and <span class='kmath'>e_2 = t</span> a term not containing <span class='kmath'>V</span>:
+<ul>
+<li><span class='kmath'>\sigma_{k+1} = \sigma_k\{V = t\}</span> (compose additional substitution)</li>
+<li><span class='kmath'>S_{k+1} = S_k\{V = t\}</span> (apply the additional substitution)</li>
+<li><span class='kmath'>k = k + 1</span></li>
+<li>GOTO 2</li>
+</ul>
+</li>
+<li>Else STOP, <span class='kmath'>f, g</span> cannot be unified</li>
+</ol>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='104'>Non-Ground Resolutions</h3>
+<div class='cntrl def'>
+<h3 id='105'>Definition</h3>
+<p>
+From the two clauses:
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>(L, Q_1, ..., Q_k)</span>
+</p>
+<p>
+<span class='kmath'>(\neg M, R_1, ..., R_n)</span>
+</p>
+</div>
+<p>
+where there exists a <span class='kmath'>\sigma</span> a MGU for <span class='kmath'>L, M</span>, we infer the new
+clause
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>(Q_1 \sigma, ..., Q_k \sigma, R_1 \sigma, ..., R_n \sigma)</span>
+</p>
+</div>
+</div>
+<div class='cntrl e'>
+<h3 id='106'>Example: Resolution Proof</h3>
+<p>
+Some patients like all doctors. No patient likes any quack.
+Therefor no doctor is a quack.
+</p>
+<p>
+<i>proof</i>
+</p>
+<h5>Step 1</h5>
+<p>
+Pick symbols to represent these assertions:
+</p>
+<ul>
+<li><span class='kmath'>p(X) : X</span> is a patient</li>
+<li><span class='kmath'>d(X) : X</span> is a doctor</li>
+<li><span class='kmath'>q(X) : X</span> is a quack</li>
+<li><span class='kmath'>l(X, Y) : X</span> likes <span class='kmath'>Y</span></li>
+</ul>
+<h5>Step 2</h5>
+<p>
+Convert each assertion to a first-order formula:
+</p>
+<ol>
+<li>Some patients like all doctors <b>F1</b>
+<ul>
+<li><span class='kmath'>\exists X.p(X) \wedge \forall Y.(d(Y) \Longrightarrow l(X, Y))</span></li>
+</ul>
+</li>
+<li>No patients likes any quack <b>F2</b>
+<ul>
+<li><span class='kmath'>\neg (\exists X.p(X) \wedge \exists Y.q(Y)\wedge l(X, Y))</span></li>
+</ul>
+</li>
+<li>Therefore no doctor is a quack <b>Query</b>
+<ul>
+<li><span class='kmath'>\forall X. d(X) \Longrightarrow \neg q(X)</span></li>
+</ul>
+</li>
+</ol>
+<h5>Step 3</h5>
+<p>
+Convert to Clausal form. <br>
+<b>F1</b> <span class='kmath'>\exists X.p(X) \wedge \forall Y.(d(Y) \Longrightarrow l(X, Y))</span> <br>
+<span class='kmath'>\exists X. p(X) \wedge Y. \neg d(Y) \vee l(X, Y)</span> <br>
+<span class='kmath'>\forall Y.p(a) \wedge ( \neg d(Y) \vee l(a, Y))</span> (Skolem constant)
+</p>
+<p>
+1) <span class='kmath'>p(a)</span> <br>
+2) <span class='kmath'>\neg d(Y) \vee l(a, Y)</span>
+</p>
+<p>
+<b>F2</b> <span class='kmath'>\neg (\exists X.p(X) \wedge \exists Y. q(Y) \wedge l(X, Y))</span> <br>
+<span class='kmath'>\forall X.\neg p(X) \wedge \exists Y. q(Y) \wedge \neg l(X, Y)</span> <br>
+<span class='kmath'> \forall X \forall Y. \neg p(X) \vee \neg q(Y) \vee \neg l(X, Y)</span> <br>
+</p>
+<p>
+3) <span class='kmath'>\neg p(X) \vee \neg q(Y) \vee \neg l(X, Y)</span>
+</p>
+<p>
+Negation of Query. <br>
+<span class='kmath'>\neg (\forall X.d(X) \Longrightarrow \neg q(X))</span> <br>
+<span class='kmath'>\neg (\forall X. \neg d(X) \vee \neg q(X))</span> <br>
+<span class='kmath'>\exists X.d(X) \wedge q(X)</span> <br>
+<span class='kmath'>d(b) \wedge q(b)</span> (Skolem Constant) <br>
+</p>
+<p>
+4) <span class='kmath'>d(b)</span> <br>
+5) <span class='kmath'>q(b)</span>
+</p>
+<h5>Step 4</h5>
+<p>
+Resolution Proof from the Clauses
+</p>
+<ol>
+<li><span class='kmath'>p(a)</span></li>
+<li><span class='kmath'>(\neg d(x), l(a, Y))</span></li>
+<li><span class='kmath'>(\neg p(X), \neg q(Y)m \neg l(X, Y))</span></li>
+<li><span class='kmath'>d(b)</span></li>
+<li><span class='kmath'>q(b)</span></li>
+<li><span class='kmath'>R[3b, 5]\{Y = b\}(\neg p(Z), \neg l(Z, b))</span></li>
+<li><span class='kmath'>R[6a, 1]\{Z = a\} \neg l(a, b)</span></li>
+<li><span class='kmath'>R[6a, 3b]\{Y = b\} \neg d(b)</span></li>
+<li><span class='kmath'>R[8, 4]()</span> Contradiction proving the query true</li>
+</ol>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='107'>Answer Extracting</h3>
+<p>
+Above works for boolean questions, but we need something for "fill-in-the-blanks" questions.
+We use <b>free</b> variables in the query where we ant the fill in the blanks. We simply need to keep
+track of the binding that these variables received in proving the query.
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='108'>Factoring</h3>
+<h5>Motivation</h5>
+<ol>
+<li><span class='kmath'>(p(X), p(Y)) // \forall X. \forall Y. \neg p(X) \Longrightarrow p(Y)</span></li>
+<li><span class='kmath'>\neg P(V), \neg p(W) // \forall V. \forall W. p(V) \Longrightarrow \neg p(W)</span>
+<ul>
+<li>These clauuses are intuitively contradictory, but the following strict rules of resolution only we obtain:</li>
+</ul>
+</li>
+<li><span class='kmath'>R[1a, 2a](X = V)(p(Y), \neg p(Z))</span>
+<ul>
+<li>Renaming variables: <span class='kmath'>(p(Q), \neg p(Z))</span></li>
+</ul>
+</li>
+<li><span class='kmath'>R[3b, 1a](X = Z)(p(Y), p(Q))</span>
+<ul>
+<li>No way for generating empty clause!</li>
+<li>Factoring is needed to make resolution over non-ground clauses complete, without it resolution is incomplete!</li>
+</ul>
+</li>
+</ol>
+<div class='cntrl def'>
+<h3 id='109'>Definition: Factorizing</h3>
+<p>
+If two or more literals of a clause <span class='kmath'>C</span> have an MGU <span class='kmath'>\theta</span> them <span class='kmath'>C \theta</span>
+with all duplicates literals removed is called a <b>factor</b> of <span class='kmath'>C</span>.
+</p>
+</div>
+</div>
+<div class='cntrl e'>
+<h3 id='110'>Example: Final Example</h3>
+<p>
+Consider the following English description:
+</p>
+<ul>
+<li>Whoever can read is literate</li>
+<li>Dolphins are not literate</li>
+<li>Flipper is an intelligent dolphin</li>
+<li>Who is intelligent and cannot read?</li>
+</ul>
+<h5>Pick symbols and convert to first-order formula</h5>
+<ul>
+<li>Whoever can read is literate
+<ul>
+<li><span class='kmath'>\forall x . read(X) \Longrightarrow lit(X)</span></li>
+</ul>
+</li>
+<li>Dolphins are not literate
+<ul>
+<li><span class='kmath'>\forall. dolp(X) \Longrightarrow \neg lit(X)</span></li>
+</ul>
+</li>
+<li>Flipper is an intelligent dolphin
+<ul>
+<li><span class='kmath'>dolp(flipper) \wedge intell(flipper)</span></li>
+</ul>
+</li>
+<li>Who is intelligent and cannot read?
+<ul>
+<li><span class='kmath'>\exists X. intell(X) \wedge \neg read(X)</span></li>
+</ul>
+</li>
+</ul>
+<h5>Convert to Clausal Form</h5>
+<ul>
+<li><span class='kmath'>\forall x . read(X) \Longrightarrow lit(X)</span>
+<ul>
+<li><span class='kmath'>(\neg read(X), lit(X))</span></li>
+</ul>
+</li>
+<li><span class='kmath'>\forall. dolp(X) \Longrightarrow \neg lit(X)</span>
+<ul>
+<li><span class='kmath'>(\neg dolp(X), \neg lit(X))</span></li>
+</ul>
+</li>
+<li><span class='kmath'>dolp(flipper) \wedge intell(flipper)</span>
+<ul>
+<li><span class='kmath'>dolp(flipper)</span></li>
+<li><span class='kmath'>intell(flipper)</span></li>
+</ul>
+</li>
+<li><span class='kmath'>\exists X. intell(X) \wedge \neg read(X)</span>
+<ul>
+<li><span class='kmath'>\forall X. \neg intell(X) \vee read(X)</span>
+<ul>
+<li><span class='kmath'>(\neg intell(X), read(X), answer(X))</span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5>Resolution Proof</h5>
+<p>
+1.<span class='kmath'> </span>(\neg read(X), lit(X))$
+</p>
+<ol>
+<li><span class='kmath'>(\neg dolp(X), \neg lit(X))</span></li>
+<li><span class='kmath'>dolp(flipper)</span></li>
+<li><span class='kmath'>intell(flipper)</span></li>
+<li><span class='kmath'>(\neg intell(X), read(X), answer(X))</span></li>
+<li><span class='kmath'>R[5a, 4]\{X = flip\}. (read(flip), answer(flip))</span></li>
+<li><span class='kmath'>R[6, 1a] \{ X = flip \} (lit(flip), answer(flip))</span></li>
+<li><span class='kmath'>R[7, 2b] \{ X = flip \} (\neg dolp(flip), answer(flip))</span></li>
+<li><span class='kmath'>R[8, 3] answer(flip)</span>
+<ul>
+<li>so flip is intelligent but connot read!</li>
+</ul>
+</li>
+</ol>
+</div>
+<hr>
+<h2 id='111'>Review</h2>
+<h5>Topics</h5>
+<ul>
+<li>Searching (informed and uniformed)</li>
+<li>Game tree searching</li>
+<li>CSP</li>
+<li>Bayes' Nets</li>
+<li>Knowledge Representation</li>
+</ul>
+<p>
+<span style='color: red;'>One major question on each topic!</span>
+</p>
+<h5>Search</h5>
+<ul>
+<li>Uniformed: <code>BFS</code>, <code>DFS</code>, <code>UCS</code>, <code>DL</code>, <code>IDS</code></li>
+</ul>
+<table>
+<tr>
+<th>Criterion</th>
+<th><code>BFS</code></th>
+<th><code>UCS</code></th>
+<th><code>DFS</code></th>
+</tr>
+<tr>
+<td>Complete?</td>
+<td>Yes(*)</td>
+<td>Yes(**)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Optimal?</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Time</td>
+<td><span class='kmath'>O(b^d)</span></td>
+<td><span class='kmath'>O(b^{1 + [\frac{C*}{\epsilon}]})</span></td>
+<td><span class='kmath'>O(b^m)</span></td>
+</tr>
+<tr>
+<td>Space</td>
+<td><span class='kmath'>O(b^d)</span></td>
+<td><span class='kmath'>O(b^{1 + [\frac{C*}{\epsilon}]})</span></td>
+<td><span class='kmath'>O(bm)</span></td>
+</tr>
+</table>
+<ul>
+<li><span class='kmath'>b</span>: max branching factor</li>
+<li><span class='kmath'>d</span>: depth of least cost goal</li>
+<li><span class='kmath'>m</span>: max depth of the state space</li>
+<li>(*): complete if <span class='kmath'>b</span> is finite</li>
+<li>(**): complete if step costs <span class='kmath'>\geq \epsilon > 0</span></li>
+</ul>
+<h5>Heuristic Search</h5>
+<ul>
+<li>Greedy Best-First Search <code>GBS</code>:
+<ul>
+<li>Expands node with lowest <span class='kmath'>h</span> value</li>
+</ul>
+</li>
+<li><code>A*</code>
+<ul>
+<li><span class='kmath'>f = g + h</span></li>
+<li>Admissibility: <span class='kmath'>h \leq h^*</span> (optimistic)</li>
+<li>Monotonocity: <span class='kmath'>h(n_1) \leq C(n_1, n_2) + h(n_2)</span></li>
+</ul>
+</li>
+</ul>
+<h5>Game Tree Search</h5>
+<ul>
+<li>Constant sum two player game
+<ul>
+<li>Min-max strat</li>
+<li>Chance nodes: value computed as weighted edge</li>
+<li><span class='kmath'>\alpha</span>: best max value on the path to the root</li>
+<li><span class='kmath'>\beta</span>: best min value on the path to the root</li>
+</ul>
+</li>
+</ul>
+<h5>CSP</h5>
+<ul>
+<li>Problem formalization:
+<ul>
+<li>Variables: definition</li>
+<li><span class='kmath'>Domian(s)</span>: possible values</li>
+<li>Constraints: binary/higher order</li>
+</ul>
+</li>
+<li>Algorithms
+<ul>
+<li>Forward checking (with MRV heursitics)</li>
+<li>Generalized Arc Consistency (GAC)</li>
+<li>Can be enforced by pruning GAC inconsistent values</li>
+<li>In all cases, backtrack in case of DWO</li>
+</ul>
+</li>
+</ul>
+<h5>BN</h5>
+<ul>
+<li>A BN is a graphical representation of the direct dependencies over a set of variables, together with a set of conditional probability tables (CPTs) quantifying the strength of those influences.</li>
+<li>BN specifies the joint distribution over the variables in the net can be written as the following product decomposition:
+<ul>
+<li><span class='kmath'>P(X_1,...,X_n) =P(X_n|Par(X_n))...P(X_1|Par(X_1))</span></li>
+</ul>
+</li>
+<li>Causal relations among the variables in the network:
+<ul>
+<li>Independence, Conditional independence</li>
+</ul>
+</li>
+<li>Given the evidence, compute posterior probabilities from the information (CPTs) already in the network:
+<ul>
+<li>Chain rule, Bayes rule</li>
+</ul>
+</li>
+<li>Variable elimination uses the product decomposition that defines the Bayes Net and the summing out rule to compute posterior probabilities from the information(CPTs) already in the network</li>
+</ul>
+<hr>
+<h1 id='112'>Review</h1>
+<div class='cntrl def'>
+<h3 id='113'>Definition</h3>
+<ul>
+<li><b>satisfiable</b>: sometimes true</li>
+<li><b>valid</b>: always true</li>
+<li><b>sound</b>: whenever KB derives i S for any KD and any S, then KB entails S</li>
+<li><b>complete</b>:</li>
+</ul>
+</div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

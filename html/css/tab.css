@@ -1,0 +1,19 @@
+
+#top-nav {
+  padding-top: 10px;
+}
+
+#button-bar {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.page {
+  font-size: 13pt;
+  width: 100%;
+	background-color: #fff;
+	margin: 10px auto; 
+  border: 1px solid #ddd;
+resize: none;
+height: 100%;
+}
