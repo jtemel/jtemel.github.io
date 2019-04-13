@@ -1,0 +1,2675 @@
+
+<!DOCTYPE html>
+<html  class="uk-background-muted">
+<head>
+  <meta charset="UTF-8">
+  
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' type="text/css" href='../css/editor.css'>
+  <link rel='stylesheet' type="text/css" href='../css/tab.css'>
+  <link rel='stylesheet' type="text/css" href='../css/control.css'>
+  <link rel="stylesheet" type="text/css" href="../../third-party/css/uikit.min.css"/>
+  <script src="../../third-party/js/uikit.min.js"></script>
+  <script src="../../third-party/js/uikit-icons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script> 
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script> 
+    
+<script type="module">
+    import katex from 'https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.mjs';
+   var math = document.getElementsByClassName('kmath');
+  for (var i = 0; i < math.length; ++i) {
+    console.log(1);
+    katex.render(math[i].innerHTML
+         .replace("&amp;", "&")
+         .replace("&lt;", "<")
+         .replace("&gt;", ">"), math[i]);
+   }
+</script>
+  <title>NiceNote</title>
+</head>
+<body>
+  <div class="uk-container uk-container-large uk-text-center">
+    <div class="page">
+      <div id="preview" class="page-preview uk-box-shadow-large uk-text-left">
+<h1 id='0'>Introduction</h1>
+<hr>
+<div class='cntrl def'>
+<h3 id='1'>Definition: Network Edge</h3>
+<p>
+Interconnected routers, a <i>network of networks</i>.
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='2'>Network Core</h3>
+<div class='cntrl def'>
+<h3 id='3'>Definition</h3>
+<ul>
+<li>Hosts <b>clients</b> and <b>servers</b></li>
+<li>Mesh of interconnected routers</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='4'>Definition: Packets</h3>
+<p>
+Host sending function:
+</p>
+<ul>
+<li>takes application message</li>
+<li>breaks into small chunks, known as <b>packets</b>, of length <span class='kmath'>L</span> bits</li>
+<li>transmist packet into access network at <i>transmission rate</i> <span class='kmath'>R</span>
+<ul>
+<li>Link transmission rate, aka <i>capacity</i> aka <i>link bandwidth</i></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl fm'>
+<h3 id='5'>Formula: Packet Transmission Delay</h3>
+<p>
+Takes <span class='kmath'>\dfrac{L}{R}</span> seconds to transmist <span class='kmath'>L</span>-bit packet into link at
+<span class='kmath'>R</span> bps
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+packet transmission delay = <span class='kmath'>\dfrac{L}{R}</span>
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='6'>Packet-Switching</h3>
+<div class='cntrl def'>
+<h3 id='7'>Definition</h3>
+<p>
+Hosts break application-layer messages into <b>packets</b>.
+</p>
+<ul>
+<li>forward packets from one router to the next, across links on path from source to destination</li>
+<li>each packet transmitted at full link capacity</li>
+</ul>
+</div>
+<h4>Store-and-Forward</h4>
+<ul>
+<li><b>store-and-forward</b>: entire packet must arrive at router before it can be transmitted on next link</li>
+<li>end-to-end transmission delay = <span class='kmath'>2 \dfrac{L}{R}</span>
+<ul>
+<li><i>assuming no propagation delay</i></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><b>routing</b>: determines source-destination route taken by packets
+<ul>
+<li>uses <i>routing algorithms</i></li>
+</ul>
+</li>
+<li><b>forwarding</b>: move packets from router's input to appropiate router output</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='8'>Circuit Switching</h3>
+<p>
+End to end resources allocated to, reserverd for "call" between source and
+destination.
+</p>
+<ul>
+<li>dedicated resources: no sharing
+<ul>
+<li>circuit-like (guranteed) performance</li>
+</ul>
+</li>
+<li>circuit segment idle if not used by call (<i>no sharing</i>)</li>
+<li>commonly used in traditional telephone networks</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='9'>Packet-Switching vs. Circuit Switching</h3>
+<div class='cntrl e'>
+<h3 id='10'>Example</h3>
+<ul>
+<li>1 Mb/s link</li>
+<li>each user:
+<ul>
+<li>100 kb/s when "active"</li>
+<li>active 10% of the time</li>
+</ul>
+</li>
+</ul>
+<p>
+<span style='color: blue;'>Question:</span><br>
+Using <b>Circuit-switching</b>, how many users are allowed?
+</p>
+<p>
+<span style='color: green;'>Answer:</span> <br>
+Each user reserves 100 Kb/s, no sharing, so maximum 10 users allowed
+(<span class='kmath'>\dfrac{1 Mbps}{100Kbps}</span>)
+</p>
+<p>
+<span style='color: blue;'>Question:</span> <br>
+Using <b>Packet-switching</b>, how many users are allowed?
+</p>
+<p>
+<span style='color: green;'>Answer:</span> <br>
+Technically, there is no limit, given <span class='kmath'>\leq 10</span> users are active at
+the same time. Whats the probability of that, assuming we have <span class='kmath'>35</span>
+users in total?  <span class='kmath'>\approx 99.96\%</span>
+</p>
+<p>
+Thus, packet-switching allows more users to use the network!
+</p>
+<h5>Does Packet-Switching always win?</h5>
+<ul>
+<li>great for bursty data
+<ul>
+<li>resource sharing</li>
+<li>simpler, no call setup</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><b>excessive congestion possible</b>: packet delay and loss
+<ul>
+<li>protocals needed for reliable data transfer, congestion control</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='11'>Delay, Loss and Throughput</h3>
+<h4>Loss</h4>
+<p>
+<b>Queueing</b>
+</p>
+<ul>
+<li>if arrival rate (in bits) to link exceeds transmission rate of link for a period of time:
+<ul>
+<li>packets will queue, wait to be transmitted</li>
+<li>packets can be dropped (lost) if memory (buffer) fills up</li>
+</ul>
+</li>
+</ul>
+<h4>Four Sourcs of Packet Delay</h4>
+<ul>
+<li><span class='kmath'>d_{proc}</span>: <b>nodal processing</b>
+<ul>
+<li>check bit errors</li>
+<li>determine output link</li>
+<li>typically <span class='kmath'><</span> milisecond</li>
+</ul>
+</li>
+<li><span class='kmath'>d_{queue}</span>: <b>queueing delay</b>
+<ul>
+<li>time waiting at output link for transmission</li>
+<li>depends on congestion level of router</li>
+</ul>
+</li>
+<li><span class='kmath'>d_{trans}</span>: <b>transmission delay</b>:
+<ul>
+<li><span class='kmath'>L</span>: packet length (bits)</li>
+<li><span class='kmath'>R</span>: link bandwidth (bps)</li>
+<li><span class='kmath'>d_{trans} = \dfrac{L}{R}</span></li>
+</ul>
+</li>
+<li><span class='kmath'>d_{prop}</span>: <b>propagation delay</b>:
+<ul>
+<li><span class='kmath'>d</span>: length of physical link</li>
+<li><span class='kmath'>s</span>: propagation speed (<span class='kmath'>\approx 2 \times 10^8 m/sec</span>)</li>
+<li><span class='kmath'>d_{prop} = \dfrac{d}{s}</span></li>
+</ul>
+</li>
+</ul>
+<div class='cntrl fm'>
+<h3 id='12'>Formula: Total Packet Delay</h3>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>d_{nodal} = d_{proc} + d_{queue} + d_{trans} + d_{prop}</span>
+</p>
+</div>
+</div>
+<h4>Throughput</h4>
+<ul>
+<li><b>throughput</b>: rate (bits/time unit) at which bits transferred between sender/reciever
+<ul>
+<li><b>instantaneous</b>: rate given point in time</li>
+<li><b>average</b>: rate over longer period of time</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='13'>Internet Structure</h3>
+<div class='cntrl def'>
+<h3 id='14'>Definition: ISP</h3>
+<p>
+<i>Internet Service Provider</i>
+</p>
+<p>
+Access nets connect to an <b>ISP</b>
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='15'>Definition: IXP</h3>
+<p>
+<i>Internet Exchange Point</i>
+</p>
+<p>
+Connects ISPs together
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='16'>Definition: CDN</h3>
+<p>
+<i>Content Distribution Networks</i>
+</p>
+<p>
+Deliver content to access nets directly for faster and controlable
+data transfer.
+</p>
+</div>
+<h4>Idea</h4>
+<ul>
+<li>at center: small # of well-connected large networks
+<ul>
+<li><b>tier-1: commercial ISPs</b>: national and international converage</li>
+<li><b>content provider network</b>" private networks that connects its data centers to Internet, often bypassing tier-1 regional ISPs</li>
+</ul>
+</li>
+</ul>
+<p>
+Without, each access network connect to eachother <span class='kmath'>O(n^2)</span>!
+</p>
+<div class='cntrl s'>
+<h3 id='17'>Layers</h3>
+<ul>
+<li>explicit strucutre allows indentification, relationship of complex system's pieces</li>
+<li>modularization eases maintenance, updating of system
+<ul>
+<li>change of inplementation of layer's service transparent to rest of system</li>
+</ul>
+</li>
+</ul>
+<h4>The Five Layers</h4>
+<ul>
+<li><b>application</b>: supporting network applications
+<ul>
+<li>FTP, SMTP, HTTP</li>
+</ul>
+</li>
+<li><b>transport</b>: process-process data transfer
+<ul>
+<li>TCP, UDP</li>
+</ul>
+</li>
+<li><b>network</b>: routing of datagrams from source to destination
+<ul>
+<li>IP, routing protocols</li>
+</ul>
+</li>
+<li><b>link</b>: data transfer between neighboring network elements
+<ul>
+<li>Ethernet, 802.111 (WiFi), P2P</li>
+</ul>
+</li>
+<li><b>physical</b>" bits "on the wire"</li>
+</ul>
+</div>
+</div>
+<h1 id='18'>Application Layer</h1>
+<hr>
+<div class='cntrl def'>
+<h3 id='19'>Definition: Client Server</h3>
+<ul>
+<li><b>server</b>:
+<ul>
+<li>always on host</li>
+<li>permanent IP</li>
+<li>data centers to scale</li>
+</ul>
+</li>
+<li><b>clients</b>:
+<ul>
+<li>communicate with server</li>
+<li>may be intermittently connected</li>
+<li>may have dynamic IP</li>
+<li>no clinet-to-client communication directly</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='20'>Definition: P2P</h3>
+<ul>
+<li><i>No</i> always on server</li>
+<li>arbitrary end systems directly communicate</li>
+<li>peers requestion service from other peers, provide service in return to other peers
+<ul>
+<li><b>self scalability</b>: new peers bring new service capacity as well as new service demands</li>
+</ul>
+</li>
+<li>complex</li>
+</ul>
+</div>
+<h3 id='21'>Client vs. P2P</h3>
+<h5>Notation</h5>
+<ul>
+<li><span class='kmath'>F</span> file size in bytes</li>
+<li><span class='kmath'>N</span> number of clients</li>
+<li><span class='kmath'>u_s</span> server upload capacity</li>
+<li><span class='kmath'>d_i</span> peer <span class='kmath'>i</span> download capacity</li>
+<li><span class='kmath'>u_i</span> peer <span class='kmath'>i</span> upload capacity</li>
+</ul>
+<div class='cntrl fm'>
+<h3 id='22'>Formula: Time to distribute <span class='kmath'>F</span> to <span class='kmath'>N</span> clients usin C-S</h3>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>D_{C-S} \geq max\{\dfrac{NF}{u_s}, \dfrac{F}{d_{min}} \}</span>
+</p>
+</div>
+</div>
+<div class='cntrl fm'>
+<h3 id='23'>Formula: Time to distribute <span class='kmath'>F</span> to <span class='kmath'>N</span> clients usin C-S</h3>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>D_{C-S} \geq max\{\dfrac{NF}{u_s}, \dfrac{F}{d_{min}} \}</span>
+</p>
+</div>
+</div>
+<h3 id='24'>So Why use P2P?</h3>
+<p>
+Scales <span style='color: green;'>logarithmically,</span> unlike Client-Server which is <span style='color: red;'>linear</span>
+</p>
+<div class='cntrl e'>
+<h3 id='25'>Example: BitTorrent</h3>
+<ul>
+<li>User's periodically ask peers what chunks they have and request <b>rarest</b> first</li>
+<li><b>tit-for-tat</b>: top 4 peers sending chunks at highest rate recieve chunks from the user, others are choked. This is periodically re-evaluated.
+<ul>
+<li>Alice unchokes Bob</li>
+<li>Alice becomes one of Bob's top 4 providers; Bob reciprocates</li>
+<li>Bob becomes one of Alice's top 4 providers</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='26'>Definition: Sockets</h3>
+<ul>
+<li>sending process shoves message into socket</li>
+<li>sending procces relis on transport infrastructure on other side of socket to deliver message</li>
+</ul>
+<ul>
+<li><b>identifier</b>: both <b>IP</b> address and <b>port number</b></li>
+<li>communication happens when mesage is sent into same socket and at the write IP address</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='27'>TCP vs. UDP</h3>
+<div class='cntrl def'>
+<h3 id='28'>Definition: TCP</h3>
+<ul>
+<li><b>reliable transport</b>: between sending and receiving process</li>
+<li><b>flow control</b>: sender won't overwhelm receiver</li>
+<li><b>congestion control</b> throttle sneder when network overloaded</li>
+<li><b>does not provide</b>:
+<ul>
+<li>timing</li>
+<li>minimum throughput</li>
+<li>security</li>
+</ul>
+</li>
+<li><b>congestion-oriented</b>: setup required between client and server processess</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='29'>Definition: UDP</h3>
+<ul>
+<li><b>does not provide</b>:
+<ul>
+<li>data transfer</li>
+<li>reliability</li>
+<li>congestion control</li>
+<li>timing</li>
+<li>throughput</li>
+<li>security</li>
+<li>connection setup</li>
+</ul>
+</li>
+</ul>
+<p>
+<span style='color: blue;'>Used</span> when you need quick and <i>good-enough</i> data transfer
+(i.e. streaming)
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='30'>HTTP and Types</h3>
+<p>
+<i>HTTP</i>: <b>H</b>yper<b>T</b>ext <b>T</b>ransfer <b>P</b>rotocol
+</p>
+<div class='cntrl def'>
+<h3 id='31'>Definition: HTTP</h3>
+<p>
+Uses <span style='color: blue;'>TCP</span>
+</p>
+<h4>Process</h4>
+<ol>
+<li>client initiates TCP connection to server</li>
+<li>server accepts TCP connection</li>
+<li>HTTP messages exchanged between browser and web server</li>
+<li>TCP connection closed</li>
+</ol>
+<p>
+HTTP is <b>stateless</b>: server maintains no information about past client
+requests.
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='32'>Definition: RTT (Round-Trip Time)</h3>
+<p>
+The time for a small packet to travel from client to server and back.
+</p>
+</div>
+<h4>HTTP Response Time</h4>
+<ul>
+<li>one RTT to initiate TCP connection</li>
+<li>one RTT for HTTP request and first few bytes of HTTP response to return</li>
+<li>file transmission time</li>
+</ul>
+<div class='cntrl s'>
+<h3 id='33'>Persistent vs. Non-Persistent</h3>
+<h4>Persistent</h4>
+<ul>
+<li>multiple objects can be sent over a single TCP connection
+<ul>
+<li>as little as one RTT for all referenced objects</li>
+</ul>
+</li>
+</ul>
+<h4>Non-Persistent</h4>
+<ul>
+<li>at most one object sent over TCP connection
+<ul>
+<li>connection then closed</li>
+</ul>
+</li>
+<li>downloading multiple objects required multiple connections
+<ul>
+<li>requires 2 RTTs per object</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='34'>Messages Types</h3>
+<div class='cntrl def'>
+<h3 id='35'>Definition: Request</h3>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+GET /index.html HTTP/1.1\r\n
+Host: www.cs.toronto.edu\r\n
+User-Agent: Firefox/3.6\r\n
+Accept: text/html\r\n
+Accept-Language: en-us\r\n
+Accept-Encoding: gzip\r\n
+Accept-Charset: utf-8\r\n
+Keep-Alive: 115\r\n
+Connection: keep-alive\r\n
+\r\n
+</pre>
+</div>
+<ul>
+<li><b>post</b>: webpage form</li>
+<li><b>url</b>: <code>GET</code> method</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='36'>Definition: Response</h3>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+HTTP/1.1 200 OK\r\n
+Data: Sun, ...\r\n
+Last-Modified: Tue, ...\r\n
+Content-Length: 2652\r\n
+Content-Type: text/html\r\n
+\r\n
+data data ...
+</pre>
+</div>
+<h5>Responses Codes</h5>
+<ul>
+<li><code>200 OK</code>: request suceeded</li>
+<li><code>301 Moved Permanently</code>: object moved, new location later in message</li>
+<li><code>400 Bad Request</code>: request msg not understood by server</li>
+<li><code>404 Not Found</code>: request document not found on server</li>
+<li><code>505 HTTP Version Not Supported</code></li>
+</ul>
+</div>
+</div>
+<p>
+<i>send HTTP requests via <code>netcat</code>, <code>telnet</code>, <code>gnutls</code> (for HTTP) followed</i>
+<i>by the host name and port number</i>
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='37'>Cookies</h3>
+<div class='cntrl def'>
+<h3 id='38'>Definition</h3>
+<p>
+Four components:
+</p>
+<ol>
+<li>Cookie header line of HTTP response message</li>
+<li>cookie header line in next HTTP request message</li>
+<li>cookie file kept on users' host, managed by users' browser</li>
+<li>back-end database at website</li>
+</ol>
+<p>
+Contains a <b>unique ID</b> for the server to differentiate between users.
+</p>
+</div>
+<p>
+Keeps a <b>state</b> since HTTP is stateless.
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='39'>Web Cache</h3>
+<div class='cntrl def'>
+<h3 id='40'>Definition</h3>
+<ul>
+<li>intercepts HTTP request
+<ul>
+<li>in cache and up to date? Return saved copy</li>
+<li>if not, forward request to server, intercept response, save data, then forward to user who requested it</li>
+</ul>
+</li>
+</ul>
+</div>
+<h4>Properties</h4>
+<ul>
+<li>reduce response time for client request</li>
+<li>reduce traffic on institutions access link</li>
+<li>enables "poor" content provides to effectively deliver content</li>
+</ul>
+<div class='cntrl s'>
+<h3 id='41'>Calculations on Performance</h3>
+<h5>Assumptions</h5>
+<ul>
+<li>avg object size: <span class='kmath'>1M bits</span></li>
+<li>avg reqesut rate from browsers to origin server: <span class='kmath'>15</span> requests/sec</li>
+<li>avg data rate to browsers: <span class='kmath'>15</span> Mbps</li>
+<li>RTT from institutional router to any origin server: <span class='kmath'>2</span> secs</li>
+</ul>
+<div class='cntrl e'>
+<h3 id='42'>Example: No Cache</h3>
+<h5>Assumptions</h5>
+<ul>
+<li>access link rate: <span class='kmath'>15</span> Mbps</li>
+</ul>
+<ul>
+<li>LAN utilization: <span class='kmath'>15\%</span></li>
+<li>access link utilization: <span class='kmath'>100\%</span> (<span style='color: red;'>problem</span>)</li>
+<li>total delay = Internet delay + LAN delay = 2 sec + minutes + msecs</li>
+</ul>
+</div>
+<div class='cntrl e'>
+<h3 id='43'>Example: No cache but faster transfer rate</h3>
+<h5>Assumptions</h5>
+<ul>
+<li>access link rate: <span class='kmath'>150 Mbps</span></li>
+</ul>
+<ul>
+<li>LAN utilization: <span class='kmath'>15\%</span></li>
+<li>access link utilization: <span class='kmath'>10\%</span></li>
+<li>total delay = Internet delay + LAN delay = 2 sec + msecs + msecs</li>
+</ul>
+<p>
+<span style='color: red;'>Expensive!</span>
+</p>
+</div>
+<div class='cntrl e'>
+<h3 id='44'>Example: With Local Cache</h3>
+<h5>Assumptions</h5>
+<ul>
+<li>access link rate: <span class='kmath'>15</span> Mbps</li>
+</ul>
+<ul>
+<li>LAN utilization: <span class='kmath'>15\%</span></li>
+<li>access link utilization: <span style='color: red;'>?</span></li>
+<li>total delay = <span style='color: red;'>?</span></li>
+</ul>
+<p>
+Suppose hit rate is <span class='kmath'>40\%</span>, then link utilization is <span class='kmath'>60\%</span> of requests.
+</p>
+<p>
+So, data rate to browsers over access link <span class='kmath'>= 0.6*15 Mbps = 9Mbps</span>
+(utilization = <span class='kmath'>\dfrac{9}{15} = 60\%</span>).
+</p>
+<p>
+So <b>total delay</b> <span class='kmath'>= 0.6 *</span> (delay fom origin servers_ <span class='kmath'>+ 0.4*</span>
+(delay when satisifed at cache) <span class='kmath'>= 0.6 * (2 sec) + 0.4 * (\sim msecs)</span>
+<span class='kmath'>\approx 1.2 secs</span>
+</p>
+<p>
+<span style='color: green;'>Faster and cheaper!</span>
+</p>
+</div>
+</div>
+<div class='cntrl def'>
+<h3 id='45'>Definition: Conditional GET</h3>
+<ul>
+<li>don't send object if cache has up-to-date version</li>
+</ul>
+<ul>
+<li><b>cache</b> specifiy date of cached copy in HTTP request
+<ul>
+<li><code>If-modified-since: date</code></li>
+</ul>
+</li>
+<li><b>server</b> responses contains no object if cached copy is up-to-date:
+<ul>
+<li><code>HTTP/1.1. 304 Not Modified</code></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='46'>SMTP</h3>
+<div class='cntrl def'>
+<h3 id='47'>Definition</h3>
+<ul>
+<li>uses TCP</li>
+<li>direct transfer</li>
+<li>three phases of transfer
+<ul>
+<li>handshake</li>
+<li>transfer of messages</li>
+<li>closure</li>
+</ul>
+</li>
+<li>command/response interaction (like HTTP)
+<ul>
+<li><b>commands</b>: ASCII text</li>
+<li><b>response:</b> status code and phrase</li>
+</ul>
+</li>
+</ul>
+</div>
+<h4>Contrast to HTTP</h4>
+<p>
+HTTP <mark>pulls</mark> and SMTP <mark>pushes</mark>, and SMTP sends multiple objects in one
+message.
+</p>
+<h4>Fields</h4>
+<ul>
+<li><code>HELO</code>
+<ul>
+<li>initiates handshake with personal mail server</li>
+</ul>
+</li>
+<li><code>MAIL FROM: sender_email</code></li>
+<li><code>RCPT TO: recipient_email</code></li>
+<li><code>DATA</code>:
+<ul>
+<li>content to send</li>
+<li>ends when a single <code>.</code> is sent</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='48'>DNS</h3>
+<div class='cntrl def'>
+<h3 id='49'>Definition: Domain Name System</h3>
+<ul>
+<li><b>distribued database</b> implemented in hierarchy of many <i>name servers</i></li>
+<li><b>application-layer protocol</b>: hosts, anems servers communicate to <i>resolve</i> names</li>
+</ul>
+<ul>
+<li>hosts IP translation</li>
+<li>hosts aliasing</li>
+<li>mail server aliasing</li>
+<li>load distribution</li>
+</ul>
+</div>
+<h4>Why DNS?</h4>
+<ul>
+<li>Easy domain names (no 127.0.0... etc.)</li>
+<li>Speak to origin server or CDN easily</li>
+</ul>
+<h4>Types/ Hierarchy</h4>
+<h5>Root Servers</h5>
+<ul>
+<li>Answers requests for records in the root zone and returns a list of authoritative name servers</li>
+</ul>
+<h5>Top-Level Domain (TLD) Servers</h5>
+<ul>
+<li>responsible for <code>.com</code>, <code>.org</code>, <code>.fr</code>, etc.</li>
+</ul>
+<h5>Authoritative DNS servers:</h5>
+<ul>
+<li>organizations own DNS server, IP mappings for organizations named hosts</li>
+</ul>
+<h5>Local DNS</h5>
+<ul>
+<li>does not strictly belong to hierarchy</li>
+<li>each ISP has one: <i>default name server</i></li>
+</ul>
+<h4>How it Works</h4>
+<p>
+When a host makes a DNS query, the query is sent to its local DNS server:
+</p>
+<ul>
+<li>has local cahce of recent name-to-address translation pairs</li>
+<li>acts as proxy, forwards query into hierarchy</li>
+</ul>
+<ol>
+<li>Computer asks its local DNS for a mapping</li>
+<li>Local DNS server contacts a roo DNS server for the mapping</li>
+<li>Root DNS server responds with the IP address of the TLD DNS server for the relevant domain</li>
+<li>Local DNS contacts TLD server and the TLD server sends address of the authoritative DNS server</li>
+<li>Local server contacts the authoritative server and gets IP address</li>
+<li>Local DNS server sends the IP address to the computer</li>
+</ol>
+<div class='cntrl def'>
+<h3 id='50'>Definition: Iterative Query</h3>
+<p>
+contacted server replives with name of server to contact
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='51'>Definition: Recursive Query</h3>
+<p>
+puts burden of name resolution on contacted server
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='52'>Definition: Resource Record</h3>
+<p>
+DNS's store a <b>RR</b> that has infomation about the entry.
+</p>
+</div>
+<h4>Protocol</h4>
+<p>
+Query and reply have same message format:
+</p>
+<ul>
+<li>header:
+<ul>
+<li><code>id</code>: 16 bit number for query, reply to query uses same number</li>
+<li><code>flags</code>:
+<ul>
+<li>query or reply</li>
+<li>recursion desired</li>
+<li>recursion available</li>
+<li>reply is aithoritative</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl e'>
+<h3 id='53'>Example: Startup Wants DNS</h3>
+<ol>
+<li>register name startup.com at DNS registrar
+<ul>
+<li>provide names, IP addresses of authoritative name server</li>
+<li>registrar inserts two RRs into .com TLD server:</li>
+</ul>
+</li>
+<li>create authoritative server type A record for www.startup.com; type MX record for startup.com</li>
+</ol>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='54'>Streaming Media</h3>
+<div class='cntrl def'>
+<h3 id='55'>Definition: DASH (Dynamic, Adaptive Streaming over HTTP)</h3>
+<ul>
+<li><b>server</b>
+<ul>
+<li>divides video file into multiple chunks</li>
+<li>each chunk stored, encoded at different rates</li>
+<li><b>manifest file</b>: provides URLs for different chunks</li>
+</ul>
+</li>
+<li><b>client</b>
+<ul>
+<li>periodically measures server-to-client bandwidth</li>
+<li>consulting manifest, requests one chunk at a time
+<ul>
+<li>chooses maximum coding rate sustainable given current bandwidth</li>
+<li>can choose different coding rates at different points in time (depending on available bandwidth at that time)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>
+We say that the client is <b>intelligent</b> since it determines:
+</p>
+<ul>
+<li><i>when</i> to request chunk (so that buffer starvation, or overflow does not occur)</li>
+<li><i>what encoding rate</i> to request (higher quality when more bandwidth is available)</li>
+<li><i>where</i> to request chunk (can request from URL serves that is "close" or has high available bandwidth)</li>
+</ul>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='56'>CDN</h3>
+<div class='cntrl def'>
+<h3 id='57'>Definition: Enter Deep</h3>
+<p>
+Push CDN servers deep into many access networks.
+</p>
+<ul>
+<li>close to users</li>
+<li>low delay</li>
+<li>high throughput</li>
+<li>high maintaenance cost</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='58'>Definition: Bring Home</h3>
+<p>
+Small number (10's) of larger clusters in IXPs near (but not within) access
+networks.
+</p>
+<ul>
+<li>lower maintencance cost</li>
+<li>higher delay</li>
+<li>lower throughput</li>
+</ul>
+</div>
+</div>
+<h1 id='59'>Transport Layer</h1>
+<hr>
+<h3 id='60'>Overview</h3>
+<ul>
+<li>provides logical communication between app process running on different hosts</li>
+<li>runs in end system
+<ul>
+<li>send side: break app messages into segmnets, passes to network layer</li>
+<li>rcv side: reassembles segments into messages, passes to app layer</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl s'>
+<h3 id='61'>(De)Multiplexing</h3>
+<div class='cntrl def'>
+<h3 id='62'>Definition: Multiplexing at Sender</h3>
+<p>
+Handle data from multiple sockets, add transport header.
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='63'>Definition: Demultiplexing at Receiver</h3>
+<p>
+User header into to deliver received segments to correct socket.
+</p>
+</div>
+<h4>Diving into Demultiplexing</h4>
+<ul>
+<li>host receivers IP datagrams
+<ul>
+<li>each datagram has source IP and destination IP</li>
+<li>each datagram carries one transport-layer segmnet</li>
+<li>each segment has source, destination port number</li>
+</ul>
+</li>
+<li>host uses IP address and port numbers to direct segment to appropiate socket</li>
+</ul>
+<h5>UDP</h5>
+<p>
+When host receives UDP segment, check the desintation port number in the segment
+and direct segment there. <br>
+IP datagrams with <i>same destination port number</i> but different sourrce IP
+addresses and/or source port number will be diected to the <b>same socket</b> at
+dest.
+</p>
+<h5>TCP</h5>
+<p>
+TCP socket identified by <i>source IP, source port, destination IP</i> and
+<i>destination port</i>. Demux will uniquely identify socket based on the unique
+4-tuple.
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='64'>Definition: UDP (User Datagram Protocol</h3>
+<ul>
+<li>no frills</li>
+<li>best effort</li>
+<li><b>connectionless</b>:
+<ul>
+<li>no handshaking</li>
+<li>each UDP segment handled independently of others</li>
+</ul>
+</li>
+</ul>
+<h4>Pros</h4>
+<ul>
+<li>loss tolerant</li>
+<li>low delay (no connection)</li>
+<li>simple (no states)</li>
+<li>no congestion control (as fast as desired)</li>
+<li>rate sensitive</li>
+<li>adds reliabilit at application layer</li>
+<li>application-speific error recovery</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='65'>Definition: CheckSum</h3>
+<p>
+Some function that computes a set of bits that is inserted in the header. Upon
+arrival, the checksum is recomputed using the same function and if they do not
+match, there was an error.
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='66'>Reliable Data Transfer</h3>
+<div class='cntrl def'>
+<h3 id='67'>Definition: rdt1.0</h3>
+<h5>Assumption</h5>
+<ul>
+<li>underlying channel perfectly reliable
+<ul>
+<li>no bit errors</li>
+<li>no loss of packets</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='68'>Definition: rdt2.0</h3>
+<h5>Assumption</h5>
+<ul>
+<li>underlying channel may flip bits in packet
+<ul>
+<li>checksum to detect errors</li>
+</ul>
+</li>
+<li><i>recover by</i>:
+<ul>
+<li><code>ACK</code>: receiver explicitly tells sender pkt was OK</li>
+<li><code>NAK</code>: receiver explicitly tells sender pkt had ERRORs</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl alg'>
+<h3 id='69'>Algorithm: Stop-and-Wait (rdt2.1)</h3>
+<ul>
+<li><b>sender</b>:
+<ul>
+<li><code>seq</code> added to <code>pkt</code> (0 or 1)</li>
+<li>must check if received <code>ACK</code>/<code>NAK</code> corrupted
+<ul>
+<li>state must "rember" whether "expected" pkt should have <code>seq</code> number 0 or 1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><b>receiver</b>:
+<ul>
+<li>must check if received packet is duplicate
+<ul>
+<li>state indicates whether 0 or 1 is expected pkt <code>seq</code> number</li>
+</ul>
+</li>
+<li><i>can not</i> know if last <code>ACK</code>/<code>NAK</code> received OK at sender</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='70'>Definition: rdt2.2 (NAK free)</h3>
+<ul>
+<li>same as rdt2.1 but using only <code>ACK</code></li>
+<li>instead of <code>NAK</code>, resend <code>ACK</code> for last packet received OK</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='71'>Definition: rdt3.0</h3>
+<h5>Assumption</h5>
+<p>
+Underlying channel can lose packets.
+</p>
+<h5>Solution</h5>
+<p>
+Sender waits reasonable amount of time for <code>ACK</code>
+</p>
+<ul>
+<li>retransmits if no <code>ACK</code> received</li>
+<li>if pkt (or <code>ACK</code>) delayed but not lost
+<ul>
+<li>retransmission will be duplicate but <code>seq</code> numbers already handle this</li>
+<li>receiver must specify seq number of pkt being <code>ACK</code>ed</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl e'>
+<h3 id='72'>Example: Performance (bad)</h3>
+<ul>
+<li>1 Gbps link, 30 ms RTT, 8000 bit packet</li>
+</ul>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>D_{trans} = \dfrac{L}{R} = \dfrac{8000 \text{ bits }}{10^9 \text{ bits/sec }}</span>
+<span class='kmath'> = 8</span> microsecs
+</p>
+</div>
+<ul>
+<li><span class='kmath'>U_{sender}</span>: <b>utilization</b> -- fraction of time sender busy sending</li>
+</ul>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>U_{sender} = \dfrac{\dfrac{L}{R}}{RTT + \dfrac{L}{R}} = \dfrac{.008}{30.008} = 0.00027</span>.
+</p>
+</div>
+</div>
+</div>
+<div class='cntrl fm'>
+<h3 id='73'>Formula: <span class='kmath'>U_{sender}</span></h3>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>U_{sender} = \dfrac{\dfrac{L}{R}}{RTT + \dfrac{L}{R}}</span>
+</p>
+</div>
+</div>
+<div class='cntrl fm'>
+<h3 id='74'>Formula: Window Size</h3>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>N = \dfrac{\text{ Link Utilizaion \% }}{U_{sender}}</span>
+</p>
+</div>
+</div>
+<div class='cntrl alg'>
+<h3 id='75'>Algorithm: Go-Back-N</h3>
+<ul>
+<li>Increase link utilization by a factor of <span class='kmath'>N</span>.</li>
+</ul>
+</div>
+<div class='cntrl alg'>
+<h3 id='76'>Algorithm: Selective Repeat</h3>
+<p>
+Like Go-Back-N, but for every good <code>ACK</code>, move window forward, but ensure it
+still covers previous un<code>ACK</code>ed packets. Selectively resend anly packets that
+are un<code>ACK</code>ed.
+</p>
+<p>
+Requires receiver to buffer packets to ensure correct ordering. It has it's
+own window.
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='77'>TCP</h3>
+<h3 id='78'>Overview of TCP</h3>
+<ul>
+<li>point-to-point: one sender and one receiver</li>
+<li>reliable, in-order</li>
+<li>pipelined: congestion control with window size</li>
+<li>full duplex data: bi-directional with max segment size</li>
+<li>connection-oriented: handshaking</li>
+<li>flow controlled: sender will not overwhelm receiver</li>
+</ul>
+<h4>Segment Structure</h4>
+<ul>
+<li><code>URG</code>: urgent data</li>
+<li><code>ACK</code>: contains <code>seq</code> number of next byte expected; <i>cumulative</i></li>
+<li><code>PSH</code>: push data now</li>
+<li><code>RST</code>, <code>SYN</code>, <code>FIN</code>: connection establishment</li>
+<li><code>checksum</code></li>
+<li><code>seq</code>: byte stream number of first byte in segments data</li>
+<li><code>receive window</code>: number of bytes <code>rcvr</code> is willing to accept</li>
+</ul>
+<p>
+<code>seq</code> and <code>ACK</code> are counted by bytes of data
+</p>
+<h4>Determining Timeout (Exponential Weighted Moving Average)</h4>
+<div class='cntrl fm'>
+<h3 id='79'>Formula: Estimated RTT</h3>
+<p>
+<span class='kmath'>EstimatedRTT = (1 - \alpha) EstimatedRTT + \alpha SampleRTT</span>
+</p>
+<p>
+Typically, we use <span class='kmath'>\alpha = 0.125</span>.
+</p>
+</div>
+<p>
+The <b>timeout interval</b> is estimated using the EstimatedRTT plus "safety margin".
+</p>
+<div class='cntrl fm'>
+<h3 id='80'>Formula: Estimate Deviation</h3>
+<p>
+<span class='kmath'>DevRTT = (1 - \beta) DevRTT + \beta |SampleRTT - EstimatedRTT |</span>
+</p>
+<p>
+Typically, we use <span class='kmath'>\beta = 0.25</span>.
+</p>
+</div>
+<p>
+<span class='kmath'>TimeoutInterval = EstimatedRTT + 4 DevRTT</span>
+</p>
+<p>
+We use this to not drastically change the timeout interval on a single packets performance.
+We want to gradually increase or decrease the timeout given the current state of events.
+</p>
+<div class='cntrl alg'>
+<h3 id='81'>Algorithm</h3>
+<h4>Overview</h4>
+<ul>
+<li><b>data rcvd from app</b>:
+<ul>
+<li>create segment with <code>seq</code></li>
+<li><code>seq</code> is byte-stream number of first data byte in segment</li>
+<li>start <code>timer</code> if one is not already running</li>
+</ul>
+</li>
+<li><b>timeout</b>:
+<ul>
+<li>retransmit segment that caused timeout</li>
+<li>restart timer</li>
+</ul>
+</li>
+<li><code>ACK</code> <b>rcvd</b>:
+<ul>
+<li>if <code>ACK</code> acknowledges previously unacked segments
+<ul>
+<li>update what is known to be <code>ACK</code>ed</li>
+<li>start time if there are still unacked segments</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id='82'><code>ACK</code> Generation</h3>
+<table>
+<tr>
+<th>event at receiver</th>
+<th>TCP receiver action</th>
+</tr>
+<tr>
+<td>in-order segment with expected <code>seq</code>. All data so far is <code>ACK</code>ed</td>
+<td>delay <code>ACK</code>, wait 500ms for next segment. If not there, send <code>ACK</code></td>
+</tr>
+<tr>
+<td>in-order segment with expected <code>seq</code>. One other segment with <code>ACK</code> pending</td>
+<td>immediately send single cumulative <code>ACK</code> for both in-order segments</td>
+</tr>
+<tr>
+<td>out-of-order segment with higher than expected <code>seq</code></td>
+<td>immediately send <i>duplicate</i> <code>ACK</code> of next expected <code>seq</code></td>
+</tr>
+<tr>
+<td>segment that partially or completely fills gap</td>
+<td>immediately send <code>ACK</code>, provided segment is at the lower end of the gap</td>
+</tr>
+</table>
+</div>
+<h5>Fast Retransmit</h5>
+<p>
+If sender receives 3 <code>ACK</code> for same data, resend unacked segment with smallest <code>seq</code>. It is likely
+the unacked segment lost so don't wait for timeout.
+</p>
+<div class='cntrl def'>
+<h3 id='83'>Definition: Flow Control</h3>
+<p>
+The receiver controls the sender, so send won't overflow receiver's buffer by transmitting too much too quickly.
+</p>
+<p>
+The receiver advertises free buffer space by including the <code>rwnd</code> value in the TCP header. The sender
+will limit amount of unacked data to this value.
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='84'>Connection Establishment</h3>
+<h4>2-Way Handshake?</h4>
+<ul>
+<li>variable delays</li>
+<li>retransmitted messages</li>
+<li>message reordering</li>
+<li>can't "see" other side</li>
+</ul>
+<div class='cntrl e'>
+<h3 id='85'>Example: Client Terminates</h3>
+<p>
+Half-open connection!
+</p>
+<table>
+<tr>
+<th>client</th>
+<th>server</th>
+</tr>
+<tr>
+<td>choose and send <code>x</code></td>
+<td>---</td>
+</tr>
+<tr>
+<td>---</td>
+<td>rcv <code>x</code>, send <code>ESTAB</code></td>
+</tr>
+<tr>
+<td>retransmit <code>req_conn(x)</code></td>
+<td>---</td>
+</tr>
+<tr>
+<td>rcv <code>ESTAB</code></td>
+<td>---</td>
+</tr>
+<tr>
+<td><b>terminates</b></td>
+<td>forgets <code>x</code></td>
+</tr>
+<tr>
+<td>---</td>
+<td>rcv <code>ESTAB</code></td>
+</tr>
+</table>
+</div>
+<h4>3-Way Handshake</h4>
+<div class='cntrl alg'>
+<h3 id='86'>Algorithm: Establishing Connection</h3>
+<table>
+<tr>
+<th>client</th>
+<th>server</th>
+</tr>
+<tr>
+<td>choose init <code>seq</code>, <code>x</code> send TCP <code>SYN</code> msg</td>
+<td>---</td>
+</tr>
+<tr>
+<td>---</td>
+<td>choose init <code>seq</code>, <code>y</code>, send TCP <code>SYNACK</code> msg, acking <code>SYN</code></td>
+</tr>
+<tr>
+<td>rcv <code>SYNACK(x)</code> (server alive); send <code>ACK</code> for <code>SYNACK</code></td>
+<td>---</td>
+</tr>
+<tr>
+<td>---</td>
+<td>rcv <code>ACK(y)</code>, indicates client is live</td>
+</tr>
+</table>
+</div>
+<div class='cntrl alg'>
+<h3 id='87'>Algorithm: Terminating Connection</h3>
+<ul>
+<li>client, serve reach close their side of connection
+<ul>
+<li>send TCP segment with <code>FIN</code> = 1</li>
+</ul>
+</li>
+<li>respond to rcv <code>FIN</code> with <code>ACK</code>
+<ul>
+<li><code>ACK</code> can be combined with own <code>FIN</code></li>
+</ul>
+</li>
+<li>simultaneous <code>FIN</code> exchanges can be handled</li>
+</ul>
+<table>
+<tr>
+<th>client</th>
+<th>server</th>
+</tr>
+<tr>
+<td><code>close()</code> (sends a <code>FIN</code>); can not longer send but can rcv</td>
+<td>---</td>
+</tr>
+<tr>
+<td>---</td>
+<td>send <code>ACK</code> for client <code>FIN</code></td>
+</tr>
+<tr>
+<td>wait for server ...</td>
+<td>---</td>
+</tr>
+<tr>
+<td>---</td>
+<td>send <code>FIN</code> bit</td>
+</tr>
+<tr>
+<td>send <code>ACK</code> for server <code>FIN</code> <b>die</b></td>
+<td>---</td>
+</tr>
+<tr>
+<td></td>
+<td>rcv <code>ACK</code>, <b>die</b></td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='88'>Congestion Control Principles</h3>
+<div class='cntrl def'>
+<h3 id='89'>Definition: Congestion Control</h3>
+<p>
+<i>too many sources sending too much data too fast for the network to handle</i>.
+<span style='color: red;'>Note</span> this is different from <span style='color: blue;'>flow control!</span>
+</p>
+</div>
+<p>
+When a sender floods a buffer, other senders will have their packets dropped. This will
+request retransmission, then populating the buffer even more!
+</p>
+<div class='cntrl s'>
+<h3 id='90'>TCP Congestion Control</h3>
+<ul>
+<li><b>approach</b> sender increases transmission rate (window size), probing for usable bandwidth, until loss occurs
+<ul>
+<li><b>additive increase</b>: increae <code>cwnd</code> by 1 <code>MSS</code> every RTT until loss detected</li>
+<li><b>multiplicative decrease</b>: cut <code>cwnd</code> in half after loss</li>
+</ul>
+</li>
+</ul>
+<p>
+<code>cwnd</code>: congestion window, number of unACKed bytes allowed at sender. <br>
+<code>MSS</code>: maximum segment size
+</p>
+</div>
+<div class='cntrl fm'>
+<h3 id='91'>Formula: Sender limits transmission</h3>
+<p>
+<span class='kmath'>LastByteSent - LastByteAcked \leq min(cwnd, rwnd)</span>
+</p>
+</div>
+<div class='cntrl fm'>
+<h3 id='92'>Formula: Sending Rate</h3>
+<p>
+<span class='kmath'>rate \approx \dfrac{cwnd}{RTT} \text{ bytes / sec }</span>
+</p>
+</div>
+<h4>Slow Start</h4>
+<ul>
+<li>when connoction begins, increase rate exponentially until first loss event:
+<ul>
+<li>initially <code>cwnd</code> = 1 MSS</li>
+<li>double <code>cwnd</code> every RTT</li>
+<li>done by incrementing <code>cwnd</code> for every <code>ACK</code> received</li>
+</ul>
+</li>
+</ul>
+<p>
+<i>initial rate is slow but ramps up exponentially fast</i>.
+</p>
+<ul>
+<li>loss indicated by timeout:
+<ul>
+<li><code>cwnd</code> set to 1 MSS</li>
+<li>window then grows exponentially to threshold, then grows linearly</li>
+</ul>
+</li>
+<li>loss indicated by 3 duplicate <code>ACK</code>: <span style='color: blue;'>TCP RENO</span>
+<ul>
+<li>dup <code>ACK</code> indicate network capable of delivering some segments</li>
+<li><code>cwnd</code> is cut in half window then grows linearly</li>
+</ul>
+</li>
+<li><span style='color: blue;'>TCP Tahoe</span> always sets <code>cwnd</code> to 1 (timeout or 3 dup <code>ACK</code>s)
+<ul>
+<li>exponential increase until half of the <code>cwnd</code> before crash
+<ul>
+<li>stored in varaible <code>ssthresh</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl fm'>
+<h3 id='93'>Formula: TCP Throughput</h3>
+<p>
+<span class='kmath'>W</span> window size in bytes where loss occurs
+</p>
+<p>
+avg TCP throughput = <span class='kmath'>\dfrac{3}{4} \dfrac{W}{RTT}</span> bytes / sec
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='94'>Definition: Explicit Congestion Notification (ECN)</h3>
+<ul>
+<li>two bits in IP header marked by network router to indicate congestion</li>
+<li>congestion indication carried to receiving host</li>
+<li>receiver (seeing congestion indication in IP datagram) sets ECN bit on receiver-to-sender ACK to notify sender of congestion</li>
+</ul>
+</div>
+</div>
+<h1 id='95'>Network Layer: Data Plane</h1>
+<hr>
+<div class='cntrl def'>
+<h3 id='96'>Definition: Data Plane</h3>
+<ul>
+<li>local, per router function</li>
+<li>determines how data gram arriving on router input port is forwarded to router outport port</li>
+<li>forwarding function</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='97'>Definition: Control Plane</h3>
+<ul>
+<li>network-wide logic</li>
+<li>determines how datagram is routed among routers along end-end path from source host to destination host</li>
+<li>two approaches:
+<ul>
+<li>traditional routing algorithms: implemented in routers</li>
+<li>software-defined networking: implemented in servers</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='98'>Definition: Longest Prefix Matching</h3>
+<p>
+Choose link interface based on the destination address range that matches the longest prefix.
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='99'>Definition: Switching Fabric</h3>
+<ul>
+<li>transfer packet from input buffer to appropiate output buffer</li>
+<li>switching rate: rate at which packets can be transfer from inputs to outputs
+<ul>
+<li><span class='kmath'>N</span> inputs: switching rate <span class='kmath'>N</span> times line rate desirable</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='100'>Definition: Input Queueing</h3>
+<ul>
+<li>fabric slower than input ports combined <span class='kmath'>\Longrightarrow</span> queueing may occur at input queues
+<ul>
+<li>queueing delay and loss due to input buffer overflow!</li>
+</ul>
+</li>
+<li><b>Head-of-the-Line (HOL) blocking:</b> queued datagram at front of queue prevents others in queue from moving forward</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='101'>Definition: Output Buffering</h3>
+<ul>
+<li><b>buffering</b> required when datagrams arrive from fabric faster than the transmission rate</li>
+<li><b>scheduling discipline</b> chooses among queued datagrams for transmission</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='102'>IP</h3>
+<div class='cntrl def'>
+<h3 id='103'>Definition</h3>
+<ul>
+<li>32-bit identifier for host, router <i>interface</i></li>
+<li><b>interface</b>: connection between host/router and physical link</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='104'>Definition: Subnet</h3>
+<ul>
+<li>device interfaces with same subnet part (high-order bits) of IP address</li>
+<li>can physically reach each other without <i>intervening router</i></li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='105'>Definition: CIDR (Classless InterDomain Routing)</h3>
+<ul>
+<li>subnet portion of address of arb length</li>
+<li>address format: <code>a.b.c.d/x</code>, where <code>x</code> is # bits in subnet portion of address</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='106'>Definition: DHCP</h3>
+<p>
+Dynamic IP addresses.
+</p>
+<table>
+<tr>
+<th>DHCP server</th>
+<th>client</th>
+</tr>
+<tr>
+<td>---</td>
+<td>any DHCP servers? (<u>broadcast</u> <code>DHCP Discover</code></td>
+</tr>
+<tr>
+<td>Yes, here's an IP (<code>DHCP offer</code>)</td>
+<td>---</td>
+</tr>
+<tr>
+<td>---</td>
+<td>OK, using IP (<code>DHCP Request</code>)</td>
+</tr>
+<tr>
+<td>Ok! (<code>DHCP ACK</code>)</td>
+<td>---</td>
+</tr>
+</table>
+</div>
+<div class='cntrl def'>
+<h3 id='107'>Definition: Network Address Translation (NAT)</h3>
+<ul>
+<li>all datagrams leaving local network have <i>same</i> IP address</li>
+<li>range of addresses not needed from ISP: one IP for all devices</li>
+<li>can change addresses of devices in local network without notifying outside world</li>
+<li>can change ISP without changing addresses of devices in local network</li>
+<li>devices inside local net not explicinly addressable, visible by outside world (security plus)</li>
+</ul>
+<h5>Implementation</h5>
+<ul>
+<li><i>outgoing datagrams</i>: replace (source IP, port) of every outgoing datagram to (NAT IP, new port)
+<ul>
+<li>remone clients / servers will respond using the new IP, port as destination addr</li>
+</ul>
+</li>
+<li><i>remember (in NAT translation table)</i> every (src IP, port) to (NAT IP, new port) translation pair</li>
+<li><i>incoming datagrams:</i> replace (NAT IP, new port) to (src IP, port) in dest fields of incoming datagram</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='108'>IPv6</h3>
+<div class='cntrl def'>
+<h3 id='109'>Definition</h3>
+<ul>
+<li>fixed length 40 byte header</li>
+<li>no fragmentation allowed</li>
+</ul>
+<h5>Header</h5>
+<ul>
+<li><code>priority</code>: identify priority among datagrams in flow</li>
+<li><code>flow label</code>: identify datagrams in same "flow"</li>
+<li><code>next header</code>: identify upper layer protocol for data</li>
+<li><code>checksum</code>: removed entirely</li>
+<li><code>options</code>: allowed, but outside of header</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='110'>Definition: Tunneling</h3>
+<ul>
+<li>IPv6 carried as payload in IPv4 datagram among IPv4 routers</li>
+</ul>
+</div>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='111'>SDN</h3>
+<ul>
+<li><b>flow</b>: defined by header fields</li>
+<li><b>generalized forwarding</b>: simple packet-handling rules
+<ul>
+<li><b>Pattern:</b> match values in packet header fields</li>
+<li><b>Actions</b>: for matched packet: drop, forward, modify, matched packet or send matched packet to controller</li>
+<li><b>Priority</b>: disambiguate overlapping patterns</li>
+<li><b>Counters</b>: #bytes and #packets</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl e'>
+<h3 id='112'>Example</h3>
+<h5>Router</h5>
+<ul>
+<li><i>match</i>: longest prefix</li>
+<li><i>action</i>: forward link</li>
+</ul>
+<h5>Firewall</h5>
+<ul>
+<li><i>match</i>: IP and port</li>
+<li><i>action</i>: allow or deny</li>
+</ul>
+</div>
+</div>
+<h1 id='113'>Network Layer: Control Plane</h1>
+<hr>
+<div class='cntrl alg'>
+<h3 id='114'>Algorithm: Dijkstra</h3>
+<ul>
+<li>net toplogy, link costs known to all nodes
+<ul>
+<li>all nodes have same info</li>
+</ul>
+</li>
+<li>computes least cost paths from one node to all other nodes</li>
+<li>iterative: <span class='kmath'>k</span> iterations <span class='kmath'>\Longrightarrow</span> least costs path to <span class='kmath'>k</span> dests</li>
+</ul>
+<h4>Notation</h4>
+<ul>
+<li><code>c(x,y)</code>: link cost from node <code>x</code> to <code>y</code> (<span class='kmath'>\infty</span> if not neighbors)</li>
+<li><code>D(v)</code>: current value of cost of path from source to dest <code>v</code></li>
+<li><code>p(v)</code>: predecessor node along path from src to <code>v</code></li>
+<li><code>N'</code>: set of nodes whose least path definitively known</li>
+</ul>
+<h4>Pseudo</h4>
+<div class='uk-background-muted'>
+<pre class='prettyprint lang-python'>
+N' = {}
+for all nodes v:
+	if v adjacent to u
+		then D(v) = c(u, v)
+	else
+		D(v) = <span class='kmath'>\infty</span>
+
+Loop
+	find w not in N' such that D(w) is minimum
+	add w to N'
+	update D(v) for all v adjacent to w and not in N':
+		D(v) = min(D(v), D(w) + c(w, v))
+until all nodes in N'
+</pre>
+</div>
+<p>
+<span class='kmath'>O(n^2)</span>
+</p>
+</div>
+<div class='cntrl alg'>
+<h3 id='115'>Algorithm: Bellman-Ford</h3>
+<div class='cntrl fm'>
+<h3 id='116'>Formula: Distance Vector</h3>
+<p>
+<span class='kmath'>d_x(y) = min_v \{ c(x, y) + d_v(y)\}</span>
+</p>
+<p>
+For path from <span class='kmath'>x</span> to <span class='kmath'>y</span>.
+</p>
+</div>
+<p>
+Each  maintains its neighbors distance vectors. For each neighbor <span class='kmath'>v</span>, <span class='kmath'>x</span> maintains
+<span class='kmath'>D_v = [D_v(y): y \in N]</span>.
+</p>
+<p>
+Compute your distance table then forward your distance vector to all neighbours for them to recalculate
+their table.
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='117'>Definition: Intra-AS Routing</h3>
+<ul>
+<li>routing among hosts, routers in same AS ("network")</li>
+<li>all routers in AS must run <i>same</i> intra-domain protocol</li>
+<li>routers in different AS can run different intra-domain routing protocol</li>
+<li>gateway router: at "edge" of its own AS, has link to router in other ASes</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='118'>Definition: Inter-AS Routing</h3>
+<ul>
+<li>routing among ASes</li>
+<li>gateways perform domain routing</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='119'>Definition: OSPF (Open Shortest Path First)</h3>
+<ul>
+<li>publicly available</li>
+<li>uses link-state algorithm
+<ul>
+<li>link state packet dissemination</li>
+<li>topology map at each node</li>
+<li>route computation using Dijkstra's algorithm</li>
+</ul>
+</li>
+<li>router floods OSPF link-state advertisements to all other routers in <i>entire</i> AS
+<ul>
+<li>carried in OSPF messages directly over IP (rather than TCP or UDP)</li>
+<li>link state: for each attached link</li>
+</ul>
+</li>
+</ul>
+<h4>Advanced Features</h4>
+<ul>
+<li><i>security</i>: all OSPF messages are authenticated</li>
+<li><i>multiple</i> same cost <i>paths</i> allowed</li>
+<li>integrated uni- and multi-cast support</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='120'>Internet Inter-AS routing: BGP</h3>
+<ul>
+<li><b>B</b>order <b>G</b>ateway <b>P</b>rotocol: the <i>de facto</i> inter-domain routing protocol</li>
+<li>BGP provides eash AS a means to:
+<ul>
+<li><b>eBGP</b>: obtain subnet reachabilitiy information from neighboring ASes (connect subnets)</li>
+<li><b>iBGP</b>: propagate reachability information to all AS-internal routers (within subnets)</li>
+<li>determine good routes to other networks based on reachability information and policy</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><b>BGP session</b>: two BGP routers exchange BGP messages over semi permanent TCP connection:
+<ul>
+<li>advertising path to different destination network prefixes</li>
+</ul>
+</li>
+<li>advertisted prfix includes BGP attributes
+<ul>
+<li>prefix + attributes = "route"</li>
+</ul>
+</li>
+<li>two inport attributes:
+<ul>
+<li><b>AS-PATH</b>: list of ASes through which prefix advertisment has passed</li>
+<li><b>NEXT-HOP</b>: indicates specific internal-AS router to next-hop AS</li>
+</ul>
+</li>
+<li><b><i>Policy-based routing</b></i>:
+<ul>
+<li>gateway reveiving route advertisement uses <i>import policy</i> to accept/decline path</li>
+<li>AS policy also determines whether to advertise path to other neighboring ASes</li>
+</ul>
+</li>
+</ul>
+<h5>Message Types</h5>
+<ul>
+<li><code>OPEN</code>: opens TCp connection to remote BGP peer and authenticates sending BGP peer</li>
+<li><code>UPDATE</code>: advertises new path (or withdraws old)</li>
+<li><code>KEEPALIVE</code>: keep connection alive in absences of <code>UPDATE</code>; also <code>ACK</code> <code>OPEN</code> request</li>
+<li><code>NOTIFICATION</code>: reports errors in previous msg; also used to close connection</li>
+</ul>
+<div class='cntrl def'>
+<h3 id='121'>Definition: Potato Routing</h3>
+<p>
+Choose local gateway that has least intra-domain cost: don't worry about inter-domain costs!
+</p>
+</div>
+<p>
+<i>See tutorial questions on BGP and potato routing for more information</i>.
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='122'>SDN</h3>
+<h4>Motivation</h4>
+<ul>
+<li>easier network management: avoid router misconfigurations, greater flexibility of traffic flows</li>
+<li>flow-based forwarding, allows "programming" routers
+<ul>
+<li>centralized "programming" easier: compute tables centrally then distribute</li>
+<li>distributed "programming": more difficult: compute tables as result of distributed algorithm implemented in each and every router</li>
+</ul>
+</li>
+</ul>
+<h4>Pitfalls</h4>
+<ul>
+<li>Want to use pre-defined routes? Must adjust arc weights for the algorithm to determine it!</li>
+<li>Want to split traffic along two routes? NOPE</li>
+<li>Want to route two types of traffic differently? NOPE</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='123'>Definition: ICMP (Internet Control Message Protocol</h3>
+<p>
+Hosts and routers communicate network-level information (i.e. <b>error reporting</b>, protocol, etc.). Messages consist of
+<code>type</code>, <code>code</code> plus first 8 bytes of IP datagram causing error.
+</p>
+<h5>TraceRoute</h5>
+<ul>
+<li>source sends series of UDP segments to destination
+<ul>
+<li>first set has TTL = 1, second set has TTL = 2, etc.</li>
+<li><b>unlikely port number</b></li>
+</ul>
+</li>
+<li>when datagram in <i>n</i>th set arrives at the <i>n</i>th router:
+<ul>
+<li>router discards datagram and sends source ICMP message (<code>type</code> 11, <code>code</code> 0, <code>TTL Expired</code>)</li>
+<li>ICMP message include name of router and IP address</li>
+</ul>
+</li>
+<li>when ICMP message arrives, source records RTT</li>
+<li><i>stopping criteria</i>:
+<ul>
+<li>UDP segments evenetually arrives at destination host</li>
+<li>destination returns ICMP <code>port unreacheable</code> message</li>
+<li>source stops</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id='124'>Link Layer</h1>
+<hr>
+<h3 id='125'>Terminonolgy</h3>
+<ul>
+<li><b>node</b>: hosts and routers</li>
+<li><b>link</b>: communication channels adjacent nodes along communication path</li>
+<li><b>frame</b>: layer-2 packet encapsulates datagram</li>
+<li><b>data-link layer</b>: has responsibility of transferring datagram from one node to physically adjacent node over a link</li>
+</ul>
+<h3 id='126'>Services</h3>
+<ul>
+<li><b>framing, link access</b>:
+<ul>
+<li>encapsulate datagram into frame, adding header, trailer</li>
+<li>channel access if shared medium</li>
+<li>"MAC" addresses used in frame headers to identify source, destination
+<ul>
+<li><i>diffferent from IP addresses</i></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><b>reliable delivery between adjacent nodes</b></li>
+<li><b>flow control</b>:
+<ul>
+<li>pacing between adjacent sending and receiving nodes</li>
+</ul>
+</li>
+<li><b>error detection</b>:
+<ul>
+<li>errors caused by signla attenuation, noise</li>
+<li>receiver detects presence of errors:
+<ul>
+<li>signal sender for retransmission or drops frame</li>
+</ul>
+</li>
+<li><b>error correction</b>:
+<ul>
+<li>receiver identifies and <i>corrects</i> bit error(s) without resorting to retransmission</li>
+</ul>
+</li>
+<li><b>half-duplex and full-duplex</b>:
+<ul>
+<li>with half duplex, nodes at both ends of link can transmit, but not at same time</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><b>sender</b>:
+<ul>
+<li>encapsulate datagram in frame</li>
+<li>adds error checking bits, rdt, flow control, etc.</li>
+</ul>
+</li>
+<li><b>receiver</b>:
+<ul>
+<li>looks for errors, rdt, flow contorl, etc.</li>
+<li>extracts datagram, passes to upper layer at receiver side</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl s'>
+<h3 id='127'>Error Detection and Correction</h3>
+<div class='cntrl def'>
+<h3 id='128'>Definition: Parity Checking</h3>
+<ul>
+<li>single bit or two-dimensional</li>
+<li>detect and correct single bit errors</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='129'>Definition: Cyclic Redundancy Check (CRC)</h3>
+<ul>
+<li>view <span class='kmath'>D</span> data bits are number<sub>2</sub></li>
+<li>choose <span class='kmath'>r+1</span> bit pattern, <span class='kmath'>G</span></li>
+<li>goal: choose r CRC bits, <span class='kmath'>R</span> such that
+<ul>
+<li><span class='kmath'>\langle D, R \rangle</span> exactly divisble by <span class='kmath'>G (mod 2)</span></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>receiver divides <span class='kmath'> \langle D, R \rangle</span> by <span class='kmath'>2</span>, if non-zero remainder <span class='kmath'>\Longrightarrow</span> error detected</li>
+</ul>
+<div class='cntrl fm'>
+<h3 id='130'>Formula: Remainder</h3>
+<p>
+<span class='kmath'>R = </span> remainder<span class='kmath'>[\dfrac{2^rD}{G}]</span>
+</p>
+</div>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='131'>Multi-Access Protocol</h3>
+<div class='cntrl def'>
+<h3 id='132'>Definition</h3>
+<ul>
+<li>single shared broadcast channel</li>
+<li>two or more simultaneous transmission by nodes:
+<ul>
+<li><b>collison</b> if node receives two or more signals at the same time</li>
+</ul>
+</li>
+</ul>
+<p>
+Distributed algorithm that determines how nodes share a channel.
+</p>
+</div>
+<h4>Ideal</h4>
+<p>
+Given boradcst channel of <span class='kmath'>R</span> bps. Our goal:
+</p>
+<ol>
+<li>when one node wants to transmist, it can send at rate <span class='kmath'>R</span></li>
+<li>when <span class='kmath'>M</span> nodes want to transmit, each can send at average rate <span class='kmath'>\dfrac{R}{M}</span></li>
+<li>fully decentralized:
+<ul>
+<li>no special node to coordionate transmissions</li>
+<li>no synchronization of clocks, slots</li>
+</ul>
+</li>
+<li>simple</li>
+</ol>
+<div class='cntrl def'>
+<h3 id='133'>Definition: MAC Protocols</h3>
+<ul>
+<li><b>channel partitioning</b>:
+<ul>
+<li>divide channel into smaller pieces</li>
+<li>allocate piece to node for exclusive use</li>
+</ul>
+</li>
+<li><b>random access</b>:
+<ul>
+<li>channel not divided, allow collisions</li>
+<li>"recover" from collisions</li>
+</ul>
+</li>
+<li><b>taking turns</b>:
+<ul>
+<li>node takes turns, but nodes with more to send can take longer</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class='cntrl def'>
+<h3 id='134'>Definition: Channel Partitioning</h3>
+<div class='cntrl def'>
+<h3 id='135'>Definition: TDMA</h3>
+<ul>
+<li>access to chnnel in rounds</li>
+<li>each station gets fixed length slot in each round</li>
+<li>unused slots go idle</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='136'>Definition: FDMA</h3>
+<ul>
+<li>channel spectrum divided into frequency bands</li>
+<li>each station assigned fixed frequency band</li>
+<li>unused transmission time in frequency bands go idle</li>
+</ul>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='137'>Random Access Protocols</h3>
+<ul>
+<li>when node has packet to send
+<ul>
+<li>transmit at full channel rate <span class='kmath'>R</span></li>
+<li>no <i>a priori</i> coordination among nodes</li>
+</ul>
+</li>
+<li>two or more transmitting nodes is a <b>collision</b></li>
+<li><b>random access MAC protocol</b>:
+<ul>
+<li>how to detect collisons</li>
+<li>how to recover from them</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl alg'>
+<h3 id='138'>Algorithm: Slotted ALOHA</h3>
+<h5>Assumptions</h5>
+<ul>
+<li>all frames same size</li>
+<li>time divided into equal size slots (time to transmit 1 frame)</li>
+<li>nodes start to transmit along at slog beginning</li>
+<li>nodes are synchronized</li>
+<li>if 2 or more nodes transmit in slot, all nodes detect collision</li>
+</ul>
+<h5>Operation</h5>
+<ul>
+<li>when a node obtains a fresh frame, transmits in next slot
+<ul>
+<li>if <i>no collision</i>: node can send new frame in next slot</li>
+<li>if <i>collision</i>: node retransmits frame in each subsequence slot <b>with probability</b> <span class='kmath'>p</span> until success</li>
+</ul>
+</li>
+</ul>
+<h5>Pros</h5>
+<ul>
+<li>single active node can continuously transmit at full rate of channel</li>
+<li>highly decentralized: only slots in nodes need to be in sync</li>
+<li>simple</li>
+</ul>
+<h5>Cons</h5>
+<ul>
+<li>collisions, wasting slots</li>
+<li>idle slots</li>
+<li>clock synchronization</li>
+</ul>
+<h4>Efficiency</h4>
+<div class='cntrl def'>
+<h3 id='139'>Definition: Efficiency</h3>
+<p>
+Long-run fraction of successful slots (many nodes, all with many frames to send) <b>throughput / bandwidth</b>
+</p>
+</div>
+<ul>
+<li><i>suppose</i> <span class='kmath'>N</span> nodes with many frames to send, each transmits in slot with probability <span class='kmath'>p</span></li>
+<li>prob that given node has success in slot: <span class='kmath'>P(1-P)^{N-1}</span></li>
+<li>prob that <i>any</i> node has success: <span class='kmath'>\dfrac{1}{N}</span></li>
+</ul>
+<h6>Proof</h6>
+<p>
+<span class='kmath'>N</span>: nodes: <br>
+<span class='kmath'>P(1-P)^{N-1} \text{ for a given node }</span> <br>
+<span class='kmath'>E = NP(1-P)^{N-1} \text{ for any node }</span> <br>
+<span class='kmath'>\dfrac{\delta E}{\delta P} = N(1-P)^{N-1} - NP(N-1)(1-P)^{N-2} = 0</span> <br>
+<span class='kmath'>(1-P)^{N-1} = P(N-1)(1-P)^{N-2}</span> <br>
+<span class='kmath'>(1-P) = P(N-1) \Longrightarrow 1 = PN \Longrightarrow P = \dfrac{1}{N}</span> <br>
+Now we plug the value of the <i>optimal</i> <span class='kmath'>P</span>: <br>
+<span class='kmath'>P(1-P)^{N-1} = N\dfrac{1}{N} - (1 - \dfrac{1}{N})^{N-1} = (1-\dfrac{1}{N})^{N-1} = \dfrac{1}{e}</span>
+</p>
+</div>
+<div class='cntrl alg'>
+<h3 id='140'>Algorithm: Pure (unslotted) ALOHA</h3>
+<ul>
+<li>unslotted Aloha: simpler, no synchronization</li>
+<li>when frame first arrives
+<ul>
+<li>transmit immediately</li>
+</ul>
+</li>
+<li>collision probability increases:
+<ul>
+<li>frame sent at <span class='kmath'>t_0</span> collides with other frame sent in <span class='kmath'>[t_0 - 1, t_0 + 1]</span>.</li>
+</ul>
+</li>
+</ul>
+<h6>Proof</h6>
+<p>
+<span class='kmath'>P(\text{ node transmits in  } [t_0-1, t_0]) = P(\text{ node transmits in  } [t_0, t_0 + 1])</span> <br>
+<span class='kmath'>P(1-P)^{N-1}(1-P)^{N-1} = P(1-P)^{N-1}(1-P)^{2(N-1)}</span> <br>
+So, <br>
+<span class='kmath'>=\dfrac{1}{2e} = 0.18</span>
+</p>
+<p>
+So, it is <span style='color: red;'>worse</span> then slotted ALOHA.
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='141'>Definition: CSMA: Carrier Sense Multiple Access</h3>
+<p>
+Listen before transmit.
+</p>
+<ul>
+<li><b>if channel sensed idle</b>: transmit entire frame</li>
+<li><b>if channel sensed busy</b>: defer transmission</li>
+</ul>
+<h5>Collisions</h5>
+<ul>
+<li><b>collisions can still occur:</b> propagation delay means two nodes may not hear each others transmission</li>
+<li><b>collision</b>: entire packet transmission time wasted:
+<ul>
+<li>distance and propagation delay play role in determining collision probability</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='142'>Definition: CSMA/CD (COllision Detection)</h3>
+<ul>
+<li>collisions detected whithin short time</li>
+<li>colliding transmissions aborted, reducing chennel wastage</li>
+</ul>
+<ul>
+<li><b>collision detection</b>:
+<ul>
+<li>easy in wired LANs: measure signal strengthsm, compare transmitted,r eceived signals</li>
+<li>difficult in wireless LANs: received signal strength overwhelmed by local transmission strength</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl fm'>
+<h3 id='143'>Formula: Efficieny</h3>
+<p>
+<span class='kmath'>T_{prop}</span> = max prop delay between 2 nodes in LAN <br>
+<span class='kmath'>t_{trans}</span> = time to transmit max-size frame
+</p>
+<p>
+<span class='kmath'>efficiency = \dfrac{1}{1 + 5t_{prop} / t_{trans}}</span>
+</p>
+</div>
+<p>
+<span style='color: blue;'>Better performance than ALOHA!</span>
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='144'>Taking Turns</h3>
+<h4>Polling</h4>
+<ul>
+<li>master 'invites' nodes to transmit in turns</li>
+<li>typically used with 'dumb' nodes</li>
+<li>concerns:
+<ul>
+<li>polling overhead</li>
+<li>latency</li>
+<li>single point of failure (<i>master</i>)</li>
+</ul>
+</li>
+</ul>
+<h4>Token Passing</h4>
+<ul>
+<li>control <b>token</b> passed from one node to next sequentially</li>
+<li>token message</li>
+<li>concerns:
+<ul>
+<li>token overhead</li>
+<li>latency</li>
+<li>single point failure (<i>token</i>)</li>
+</ul>
+</li>
+</ul>
+</div>
+<h4>Summary</h4>
+<ul>
+<li><b>channel partitioning</b> by time, frequency
+<ul>
+<li>Time Division, Frequency Division</li>
+</ul>
+</li>
+<li><b>random access</b>
+<ul>
+<li>ALOHA, S-ALOHA, CSMA, CSMA/CD</li>
+<li>CSMA/CD using in Ethernet</li>
+<li>CSMA/CA used in 802.11</li>
+</ul>
+</li>
+<li><b>taking turns</b>
+<ul>
+<li>polling from central site, token passing</li>
+<li>Bluetooth, FDDIm token ring</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl s'>
+<h3 id='145'>MAC Addresses</h3>
+<div class='cntrl def'>
+<h3 id='146'>Definition</h3>
+<ul>
+<li>function: used "locally" to get frame from one interface to another physically connected interface</li>
+<li>48 bit MAC address</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='147'>Definition: ARP Table</h3>
+<p>
+Each IP node on LAN has table
+</p>
+<ul>
+<li>IP/MAC address mappings for some LAN nodes</li>
+<li>TTL: time after which address mapping will be forgotten</li>
+</ul>
+<div class='cntrl e'>
+<h3 id='148'>Example</h3>
+<ol>
+<li>A wants to send datagram to B
+<ul>
+<li>B's mac address not in A's ARP table</li>
+</ul>
+</li>
+<li>A <i>broadcasts</i> ARP query packet, containing B's IP address
+<ul>
+<li>dest MAC address  <code>FF-FF-FF-FF-FF-FF</code></li>
+<li>all nodes on LAN receive ARP query</li>
+</ul>
+</li>
+<li>B receives ARP packet, replies to A with its MAC address</li>
+<li>A caches IP-to-MAC address pair in its ARP table until information times out</li>
+</ol>
+</div>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='149'>Ethernet</h3>
+<h4>Topology</h4>
+<ul>
+<li><b>bus</b>: all nodes in same collison domain</li>
+<li><b>star</b>: prevails today
+<ul>
+<li>active <i>switch</i> in center</li>
+<li>each spoke runs a sparate Ethernet protocol</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl def'>
+<h3 id='150'>Definition: Ethernet Frame</h3>
+<ul>
+<li><code>preamble</code>: 7 bytes with patten <code>10101010</code> then by <code>10101011</code>
+<ul>
+<li>syncrhonize clock receiver</li>
+</ul>
+</li>
+<li><code>address</code>: 6 byte source, destination MAC address
+<ul>
+<li>if adapter receives fram with matchin dest addr, or with broadcast addr, it passes data in frame to network layer protocol</li>
+</ul>
+</li>
+<li><code>type</code>: indicates higher layer protocol</li>
+<li><code>CRC</code>: cyclic redundancy check at receiver
+<ul>
+<li>drops frame on error detection</li>
+</ul>
+</li>
+</ul>
+</div>
+<h4>Properties</h4>
+<ul>
+<li><b>connectionless</b>: no handshaking</li>
+<li><b>unreliable</b>: no <code>ACK</code></li>
+<li>CSMA/CD with binary backoff</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='151'>Switches</h3>
+<div class='cntrl def'>
+<h3 id='152'>Definition: Swtich</h3>
+<p>
+Hosts <i>multiple</i> transmissions.
+</p>
+<ul>
+<li>host have dedicated, direct connection to switch</li>
+<li>switches buffer packets</li>
+<li>Ethernet protocol used on <i>each</i> incoming link, but no collisions: full duples
+<ul>
+<li>each link is its own collision domain</li>
+</ul>
+</li>
+<li><b>switching</b>: A-to-A' and B-to-B' can transmit simultaneously, with no collisions</li>
+</ul>
+</div>
+<h4>Self-Learning</h4>
+<p>
+When frame is recieved at swtich:
+</p>
+<ol>
+<li>record incoming link, MAC address of sending host</li>
+<li>index switch table using MAC destination address</li>
+</ol>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+if entry fouund for destination
+	then {
+		if destination on segment from which frame arrive
+	}
+	FINISH
+</pre>
+</div>
+<div class='cntrl e'>
+<h3 id='153'>Example: Forwarding</h3>
+<ul>
+<li>frame destination, A', location unknown: <b>flood</b></li>
+<li>destination A location known: <b>selectively send on just one link</b></li>
+</ul>
+<h5>Switch Table (init empty)</h5>
+<table>
+<tr>
+<th>MAC addr</th>
+<th>interface</th>
+<th>TTL</th>
+</tr>
+<tr>
+<td>A</td>
+<td>1</td>
+<td>60</td>
+</tr>
+<tr>
+<td>A'</td>
+<td>4</td>
+<td>60</td>
+</tr>
+</table>
+</div>
+<p>
+Self-learning switches can be connected together!
+</p>
+<p>
+<b>Hubs</b> just transmit the bits to the physical layer!
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='154'>Institutional Network</h3>
+<p>
+Every sub area has a switch that connects to a <i>main</i> switch that
+connects to rest of the internet and servers.
+</p>
+<h3 id='155'>Switches vs. Routers</h3>
+<ul>
+<li>both are store-and-forward:
+<ul>
+<li><b>routers</b>: network-layer devices</li>
+<li><b>switches</b>: link-layer devices</li>
+</ul>
+</li>
+<li>both have forwarding tables:
+<ul>
+<li><b>routers</b>: compute tables using routing algorithms, IP addresses</li>
+<li><b>switches</b>: learn forwarding table using flooding, learning, MAC addresses</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='156'>VLAN</h3>
+<h5>Motivation</h5>
+<ul>
+<li>CS user moves office to EE, but wants to connect to CS switch?</li>
+<li>single broadcast domain:
+<ul>
+<li>all layer-2 broadcast must cross entire LAN</li>
+<li>security/privacy and efficieny issues</li>
+</ul>
+</li>
+</ul>
+<div class='cntrl def'>
+<h3 id='157'>Definition: Virtual Local Area Network</h3>
+<p>
+Switch(es) supporting VLAN capabilities can be configured to define multiple <b><i>virtual</b></i> LANS over
+a single physical network.
+</p>
+<div class='cntrl s'>
+<h3 id='158'>Port-Based</h3>
+<p>
+Switch ports grouped so that <i>single</i> physical switch operates as <i>multiple</i> virtual switches.
+</p>
+<ul>
+<li><b>traffic isolation</b>: frames to/from ports 1-8 only reach ports 1-8.</li>
+<li><b>dynamic membership</b>: ports can be dynamically assigned among VLANS</li>
+<li><b>forwarding between VLANS</b>: done via routing (like with spearate switches)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='159'>Link Virtualization: MPLS</h3>
+<h5>Motivation</h5>
+<ul>
+<li>initial goal: high-speed IP forwarding using fixed length label.
+<ul>
+<li>fast lookup using fixed length identifier (not longest prefix matching)</li>
+<li>IP datagram still keeps IP address.</li>
+</ul>
+</li>
+</ul>
+<h5>IP Paths</h5>
+<ul>
+<li><b>IP routing</b>: path to destination determined by destination address alone</li>
+<li><b>MPLS routing</b> path to destination can be based on source <i>and</i> destination address
+<ul>
+<li><b>fast reroute</b>: precompute backup routes in case of link failure</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='160'>Multiprotocol Label Switching</h3>
+<div class='cntrl def'>
+<h3 id='161'>Definition</h3>
+<ul>
+<li>no IP matching, but include <code>header</code> in datagram</li>
+<li>forward packets to outgoing interface based only on header label value
+<ul>
+<li>MPLS forwarding table distinct from IP forwarding tables</li>
+</ul>
+</li>
+</ul>
+</div>
+<h5>Pros</h5>
+<p>
+MPLS is <i>flexible</i> and forwarding decisions can differ from those of IP.
+</p>
+<h4>Vs. IP Routing</h4>
+<ul>
+<li><b>IP</b>: path to dest determined by dest addr</li>
+<li><b>MPLS</b>: path to destination can be based on src and dest addr</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='162'>Data Center Networks</h3>
+<p>
+Ton of hosts coupled in close proximity.
+</p>
+<ul>
+<li><b>challenges</b>:
+<ul>
+<li>multiple applications and load balancing problem</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><b>Load balancer:</b> <i>application-layer routing</i>
+<ul>
+<li>receives external client requests</li>
+<li>directs workload within data center</li>
+<li>returns results to external client</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>rich interconnection among switches, racks:
+<ul>
+<li>increased throughput between racks</li>
+<li>increased reliability via redundancy</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id='163'>Wireless</h1>
+<hr>
+<div class='cntrl def'>
+<h3 id='164'>Definition: Wireless host</h3>
+<ul>
+<li>e.g. laptop, smartphone</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='165'>Definition: Base Station</h3>
+<ul>
+<li>relay - responsible for sending packets between wired networks and wireless hosts in it's area
+<ul>
+<li>e.g. cell towers</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='166'>Definition: Wireless Link</h3>
+<ul>
+<li>connect mobiles to base station</li>
+<li>multiple access protocol coordinates link access</li>
+<li>various data races, transmission distance</li>
+</ul>
+</div>
+<h3 id='167'>Elements</h3>
+<div class='cntrl def'>
+<h3 id='168'>Definition: Infrastrucutre Node</h3>
+<ul>
+<li>base station connects to mobiles into wired network</li>
+<li><i>handoff</i>:
+<ul>
+<li>mobile changes base station providing connection into wired network</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='169'>Definition: AdHoc Mode</h3>
+<ul>
+<li>no base stations</li>
+<li>nodes canonly transmit to other nodes in link coverage</li>
+<li>nodes organize themselves into network: route among themselves</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='170'>Wireless Links</h3>
+<h4>Differences from Wired</h4>
+<ul>
+<li><b>decreased singal strength</b>: radio signal attenuates as it propagates through matter</li>
+<li><b>interference from ohter sources</b>: standardized wireless network frequencies shared by ohter devices</li>
+<li><b>multi-path propagation</b>: radio signal reflects off objects ground, arriving ad destination at slightly different times</li>
+</ul>
+</div>
+<h3 id='171'>Wifi LAN</h3>
+<ul>
+<li>wireless host communicates with base station</li>
+<li><b>Basic Service Set (BSS)</b> in infrastructure node contains:
+<ul>
+<li>wireless hosts</li>
+<li>access point</li>
+</ul>
+</li>
+</ul>
+<h3 id='172'>Channels</h3>
+<ul>
+<li>host must associate with an AP
+<ul>
+<li>scans channels, listening for beacon frames containing APs name and MAC addresss</li>
+<li>selects AP to associate with</li>
+<li>may preform authentication</li>
+<li>will typically run DHCP to get IP address in APs subnet</li>
+</ul>
+</li>
+</ul>
+<h3 id='173'>Scanning</h3>
+<div class='cntrl def'>
+<h3 id='174'>Definition: Passive</h3>
+<ol>
+<li>beacon frames sent from APs</li>
+<li>association Request frame sent: HI to selected AP</li>
+<li>association Response frame sent from selected AP to HI</li>
+</ol>
+</div>
+<div class='cntrl def'>
+<h3 id='175'>Definition: Active</h3>
+<ol>
+<li>Probe Request frame broadcast from H1</li>
+<li>Probe Response frames from APs</li>
+<li>association Request frame sent: HI to selected AP</li>
+<li>association Response frame sent from selected AP to HI</li>
+</ol>
+</div>
+<div class='cntrl s'>
+<h3 id='176'>Collision Avoidance</h3>
+<p>
+<i>idea</i>: allow sender to "reserve" channel rather than random access of data grames: avoid collisions of long data frames
+</p>
+<ul>
+<li>sender first transmits small request-to-send <code>RTS</code> packets to BS using CSMA</li>
+<li>BS broadcast clear-to-send <code>CTS</code> in response to <code>RTS</code></li>
+<li><code>CTS</code> header by all nodes
+<ul>
+<li>sender transmits data frame</li>
+<li>other stations defer transmission</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl s'>
+<h3 id='177'>Cellular Internet</h3>
+<div class='cntrl def'>
+<h3 id='178'>Definition: MSC</h3>
+<ul>
+<li>connects cells to wired tel. net</li>
+<li>manages call setup</li>
+<li>handles mobility</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='179'>Definition: Cell</h3>
+<ul>
+<li>covers geographical region</li>
+<li><b>mobile users</b> attach to network through BS</li>
+<li><b>air-interface</b>: physical and link layer protocol between mobile and BS</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='180'>Definition: 3G</h3>
+<ul>
+<li>new cellular data network operates in parallel with existing cellular voice network
+<ul>
+<li>voice network unchanged at core</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='181'>Definition: 4G: Differences from 3G</h3>
+<ul>
+<li>all IP core: IP packets tunneled from BS to gateway</li>
+<li>no separation betwen voice and data -- all traffic carried over IP core to gateway</li>
+</ul>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='182'>Mobility</h3>
+<div class='cntrl def'>
+<h3 id='183'>Definition: Indirect Routing</h3>
+<ul>
+<li>communication from correspondent to mobile goes through home agent, then forwarded to remote</li>
+</ul>
+<ul>
+<li>mobile uses two address:
+<ul>
+<li><b>permanent</b>: used by correspondent</li>
+<li><b>care-of-address</b>: used by home agent to forward datagram to mobile</li>
+</ul>
+</li>
+<li><b>triangle routing</b>: correspondent-home-network-mobile
+<ul>
+<li>inefficient when corresponded, mobile are in same network</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>suppose mobile user moves to another network
+<ul>
+<li>registers with new foriegn agent</li>
+<li>new foreign agent registers with home agent</li>
+<li>home agent update care-of-address for mobile</li>
+<li>packets continue to be forwarded to mobile</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='184'>Definition: Direct Routing</h3>
+<ul>
+<li>correspondent gets foreign address of mobile and sends directly to mobile</li>
+</ul>
+<ul>
+<li>anchor foeign agent: FA in first visited network</li>
+<li>data always routed first to anchor FA</li>
+<li>when mobile movs: new FA arrages to have data forwarded from old FA</li>
+</ul>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='185'>Mobile IP</h3>
+<ul>
+<li><b>agent advert</b>: foreign/home agents advertise service by broadcasting ICMP messages</li>
+</ul>
+<h3 id='186'>Handoff</h3>
+<ol>
+<li>old BSS informs MSC of impending handoff, provides list of 1<sup>+</sup> new BSSes</li>
+<li>MSC sets up path to new BSS</li>
+<li>new BSS allocates radio channel for use by mobile</li>
+<li>new BSS signals MSC, old BSS: ready</li>
+<li>old BSS tells mobile: perform handoff to new BSS</li>
+<li>mobile, new BSS signal to activate new channel</li>
+<li>mobile signals via new BSS to MSC: handoff complete.  MSC reroutes call</li>
+<li>MSC-old-BSS resources released</li>
+</ol>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

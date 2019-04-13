@@ -1,0 +1,1139 @@
+
+<!DOCTYPE html>
+<html  class="uk-background-muted">
+<head>
+  <meta charset="UTF-8">
+  
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' type="text/css" href='../css/editor.css'>
+  <link rel='stylesheet' type="text/css" href='../css/tab.css'>
+  <link rel='stylesheet' type="text/css" href='../css/control.css'>
+  <link rel="stylesheet" type="text/css" href="../../third-party/css/uikit.min.css"/>
+  <script src="../../third-party/js/uikit.min.js"></script>
+  <script src="../../third-party/js/uikit-icons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css" integrity="sha384-dbVIfZGuN1Yq7/1Ocstc1lUEm+AT+/rCkibIcC/OmWo5f0EA48Vf8CytHzGrSwbQ" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js" integrity="sha384-2BKqo+exmr9su6dir+qCw08N2ZKRucY4PrGQPPWU1A7FtlCGjmEGFqXCv5nyM5Ij" crossorigin="anonymous"></script> 
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script> 
+    
+<script type="module">
+    import katex from 'https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.mjs';
+   var math = document.getElementsByClassName('kmath');
+  for (var i = 0; i < math.length; ++i) {
+    console.log(1);
+    katex.render(math[i].innerHTML
+         .replace("&amp;", "&")
+         .replace("&lt;", "<")
+         .replace("&gt;", ">"), math[i]);
+   }
+</script>
+  <title>NiceNote</title>
+</head>
+<body>
+  <div class="uk-container uk-container-large uk-text-center">
+    <div class="page">
+      <div id="preview" class="page-preview uk-box-shadow-large uk-text-left">
+<h2 id='0'>Review of Finite Automata</h2>
+<div class='cntrl def'>
+<h3 id='1'>Definition: Deterministic Finite Automata (DFA)</h3>
+<ul>
+<li><span class='kmath'>M = (Q, \Sigma, \delta, s, F)</span></li>
+<li><span class='kmath'>Q</span> is a finite set of states</li>
+<li><span class='kmath'>\Sigma</span> is a finite input alphabet</li>
+<li><span class='kmath'>\delta : Q \times \Sigma \longrightarrow Q</span>, the transition function between states</li>
+<li><span class='kmath'>s \in Q</span>, the start state</li>
+<li><span class='kmath'>F \subseteq Q</span>, the set of accepting states</li>
+</ul>
+<p>
+<i>Informally</i>: if <span class='kmath'>M</span> accepts a string <span class='kmath'>w</span> after it finishes reading it, then
+the machine is in an accepting state.
+</p>
+<p>
+<span class='kmath'>L(M)</span> is the language (set off all strings) which <span class='kmath'>M</span> accepts.
+</p>
+<p>
+If for some language <span class='kmath'>L'</span> there exists a DFA <span class='kmath'>M</span> such that
+<span class='kmath'>L' = L(M)</span>, then <span class='kmath'>L'</span> is said to be a <b>regular language</b>.
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='2'>Definition: Non-deterministic Finite Automata (NFA)</h3>
+<ul>
+<li><span class='kmath'>M = (Q, \Sigma, \delta, s, F)</span></li>
+<li><span class='kmath'>Q</span> is a finite set of states</li>
+<li><span class='kmath'>\Sigma</span> is a finite input alphabet</li>
+<li><span class='kmath'>\delta : Q \times (\Sigma \cup \{\epsilon\}) \longrightarrow Q^P</span>, the transition function that returns a set of states</li>
+<li><span class='kmath'>s \in Q</span>, the start state</li>
+<li><span class='kmath'>F \subseteq Q</span>, the set of accepting states</li>
+</ul>
+</div>
+<h4>Constrast NFA and DFA</h4>
+<ul>
+<li>NFAs do not allow us to accept languages outside of regular languages</li>
+<li>DFAs are just as computationally powerful as NFA</li>
+<li>NFAs allow for more elegant construction and often times better human readability</li>
+<li>Every NFA can be reduced to a DFA</li>
+</ul>
+<div class='cntrl def'>
+<h3 id='3'>Definition: Pushdown Automata</h3>
+<ul>
+<li><span class='kmath'>M = (Q, \Sigma, \Gamma, \delta, s, \bot, F)</span></li>
+<li><span class='kmath'>Q</span> is a finite set of states</li>
+<li><span class='kmath'>\Sigma</span> is a finite input alphabet</li>
+<li><span class='kmath'>\Gamma</span> is a finite stack alphabet</li>
+<li><span class='kmath'>\delta \subseteq (Q \times (\Sigma \cup \{\epsilon\}) \times \Gamma) \times (Q \times \Gamma^*)</span>, the set of potential transisitons</li>
+<li><span class='kmath'>s \in Q</span>, the start state</li>
+<li><span class='kmath'>\bot \in \Gamma</span> the initial stack symbol</li>
+<li><span class='kmath'>F \subseteq Q</span>, the set of accepting states</li>
+</ul>
+<h5>Transition Notation</h5>
+<p>
+<span class='kmath'>((q_1, a, A), (q_2, B_1 B_2 ... B_k)) \in \delta</span>: <br>
+if in state <span class='kmath'>q_1</span>, and the next character in the input string is <span class='kmath'>a</span>,
+and <span class='kmath'>A</span> is the character at the top of the stack, then the system
+<i>may</i> move to state <span class='kmath'>q_2</span> while popping <span class='kmath'>A</span> off the stack and then pushing <span class='kmath'>B_k,</span>
+<span class='kmath'>B_{k-1}, ..., B_1</span> onto the stack.
+</p>
+<p>
+<span style='color: blue;'>Note</span> the order of the pushing and the reverse in the notation.
+</p>
+<h4>Limitations</h4>
+<ul>
+<li>There are langauges that a PDA can't describe
+<ul>
+<li><span class='kmath'>L(M) = \{a^nb^nc^n | n \geq 0\}</span></li>
+<li><span class='kmath'>L(M) = \{ ww | w \in \Sigma ^* \}</span></li>
+</ul>
+</li>
+<li>PDAs have infite memory, but access to some information we may lose other information</li>
+</ul>
+</div>
+<hr>
+<h2 id='4'>Turing Machines</h2>
+<div class='cntrl def'>
+<h3 id='5'>Definition: Turing Machine</h3>
+<ul>
+<li><span class='kmath'>M = (Q, \Sigma, \Gamma, \delta, s, q_{accept}, q_{reject}, \square)</span></li>
+<li><span class='kmath'>Q</span> is a finite set of states</li>
+<li><span class='kmath'>\Sigma</span> is a finite input alphabet</li>
+<li><span class='kmath'>\Gamma</span> is a finite tape alphabet</li>
+<li><span class='kmath'>\delta : (Q \times \Gamma) \longrightarrow (Q \times \Gamma \times \{L, R\})</span></li>
+<li><span class='kmath'>s \in Q</span>, the start state</li>
+<li><span class='kmath'>q_{accept}, q_{reject} \in Q</span>, such that <span class='kmath'>q_{accept} \neq q_{reject}</span></li>
+</ul>
+<h5>How it Works</h5>
+<ul>
+<li>The TM has a tape where each character fills one cell</li>
+<li>The TM also has a read/write head which moves across the tape which can inspect and may overwrite information in the cell under the head</li>
+<li>Initially, the TM has its head over the left most cell</li>
+<li>All other cells of the tape contain a <span class='kmath'>\square</span> symbol and is infinite in both directions</li>
+<li><span class='kmath'>\delta (q_1, a) = (q_2, b, R)</span> means:
+<ul>
+<li>If in state <span class='kmath'>q_1</span> and you read an <span class='kmath'>a</span>, move to <span class='kmath'>q_2</span>, write a <span class='kmath'>b</span> where the <span class='kmath'>a</span> was and move the head over one cell to the right</li>
+</ul>
+</li>
+</ul>
+<p>
+<span style='color: red;'>Note</span> Once a TM enters an accepting or rejecting state, it will halt immediately.
+</p>
+</div>
+<h3 id='6'>Notation and Definitions</h3>
+<ul>
+<li>Given a TM <span class='kmath'>M</span>, we say the collection or set of strings which <span class='kmath'>M</span> accepts is the lanuages of <span class='kmath'>M</span>, denoted <span class='kmath'>L(M)</span></li>
+<li>We define equality of two TMs if they recongize the same language</li>
+</ul>
+<div class='cntrl def'>
+<h3 id='7'>Definition: Recognizable</h3>
+<p>
+A language <span class='kmath'>L'</span> is said to be <b>recognizable</b> if there exists a TM <span class='kmath'>M</span> such that
+<span class='kmath'>L' = L(M)</span>.
+</p>
+<ul>
+<li>If <span class='kmath'>w \in L'</span> and <span class='kmath'>M</span> is run on <span class='kmath'>w</span>, then <span class='kmath'>M</span> will halt and accept</li>
+<li>If <span class='kmath'>w \not\in L'</span> and <span class='kmath'>M</span> is run on <span class='kmath'>w</span>, then <span class='kmath'>M</span> will halt and reject <u>or</u> loop forever</li>
+</ul>
+</div>
+<div class='cntrl def'>
+<h3 id='8'>Definition: Decidable</h3>
+<p>
+A language <span class='kmath'>L'</span> is said to be <b>decidable</b> if there exists a TM <span class='kmath'>M</span> such that
+<span class='kmath'>L' = L(M)</span> <u>and</u> <span class='kmath'>M</span> halts on all input.
+</p>
+<ul>
+<li>If <span class='kmath'>w \in L'</span> and <span class='kmath'>M</span> is run on <span class='kmath'>w</span>, then <span class='kmath'>M</span> will halt and accept</li>
+<li>If <span class='kmath'>w \not\in L'</span> and <span class='kmath'>M</span> is run on <span class='kmath'>w</span>, then <span class='kmath'>M</span> will halt and reject</li>
+</ul>
+</div>
+<h3 id='9'>Food for Thought</h3>
+<div class='cntrl s'>
+<h3 id='10'>Multi-Tape TM?</h3>
+<p>
+Has <span class='kmath'>k</span> tapes working concurrently, each with their own read/write head.
+</p>
+<p>
+<span style='color: blue;'>Question:</span> Is it stronger than a classic TM? <br>
+<span style='color: green;'>Answer:</span> NO!
+</p>
+<p>
+We can encode the <span class='kmath'>k</span> tapes into a single tape by concatenation. Then, we can simulate
+the <span class='kmath'>k</span> tapes as if they were running concurrently.
+</p>
+</div>
+<h6>All Equivalent to a TM</h6>
+<ul>
+<li>PDA with two stacks</li>
+<li>PDA with a queue</li>
+<li>Non-deterministic TMs</li>
+<li>Enumerators</li>
+</ul>
+<hr>
+<h2 id='11'>Theory</h2>
+<div class='cntrl thm'>
+<h3 id='12'>Theorem: Church Turing Thesis</h3>
+<div class='cntrl cnj'>
+<h3 id='13'>Conjecture: 1</h3>
+<p>
+Anything a "mordern digitial computer" can do a TM can do.
+</p>
+<p>
+<span style='color: blue;'>Note</span> the contrapositive!
+</p>
+</div>
+<div class='cntrl cnj'>
+<h3 id='14'>Conjecture: 2</h3>
+<p>
+All reasonable models of computation are equivalent.
+</p>
+<p>
+For example, <span class='kmath'>\lambda </span>-calculus is equivalent to TMs.
+</p>
+</div>
+</div>
+<div class='cntrl thm'>
+<h3 id='15'>Theorem: Automata as Strings</h3>
+<p>
+We can encode a finite automata as a finite string!
+</p>
+</div>
+<div class='cntrl e'>
+<h3 id='16'>Example: <span class='kmath'>A_{DFA}</span></h3>
+<p>
+Consider <span class='kmath'>A_{DFA} = \{ B \# w \mid B \text{ is a DFA and } w \text{ is accepted by } B \} </span>. <br>
+It is <span style='color: purple;'>decidable!</span>
+</p>
+<p>
+<i>proof</i> <br>
+Let <span class='kmath'>M</span> be a TM which reads in <span class='kmath'>B\#w</span> (rejects if <span class='kmath'>B</span> isn't a valid encoding) and
+then proceeds to simulate <span class='kmath'>B</span> running <span class='kmath'>w</span>:
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+if B accepts:
+	-> accepts
+if B rejects:
+	-> reject
+</pre>
+</div>
+</div>
+<h3 id='17'>Countability</h3>
+<div class='cntrl thm'>
+<h3 id='18'>Theorem: <span class='kmath'>\Sigma^*</span> is Countable</h3>
+<p>
+<i>proof sketch</i> <br>
+List all strings in the following order:
+add length of 0 strings, add length of 1 stings, ...
+</p>
+<p>
+Each set of strings is finite so no matter which string you're considering it will eventually
+be listed.
+</p>
+</div>
+<div class='cntrl thm'>
+<h3 id='19'>Theorem: Set of all TMs is countable</h3>
+<p>
+<i>proof</i>
+We know a TM can be encoded as a binary string, so inerate through the set of all binary strings and
+whenever you encounter a valid encoding of a TM, add it to the list.
+</p>
+<div class='cntrl thm'>
+<h3 id='20'>Theorem: The set of all languages over <span class='kmath'>\Sigma^*</span> is uncountable</h3>
+<p>
+<i>proof</i>
+We know <span class='kmath'>\Sigma^*</span> is countable so we can therefore list it out, WLOG assume <span class='kmath'>\Sigma = \{0, 1\}</span>.
+Then, <br>
+<span class='kmath'>\Sigma^* = [\epsilon, 0, 1, 00, 01, 10, 11, 000, ... ]</span>
+</p>
+<p>
+A language is a subset of <span class='kmath'>\Sigma^*</span>, therefore a language can be encoded as an infinite binary
+string where the <span class='kmath'>i</span>th digit is a 1 if it includes the string at index <span class='kmath'>i</span> of the <span class='kmath'>\Sigma^*</span>, and is a
+</p>
+<p>
+0 if it doesn't include it.
+</p>
+</div>
+<p>
+Assume the set of all lanugages is countable. Then, there exists a mapping of it from the natural numbers,
+therefore every lnaguage (encoded by rows of the table) is contained within the table below
+</p>
+<table>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>...</th>
+</tr>
+<tr>
+<th>0</th>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+</tr>
+<tr>
+<th>1</th>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>...</td>
+</tr>
+<tr>
+<th>2</th>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>...</td>
+</tr>
+<tr>
+<th>3</th>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>...</td>
+</tr>
+<tr>
+<th>4</th>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>...</td>
+</tr>
+<tr>
+<th>...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</table>
+<p>
+We need to show there exists a language not in the table to derive our contradiction.
+</p>
+<p>
+Construct <span class='kmath'>L'</span> such that the infinite binary encoding of <span class='kmath'>L'</span> is such that the <span class='kmath'>i</span>th digit
+of the encoding is the negation of cell <span class='kmath'>(i, j)</span> of the table. <br>
+If <span class='kmath'>L'</span> is the lanugage denoted by the encoding of row <span class='kmath'>i</span> of the table, then it is clear
+that <span class='kmath'>\forall i</span> <span class='kmath'>L_i \neq L'</span>, a contradiction.
+</p>
+</div>
+<h5>Recap</h5>
+<ul>
+<li>TMs are countable</li>
+<li>Languages are uncountable</li>
+<li>A single TM can only recognize a single language</li>
+<li>There exists many languages that TMs can't recognise, wich means theres a lot that computers can't do (Church-Turing Thesis)</li>
+</ul>
+<hr>
+<h2 id='21'>Turing Machines and Theorems</h2>
+<div class='cntrl thm'>
+<h3 id='22'>Theorem: <span class='kmath'>A</span> is decidable <span class='kmath'>\iff A</span> and <span class='kmath'>\bar{A}</span> are recognizable</h3>
+<p>
+<i>proof</i><br>
+<span class='kmath'>(\Longrightarrow)</span> <br>
+</p>
+<ol>
+<li><span class='kmath'>A</span> is decidable <span class='kmath'>\Longrightarrow</span> <span class='kmath'>\bar{A}</span> is decidable</li>
+<li><span class='kmath'>A</span> is decidable <span class='kmath'>\Longrightarrow</span> <span class='kmath'>A</span> is recognizable</li>
+</ol>
+<p>
+<span class='kmath'>(\Longleftarrow)</span> <br>
+Let <span class='kmath'>M_1</span> and <span class='kmath'>M_2</span> be TMs that recognize <span class='kmath'>A</span> and <span class='kmath'>\bar{A}</span> respectively. Create
+a new TM <span class='kmath'>M</span> that decides <span class='kmath'>A</span>:
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+M = on input w run M<sub>1</sub> and M<sub>2</sub> in parallel on w:
+	if M<sub>1</sub> accepts:
+		-> accept
+	if M<sub>2</sub> accepts:
+		-> reject
+</pre>
+</div>
+<p>
+One of <span class='kmath'>M_1, M_2</span> are guranteed to halt, therefore <span class='kmath'>M</span> decides <span class='kmath'>A</span>.
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='23'>The Acceptance Problem</h3>
+<p>
+<span class='kmath'>A_{TM} = \{ M \# w | M \text{ accepts } w \}</span>
+</p>
+<div class='cntrl thm'>
+<h3 id='24'>Theorem: <span class='kmath'>A_{TM}</span> is Recognizable</h3>
+<p>
+<i>proof</i> <br>
+Construct a new TM <span class='kmath'>U</span>:
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+U = on input M#w, simulate M on w
+	if M accepts:
+		-> accept
+	if M rejects:
+		-> reject
+</pre>
+</div>
+</div>
+<div class='cntrl thm'>
+<h3 id='25'>Theorem: <span class='kmath'>A_{TM}</span> is Undecidable</h3>
+<p>
+<i>proof</i> <br>
+For sake of contradiction, assume <span class='kmath'>A_{TM}</span> is decidable. Then, there exists a decider <span class='kmath'>D</span>
+such that
+</p>
+<ul>
+<li><span class='kmath'>D(M \# w) = </span>
+<ul>
+<li><i>accept</i>, if <span class='kmath'>M</span> accepts <span class='kmath'>w</span></li>
+<li><i>reject</i>, if <span class='kmath'>M</span> rejects <span class='kmath'>w</span></li>
+</ul>
+</li>
+</ul>
+<p>
+Let <span class='kmath'>P</span> be a new TM which takes a TM as input and behaves as follows:
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+P = on input M, call D on M#M
+	if D accepts:
+		-> reject
+	if D rejects:
+		-> accept
+</pre>
+</div>
+<p>
+Note that,
+</p>
+<ul>
+<li><span class='kmath'>P(M) =</span>
+<ul>
+<li><i>accept</i>, if <span class='kmath'>M</span> does not accepts <span class='kmath'>M</span></li>
+<li><i>reject</i>, if <span class='kmath'>M</span> accepts <span class='kmath'>M</span></li>
+</ul>
+</li>
+</ul>
+<p>
+Now, we call <span class='kmath'>P</span> on itself:
+</p>
+<ul>
+<li><span class='kmath'>P(P) = </span>
+<ul>
+<li><i>accept</i>, if <span class='kmath'>P</span> does not accepts <span class='kmath'>P</span></li>
+<li><i>reject</i>, if <span class='kmath'>P</span> accepts <span class='kmath'>P</span></li>
+</ul>
+</li>
+</ul>
+<p>
+Note that <span class='kmath'>P</span> never loops. Thus a paradox is created and we reach a contradiction.
+</p>
+</div>
+<div class='cntrl thm'>
+<h3 id='26'>Theorem: <span class='kmath'>\bar{A}_{TM}</span> is Unrecognizable</h3>
+<p>
+We know that <span class='kmath'>A_{TM}</span> is recognizable and undecidable. Therefore,
+<span class='kmath'>\bar{A}_{TM}</span> must be unrecongizable.
+</p>
+<p>
+<i>See proof at beginning of chapter.</i>
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='27'>Halting Problem</h3>
+<p>
+<span class='kmath'>HP = \{ M \# w | M \text{ halts on } w \}</span>
+</p>
+<div class='cntrl thm'>
+<h3 id='28'>Theorem: <span class='kmath'>HP</span> is Undecidable</h3>
+<p>
+<i>proof</i> <br>
+For sake of contradiction, assume <span class='kmath'>HP</span> is decidable, then there is a decider <span class='kmath'>D</span> such that
+</p>
+<ul>
+<li><span class='kmath'>D(M \# w) = </span>
+<ul>
+<li><i>accept</i>, if <span class='kmath'>M</span> halts <span class='kmath'>w</span></li>
+<li><i>reject</i>, if <span class='kmath'>M</span> loops <span class='kmath'>w</span></li>
+</ul>
+</li>
+</ul>
+<p>
+Recall:
+</p>
+<ol>
+<li><span class='kmath'>\Sigma^*</span> is countable</li>
+<li>The set of all TMs is countable</li>
+</ol>
+<p>
+Note the subscript of a machine <span class='kmath'>M</span> is just used for consistent indices
+</p>
+<table>
+<tr>
+<td></td>
+<th><span class='kmath'>\epsilon</span></th>
+<th>0</th>
+<th>1</th>
+<th>00</th>
+<th>01</th>
+<th>10</th>
+<td>...</td>
+</tr>
+<tr>
+<th><span class='kmath'>M_{\epsilon}</span></th>
+<td>H</td>
+<td>L</td>
+<td>H</td>
+<td>L</td>
+<td>L</td>
+<td>L</td>
+<td>...</td>
+</tr>
+<tr>
+<th><span class='kmath'>M_{0}</span></th>
+<td>H</td>
+<td>H</td>
+<td>L</td>
+<td>L</td>
+<td>L</td>
+<td>L</td>
+<td>...</td>
+</tr>
+<tr>
+<th><span class='kmath'>M_{1}</span></th>
+<td>L</td>
+<td>H</td>
+<td>L</td>
+<td>L</td>
+<td>L</td>
+<td>L</td>
+<td>...</td>
+</tr>
+<tr>
+<th><span class='kmath'>M_{00}</span></th>
+<td>L</td>
+<td>H</td>
+<td>L</td>
+<td>L</td>
+<td>H</td>
+<td>L</td>
+<td>...</td>
+</tr>
+<tr>
+<th><span class='kmath'>M_{01}</span></th>
+<td>H</td>
+<td>H</td>
+<td>H</td>
+<td>H</td>
+<td>L</td>
+<td>H</td>
+<td>...</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</table>
+<p>
+Now consider <span class='kmath'>P</span>:
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+P = on input w run D on Mw#w
+	if D accepts:
+		-> loop
+	if D rejects:
+		-> accept (halt)
+</pre>
+</div>
+<p>
+<span class='kmath'>P</span> differs from every TM in the table, a contradiction.
+</p>
+</div>
+</div>
+<hr>
+<h2 id='29'>Reductions</h2>
+<div class='cntrl def'>
+<h3 id='30'>Definition</h3>
+<p>
+<span class='kmath'>f: \Sigma^* \longrightarrow \Sigma^*</span> is a computable function if there exists a TM which halts on all
+input <span class='kmath'>w</span> with <span class='kmath'>f(w)</span> written on its tape.
+</p>
+<p>
+<span style='color: red;'>Note</span> <span class='kmath'>f</span> may not be surjective or injective
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='31'>Definition: Reducing Languages</h3>
+<p>
+Language <span class='kmath'>A</span> reduces to language <span class='kmath'>B</span>, written <span class='kmath'>A_m B</span>, if there exists a
+computable function <span class='kmath'>f</span> such that <span class='kmath'>w \in A \iff f(w) \in B</span>; hence <span class='kmath'>f</span> is
+called a <b>reduction</b>.
+</p>
+</div>
+<div class='cntrl thm'>
+<h3 id='32'>Theorem: If <span class='kmath'>A \leq_m B</span> and <span class='kmath'>B</span> is recongizable then <span class='kmath'>A</span> is recongizable</h3>
+<p>
+<i>proof</i> <br>
+<span class='kmath'>B</span> is recongizable, therefore recognizer <span class='kmath'>R_B</span> exists. Moreover, <span class='kmath'>A \leq_m B</span>
+so reduction <span class='kmath'>f</span> exists. Construct a new machine <span class='kmath'>R_A</span>.
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+R<sub>A</sub> = on input w calculate f(w), run R<sub>B</sub> on f(w)
+	if R<sub>B</sub> accepts f(w) -> accept
+	if R<sub>B</sub> rejects f(w) -> reject
+</pre>
+</div>
+<p>
+<span class='kmath'>w \in A \iff f(w) \in B \iff R_B \text{ accepts } f(w) \iff R_A \text{ accepts } w</span>
+</p>
+</div>
+<div class='cntrl thm'>
+<h3 id='33'>Theorem: If <span class='kmath'>A \leq_m B</span> and <span class='kmath'>B</span> is decidable, then <span class='kmath'>A</span> is decidable</h3>
+<p>
+Recall <span class='kmath'>A</span> and <span class='kmath'>\bar{A}</span> are recognizable <span class='kmath'>\iff</span> <span class='kmath'>A</span> is decidable. Also,
+not that <span class='kmath'>\bar{A} \leq_m \bar{B}</span> <span class='kmath'>\iff</span> <span class='kmath'>A \leq_m B</span>.
+</p>
+<p>
+Then,
+<span class='kmath'>B</span> is decidable <span class='kmath'>\iff</span> <span class='kmath'>B</span> and <span class='kmath'>\bar{B}</span> is recognizable <span class='kmath'>\iff</span> <span class='kmath'>A</span> and <span class='kmath'>\bar{A}</span> are recognizable <span class='kmath'>\iff A</span> is decidable.
+</p>
+</div>
+<div class='cntrl thm'>
+<h3 id='34'>Theorem: If <span class='kmath'>A \leq_m B</span> and <span class='kmath'>A</span> is undecidable, then <span class='kmath'>B</span> is undecidable</h3>
+</div>
+<div class='cntrl thm'>
+<h3 id='35'>Theorem: Alternate Proof of <span class='kmath'>HP</span></h3>
+<p>
+<i>proof</i> <br>
+We will show <span class='kmath'>A_{TM} \leq_m HP</span>.
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+f(M#w) = construct a new machine M' where:
+	M'(x) = ignore x, run M on w:
+		if M accepts w -> accept
+		if M rejects w -> loop
+		if M loops on w -> loop (forced)
+	return M'#w
+</pre>
+</div>
+<p>
+<span class='kmath'>f(M\# w) \in HP \iff f(M \# w) = M'\# x</span>, where <span class='kmath'>M'</span> halts on <span class='kmath'>x \iff M</span> accepts
+<span class='kmath'>w \iff M\# w \in A_{TM}</span>
+</p>
+</div>
+<div class='cntrl s'>
+<h3 id='36'>Empty String</h3>
+<p>
+<span class='kmath'>ES = \{ M | M \text{ accepts } \epsilon \}</span>
+</p>
+<div class='cntrl thm'>
+<h3 id='37'>Theorem: <span class='kmath'>ES</span> is undecidable</h3>
+<p>
+<i>proof</i>
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+f(M#w) = construct a new machine M' where:
+	M'(x) = ignore x, run M on w:
+		if M accepts w -> accept
+		if M rejects w -> loop
+		if M loops on w -> loop (forced)
+	return M'
+</pre>
+</div>
+<ul>
+<li><span class='kmath'>L(f(M\# w)) = L(M') =</span>
+<ul>
+<li><span class='kmath'>\Sigma^*</span> if <span class='kmath'>M</span> halts on <span class='kmath'>w</span></li>
+<li><span class='kmath'>\varnothing</span> if <span class='kmath'>M</span> loops on <span class='kmath'>w</span></li>
+</ul>
+</li>
+</ul>
+<p>
+Therefore, <br>
+<span class='kmath'>f(M\# w) \in ES \iff f(M\# w)</span> accepts <span class='kmath'>\epsilon \iff M</span> halts on <span class='kmath'>w \iff M\# w \in HP</span>
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='38'>Regular Set</h3>
+<p>
+<span class='kmath'>REG = \{ M | M \text{ accepts a regular set } \}</span>.
+</p>
+<p>
+<i>recall</i> a regular set is a set which can be accepts buy a DFA.
+</p>
+<div class='cntrl thm'>
+<h3 id='39'>Theorem: <span class='kmath'>REG</span> is undecidable</h3>
+<p>
+Show that <span class='kmath'>A_{TM} \leq_m \bar{REG}</span>.
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+f(M#w) = construct a new machine M' where
+	M'(x) = set x aside, run M on w
+		if M accepts w, run A<sub>TM</sub> recognizer on x
+			if the recognizer accepts -> accept
+			if the recognizer rejects -> reject
+		if M rejects w -> reject
+	return M'
+</pre>
+</div>
+<ul>
+<li><span class='kmath'>L(f(M\# w)) = L(M') =</span>
+<ul>
+<li><span class='kmath'>A_{TM}</span> if <span class='kmath'>M</span> accepts <span class='kmath'>w</span></li>
+<li><span class='kmath'>\varnothing</span> if <span class='kmath'>M</span> does not accept <span class='kmath'>w</span></li>
+</ul>
+</li>
+</ul>
+<p>
+Therefore, <br>
+<span class='kmath'>f(M\# w) \in \bar{REG} \iff L(f(M\# w))</span> is not regular <span class='kmath'>\iff M</span>
+accepts <span class='kmath'>w \iff M\# w \in A_{TM}</span>
+</p>
+</div>
+</div>
+<hr>
+<h2 id='40'>Effeciency</h2>
+<div class='cntrl def'>
+<h3 id='41'>Definition</h3>
+<p>
+Let <span class='kmath'>M</span> be a total deterministic Turing machine, the time complexity of <span class='kmath'>M</span> is
+a function <span class='kmath'>f : \mathbb{N} \longrightarrow \mathbb{N}</span>, where <span class='kmath'>f(n)</span> is the greatest number of steps that <span class='kmath'>M</span>
+used on any input of length <span class='kmath'>n</span>
+</p>
+<p>
+We say <span class='kmath'>M</span> is a <span class='kmath'>f(n)</span> TM if and only if <span class='kmath'>M</span> runs in time <span class='kmath'>f(n)</span>.
+</p>
+</div>
+<div class='cntrl e'>
+<h3 id='42'>Example</h3>
+<p>
+Consider <span class='kmath'>L = \{ 0^n 1^n | n \geq 0 \}</span>.
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+M = on input w
+	1. Scan from L to R
+	2. Cross off first 0 you encounter
+		1. Then cross off the first 1 you encounter
+	3. When [] is reached go back to the start of the string
+	4. Repeat 2.
+		1. If anything is found out of place reject
+		2. if no 0 or 1 is found before a [] accept
+</pre>
+</div>
+<p>
+<span class='kmath'>M = O(n^2)</span> decider for <span class='kmath'>L</span>.
+</p>
+</div>
+<hr>
+<h2 id='43'><span class='kmath'>P</span> and <span class='kmath'>NP</span></h2>
+<div class='cntrl s'>
+<h3 id='44'>Polynominal Time <span class='kmath'>P</span></h3>
+<div class='cntrl def'>
+<h3 id='45'>Definition: <span class='kmath'>P</span></h3>
+<p>
+<span class='kmath'>P</span> is the class of languages which have polynominal time deciders. That is,
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>P = \cup^\infty_{k=0} TIME(n^k)</span>
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='46'><span class='kmath'>PATH</span> and <span class='kmath'>HPATH</span></h3>
+<p>
+<span class='kmath'>PATH = \{ \langle G, s, t \rangle | \text{ there is a path from  } s \text{ to } t \text{ in } G \}</span>
+</p>
+<div class='cntrl thm'>
+<h3 id='47'>Theorem: PATH <span class='kmath'>\in</span> P</h3>
+<p>
+Construct a polynominal time TM <span class='kmath'>M</span> which decides <span class='kmath'>PATH</span>.
+</p>
+<div class='uk-background-muted'>
+<pre class='prettyprint'>
+M(G, s, t) = mark s
+	while a new node was since since the last time this loop ran:
+		for each edge (v<sub>1</sub>, v<sub>2</sub>), if v<sub>1</sub> is marked and v<sub>2</sub> isn't, mark v<sub>2</sub>
+	if t is marked return yes (accept) else return no (reject)
+</pre>
+</div>
+</div>
+<p>
+<span class='kmath'>HPATH = \{ \langle G, s, t \rangle | \text{ There is a Hamiltonation Path in } G \text{ from } s \text{ to } t\}</span>
+</p>
+<div class='cntrl def'>
+<h3 id='48'>Definition: Hamiltonaion Path</h3>
+<p>
+A path that visist each node in the graph <b>exactly</b> once.
+</p>
+</div>
+<p>
+HPATH is <b>much</b> harder than PATH and is <b>not</b> in HPATH.
+</p>
+</div>
+</div>
+<div class='cntrl s'>
+<h3 id='49'>Nondeterministic Polynomial Time</h3>
+<div class='cntrl def'>
+<h3 id='50'>Definition</h3>
+<p>
+A verifier for a language <span class='kmath'>L</span> is an algorithm <span class='kmath'>V</span>, where
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>L = \{ w | V \text{ accepts } \langle, w, c \rangle \text{ for some string } c \}</span>
+</p>
+</div>
+<p>
+A polynomial time verifier is a verifier which runs in polynomial time in the length
+of <span class='kmath'>w</span>. A language <span class='kmath'>L</span> is polynomial time verifiable if it has a polynomial time
+verifier.
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='51'>Definition: <span class='kmath'>NP</span></h3>
+<p>
+NP is the class of languages which hae polynomial time verifiers <b>OR</b> a
+language is in NP if and only if it is decided by some polynomial time NTM.
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>NTIME = \{ L | L \text{ is decided by some } t(n) \text{ time } NTM \}</span>
+</p>
+<p>
+<span class='kmath'>NP = \cup^\infty_{k=0} NTIME(n^k)</span>
+</p>
+</div>
+</div>
+</div>
+<hr>
+<h2 id='52'>Polynomial Time Reductions</h2>
+<div class='cntrl def'>
+<h3 id='53'>Definition</h3>
+<p>
+A language <span class='kmath'>A</span> is polynomial time reducible to language <span class='kmath'>B</span>, written <span class='kmath'>A \leq_p B</span>,
+if there exists a polynomial time computable <span class='kmath'>f</span> such that
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>w \in A \iff f(w) \in B</span>
+</p>
+</div>
+<p>
+<i>Informally</i>,
+</p>
+<ol>
+<li>Assume you have a "blackbox" which can solve instances of problem <span class='kmath'>B</span> (for free)</li>
+<li>Given an instance of a problem of type <span class='kmath'>A</span>, in polynomial time turn it into an instance of problem <span class='kmath'>B</span> such that problem if and only if a solution exists for the original problem</li>
+<li>Call your black box solution on the transformed problem to get your answer</li>
+</ol>
+</div>
+<div class='cntrl e'>
+<h3 id='54'>Example</h3>
+<p>
+<span class='kmath'>LONG = \{ \langle G, s, t, d \rangle | \text{ There exists a "cycleless" path in } G</span>
+from <span class='kmath'>s</span> to <span class='kmath'>t</span> with length atleast <span class='kmath'>d \}</span>
+</p>
+<p>
+We will show <span class='kmath'>HPATH \leq_p LONG</span>.
+</p>
+<ol>
+<li>Assume you have a black box which correctly answers yes or no to the LONG problem when given parameters <span class='kmath'>(G, s, t, d)</span></li>
+<li>Given an instance of <span class='kmath'>HPATH, (G, s, t)</span>, where <span class='kmath'>G = (V, E)</span>, create a graph <span class='kmath'>G'</span> which equals <span class='kmath'>G</span> in every way expect all edge weights are 1. Note, this can be done in polynomial time.</li>
+<li>Call your black box <span class='kmath'>(G', s, t, |V| - 1)</span>, if yes, you know there's a Hamiltonian path in <span class='kmath'>G</span> from <span class='kmath'>s</span> to <span class='kmath'>t</span>, if no, you know there isn't. Therefore you can solve the HPATH problem if you have a solution to the LONG problem</li>
+</ol>
+</div>
+<div class='cntrl def'>
+<h3 id='55'>Definition: Vertex Cover</h3>
+<p>
+Given a graph <span class='kmath'>G = (V, E)</span> a vertex cover <span class='kmath'>C</span> is a set of vertices such that
+<span class='kmath'>|F (v_1, v_2) \in E : v_1 \in C</span> or <span class='kmath'>v_2 \in C</span>.
+</p>
+</div>
+<p>
+Vertex Cover <span class='kmath'>= \{ \langle G, k \rangle | G</span> has a vertex cover with size <span class='kmath'>k</span> or less <span class='kmath'>\}</span>
+</p>
+<div class='cntrl def'>
+<h3 id='56'>Definition: Independent Set</h3>
+<p>
+Given a graph <span class='kmath'>G = (V, E)</span> an independent set <span class='kmath'>I</span> is a set of verticies such that
+<span class='kmath'>\forall (v_1, v) \in I : (v_1, v_2) \not\in E</span>.
+</p>
+</div>
+<p>
+Independent Set <span class='kmath'>= \{ \langle G, k \rangle | G</span> has an IS with size <span class='kmath'>k</span> or more <span class='kmath'>\}</span>
+</p>
+<div class='cntrl thm'>
+<h3 id='57'>Theorem: Idependent Set <span class='kmath'>\leq_p</span> Vertex Cover</h3>
+<p>
+<i>proof</i>
+</p>
+<p>
+Let <span class='kmath'>C</span> be a vertex cover in <span class='kmath'>G</span> with size <span class='kmath'>|V| - k</span>. Consider any two nodes
+<span class='kmath'>v_1, v_2 \in V - C</span>, then it is known <span class='kmath'>(v_1, v_2) \not\in E</span> otherwise <span class='kmath'>C</span>
+would not be a vertex cover. Therefore for all nodes <span class='kmath'>v_1, v_2 \in V - C</span> there
+is no edge directly connecting them. Therefore <span class='kmath'>V - C</span> is an independent set. Thus,
+if <span class='kmath'>G</span> has a vertex cover of size <span class='kmath'>|V| - k</span> then <span class='kmath'>G</span> also has an independent set of
+size <span class='kmath'>k</span>. So, to solve the problem <span class='kmath'>IS(G, k)</span> simply ask <span class='kmath'>VC(G, |V| - k)</span>.
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='58'>Definition: Clique</h3>
+<p>
+Given a graph <span class='kmath'>G = (V, E)</span> a clique <span class='kmath'>S</span> is a set of vertices such that
+<span class='kmath'>\forall v_1, v_2 \in S : (v_1, v_2) \in E</span>.
+</p>
+</div>
+<p>
+Clique = <span class='kmath'>\{\langle G, k \rangle | G</span> has a clique of size <span class='kmath'>k</span> or more <span class='kmath'>\}</span>
+</p>
+<div class='cntrl def'>
+<h3 id='59'>Definition: Graph Compliment</h3>
+<p>
+Given a graph <span class='kmath'>G</span> let the compliment of that graph <span class='kmath'>\bar{G} = (V, \bar{E})</span>, where
+</p>
+<div class='cntrl noin uk-text-center'>
+<p>
+<span class='kmath'>\bar{E} = \{(v_1, v_2) | (v_1, v_2) \not\in E</span> and <span class='kmath'>v_1 \neq v_2</span> and
+<span class='kmath'>v_1,v_2 \in V\}</span>
+</p>
+</div>
+</div>
+<div class='cntrl thm'>
+<h3 id='60'>Theorem: Vertex Cover <span class='kmath'>\leq_p</span> Clique</h3>
+<p>
+<i>proof</i>
+</p>
+<p>
+Let <span class='kmath'>S</span> be a clique in <span class='kmath'>\bar{G}</span> of size <span class='kmath'>|V| - k</span>. Consider any edge <span class='kmath'>(v_1, v_2) \in E</span> it
+cannot be the case that <span class='kmath'>v_1, v_2</span> are both in <span class='kmath'>S</span>since if it were <span class='kmath'>(v_1, v_2) \in \bar{E}</span>
+and <span class='kmath'>S</span> would then not be a clique. Therefore, one of or both, <span class='kmath'>v_1, v_2</span> are in
+<span class='kmath'>V - S</span>, this is true for any edge <span class='kmath'>(v_1, v_2) \in E</span>. Therefore, <span class='kmath'>V-S</span> is a vertex
+cover. So to solve the question <span class='kmath'>VC(G, k)</span> create <span class='kmath'>\bar{G}</span> and ask <span class='kmath'>Clique(\bar{G}, |V| - k)</span>.
+</p>
+</div>
+<div class='cntrl thm'>
+<h3 id='61'>Theorem: Clique <span class='kmath'>\leq_p</span> Independent Set</h3>
+<p>
+<i>proof</i>
+</p>
+<p>
+Let <span class='kmath'>I</span> be an independent set in <span class='kmath'>\bar{G}</span> of size <span class='kmath'>k</span>. Then for all <span class='kmath'>v_1, v_2 \in I,</span>
+<span class='kmath'>(v_1, v_2) \not\in \bar{E}</span>. Therefore, for all <span class='kmath'>v_1, v_2 \in I, (v_1, v_2) \in E</span>. Therefore,
+<span class='kmath'>I</span> is clique in <span class='kmath'>G</span>. So to solve the question Clique<span class='kmath'>(G, k)</span>, create <span class='kmath'>\bar{G}</span> and
+ask <span class='kmath'>IS(\bar{G}, k)</span>.
+</p>
+</div>
+<hr>
+<div class='cntrl def'>
+<h3 id='62'>Definition: NP-Complete</h3>
+<ul>
+<li><b>Informally</b>: The hardest in NP</li>
+<li><b>Formally</b>: A language is <span class='kmath'>\in</span> NPC if
+<ul>
+<li><span class='kmath'>B \in NP</span></li>
+<li><span class='kmath'>\forall C \in NP</span>, <span class='kmath'>C \leq_{p}B</span></li>
+</ul>
+</li>
+</ul>
+</div>
+<h4>Showing Something is NPC</h4>
+<ol>
+<li>Show <span class='kmath'>B \in NP</span></li>
+<li>Show <span class='kmath'>A \leq_{p} B</span>, where <span class='kmath'>A</span> is any NPC problem</li>
+</ol>
+<p>
+<span class='kmath'>SAT = \{ \langle \phi \rangle | \phi \text{ is satisfiable }\}</span>
+</p>
+<div class='cntrl thm'>
+<h3 id='63'>Theorem: Cook's</h3>
+<p>
+<span class='kmath'>SAT</span> is NPC or 3-<span class='kmath'>SAT</span> is NPC
+</p>
+<p>
+<i>proof</i>
+</p>
+<p>
+Let <span class='kmath'>IS = \{ \langle G, k \rangle | \text{ In G there's an independent set of size k or more }\}</span>.
+<span class='kmath'>\phi = (x_1 \vee x_2 \vee \hat{x}_3 ) \wedge (x_4 \vee x_1 \vee \hat{x}_2) \wedge (x_3 \vee \hat{x}_1 \vee x_4) </span>
+</p>
+</div>
+<div class='cntrl def'>
+<h3 id='64'>Definition: Subset Sum</h3>
+<p>
+Given a set of numbers <span class='kmath'>S</span>, is there a subset of those numbers who sum is exactly <span class='kmath'>t</span>?
+</p>
+<p>
+Subset Sum <span class='kmath'>= \{ \langle S, t \rangle | \text{ There is a subset of s which sums to t } \}</span>
+</p>
+<div class='cntrl thm'>
+<h3 id='65'>Theorem: Subset Sum is NPC</h3>
+</div>
+</div>
+<div class='cntrl def'>
+<h3 id='66'>Definition: Partition Problem</h3>
+<p>
+Given a set of numbers <span class='kmath'>S</span>, that set can be split into two subets with equal sums.
+</p>
+<p>
+Partition = <span class='kmath'>\{\langle S \rangle | \text{ There's an even partition of S }\}</span>
+</p>
+<p>
+<i>proof Partition is NPC</i>
+</p>
+<p>
+Show Partition <span class='kmath'>\leq_{p}</span> Subset Sum.
+</p>
+<p>
+<span class='kmath'>s = \sum_{i \in S} i</span>
+</p>
+<p>
+Given S is there a partition, ask Subset sum: Subset<span class='kmath'>(S, s/2)</span>. If this returns true, then we know the
+remaining items in S also sum up to <span class='kmath'>s/2</span> and thus a partition is created. If this says false, then we
+cannot partition the set. Thus, Partition <span class='kmath'>\leq_{p}</span> SubsetSum (but we knew this since Subset Sum is NPC).
+</p>
+<p>
+Now we know to show Partition is NPC. To do so, we need to show SubsetSum <span class='kmath'>\leq_{p}</span> Partition.
+</p>
+<p>
+Given <span class='kmath'>S</span> and <span class='kmath'>t</span>, can we solve Subset sum, given a solution to Partition? Let <span class='kmath'>s</span> be the sum of <span class='kmath'>S</span>.
+</p>
+<ol>
+<li>Create a new set <span class='kmath'>S' = S \cup \{s - 2t\}</span>.</li>
+<li>Ask Partition<span class='kmath'>(S')</span>?
+<ul>
+<li>if yes <span class='kmath'>\longrightarrow</span> yes</li>
+<li>if no <span class='kmath'>\longrightarrow</span> no</li>
+</ul>
+</li>
+</ol>
+<p>
+<i>proof</i> the reduction works
+</p>
+<ol>
+<li>There's a subset summing to <span class='kmath'>t</span> in <span class='kmath'>S \Longrightarrow</span> There's a partition in <span class='kmath'>S'</span></li>
+<li>There's a subset summing to <span class='kmath'>t</span> in <span class='kmath'>S \Longleftarrow</span> There's a partition in <span class='kmath'>S'</span></li>
+</ol>
+<p>
+<i>proof of 1</i>
+</p>
+<p>
+Let <span class='kmath'>S_1</span> be the set that sums to <span class='kmath'>s - 2t</span>. We can split <span class='kmath'>S</span> into a subset <span class='kmath'>S_2</span> that sums to <span class='kmath'>t</span> by our
+assumption. Let the remaining subset be called <span class='kmath'>S_3</span>, which sums to <span class='kmath'>s - t</span>. Thus, if we define:
+</p>
+<ul>
+<li><span class='kmath'>P_1 = S_3</span> summing to <span class='kmath'>s-t</span></li>
+<li><span class='kmath'>P_2 = S_1 + S_2</span> summing to <span class='kmath'>s - 2t + t = s- t</span>.</li>
+</ul>
+<p>
+our partition is complete.
+</p>
+<p>
+<i>proof of 2</i>
+</p>
+<p>
+Assume there is a partition of <span class='kmath'>S'</span>, show there is a subset in <span class='kmath'>S</span> that sums to <span class='kmath'>t</span>.
+</p>
+<ul>
+<li><span class='kmath'>P_1</span> sums to <span class='kmath'>\dfrac{2s - 2t}{2} = s - t</span></li>
+<li><span class='kmath'>P_2</span> sums to <span class='kmath'>\dfrac{2s - 2t}{2} = s - t</span></li>
+</ul>
+<p>
+Let <span class='kmath'>S_1 = P_1 - (s - 2t) = s - t - s + 2t = t</span>, completing the proof.
+</p>
+<div class='cntrl noin uk-text-right'>
+<p>
+<span class='kmath'>\square</span>
+</p>
+</div>
+</div>
+<div class='cntrl def'>
+<h3 id='67'>Definition: Knapsack Problem</h3>
+<p>
+Given a set of items <span class='kmath'>I</span>, each item has a value and a weight. Is there a subset of those items with atleast
+<span class='kmath'>k</span> total value and total weight <span class='kmath'>\leq C</span>.
+</p>
+</div>
+<div class='cntrl thm'>
+<h3 id='68'>Theorem: Knapsack Problem is NPC</h3>
+<p>
+<i>proof</i>
+</p>
+<p>
+Check solution in polynominal time?
+</p>
+<ol>
+<li>Check total sum <span class='kmath'>\geq</span> k</li>
+<li>Check each item is in <span class='kmath'>I</span></li>
+<li>Check total capicity is <span class='kmath'>\leq C</span></li>
+</ol>
+<p>
+Now, we need to show Partition <span class='kmath'>\leq_p</span> Knapsack.
+</p>
+<p>
+Let <span class='kmath'>S = \{4, 5, 6, 7 \} \Longrightarrow I = \{(4, 4), (5, 5), (6, 6), (7, 7)\}</span>. Let <span class='kmath'>C = k = \dfrac{s}{2}</span>. We have a
+partition <span class='kmath'>P_1 = \dfrac{s}{2}</span> and notice, <b>weight</b><span class='kmath'>(P_1) = \dfrac{s}{2} \leq C = k</span>.
+</p>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>
